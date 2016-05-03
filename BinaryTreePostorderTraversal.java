@@ -1,8 +1,6 @@
 package leetcode141_150;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**Given a binary tree, return the postorder traversal of its nodes' values.
  For example:
@@ -25,6 +23,24 @@ public class BinaryTreePostorderTraversal {
         TreeNode(int x) { val = x; }
     }
 
+    public List<Integer> postorderTraversal(TreeNode root) {
+        LinkedList<Integer> result = new LinkedList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode p = root;
+        while(!stack.isEmpty() || p != null) {
+            if(p != null) {
+                stack.push(p);
+                result.addFirst(p.val);  // Reverse the process of preorder
+                p = p.right;             // Reverse the process of preorder
+            } else {
+                TreeNode node = stack.pop();
+                p = node.left;           // Reverse the process of preorder
+            }
+        }
+        return result;
+    }
+
+
     /**TODO 重温记忆
      * 后序遍历的情况相对复杂,需要维护当前遍历的cur指针和前一个遍历的pre指针来追溯当前的情况
      （注意这里是遍历的指针，并不是真正按后序访问顺序的结点）。具体分为几种情况：
@@ -40,7 +56,7 @@ public class BinaryTreePostorderTraversal {
      * @param root
      * @return
      */
-    public List<Integer> postorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal2(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if (root==null) return result;
         Stack<TreeNode> stack = new Stack<>();

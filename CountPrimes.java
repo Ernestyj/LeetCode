@@ -5,7 +5,28 @@ package leetcode201_210;
  */
 public class CountPrimes {
 
-    /**https://leetcode.com/problems/count-primes/
+    /**简洁
+     * 如果一个数是另一个数的倍数，那这个数肯定不是素数。利用这个性质，我们可以建立一个素数数组，
+     从2开始将素数的倍数都标注为不是素数。第一轮将4、6、8等表为非素数，然后遍历到3，发现3没有被标记为非素数，
+     则将6、9、12等标记为非素数，一直到N为止，再数一遍素数数组中有多少素数。
+     * @param n
+     * @return
+     */
+    public int countPrimes(int n) {
+        boolean[] notPrime = new boolean[n];
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (!notPrime[i]) {
+                count++;
+                for (int j = 2; i*j < n; j++) {
+                    notPrime[i*j] = true;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**https://segmentfault.com/a/1190000003709122
      * The Sieve of Eratosthenes uses an extra O(n) memory and
      its runtime complexity is O(n log log n).
      * if the current number is p, we can always mark off multiples of p
@@ -15,7 +36,7 @@ public class CountPrimes {
      * @param n
      * @return
      */
-    public int countPrimes(int n) {
+    public int countPrimes1(int n) {
         boolean[] isPrime = new boolean[n];
         for (int i=2; i<n; i++) isPrime[i] = true;
         for (int i=2; i*i<n; i++) { //TODO i*i<n is cheaper than i<sqrt(n)

@@ -17,9 +17,23 @@ public class AddBinary {
         System.out.println(new AddBinary().addBinary("11", "1"));
     }
 
+    //简洁代码, Computation from string usually can be simplified by using a carry as such
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        int i = a.length()-1, j = b.length()-1, carry = 0;
+        while (i>=0 || j>=0) {
+            int sum = carry;
+            if (j>=0) sum += b.charAt(j--) - '0';
+            if (i>=0) sum += a.charAt(i--) - '0';
+            sb.append(sum % 2);
+            carry = sum / 2;
+        }
+        if (carry != 0) sb.append(carry);
+        return sb.reverse().toString();
+    }
 
     //TODO int与char转换过程易出错
-    public String addBinary(String a, String b) {
+    public String addBinary1(String a, String b) {
         int aLen = a.length(), bLen = b.length();
         int len = aLen > bLen ? aLen : bLen;
         char[] aChars, bChars;
