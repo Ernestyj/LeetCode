@@ -10,23 +10,40 @@ package leetcode161_170;
  */
 public class FindPeakElement {
 
-    //二分法搜索
+    //https://leetcode.com/discuss/68999/java-solution-and-explanation-using-invariants
     public int findPeakElement(int[] nums) {
+        int len = nums.length;
+        if (len == 1) return 0;
+        int left = 0, right = len-1;
+        while (right-left > 1) {
+            int mid = left + (right-left)/2;
+            if (nums[mid] < nums[mid+1]) {
+                left = mid+1;
+            } else {
+                right = mid;
+            }
+        }
+        return (left==len-1 || nums[left]>nums[left+1]) ? left : right;
+    }
+
+
+    //二分法搜索
+    public int findPeakElement1(int[] nums) {
         if (nums.length==1) return 0;
         int l = 0, r = nums.length;
-        int mid = 0;
+        int m = 0;
         while (l<=r) {
-            mid = (l+r)/2;
-            if (mid-1<=-1) {
-                if (nums[mid]>nums[mid+1]) return mid;
-                else return mid+1;
-            } else if (mid+1>=nums.length) {
-                if (nums[mid]>nums[mid-1]) return mid;
-                else return mid-1;
+            m = (l+r)/2;
+            if (m-1<=-1) {
+                if (nums[m]>nums[m+1]) return m;
+                else return m+1;
+            } else if (m+1>=nums.length) {
+                if (nums[m]>nums[m-1]) return m;
+                else return m-1;
             }
-            if (nums[mid]>nums[mid-1] && nums[mid]>nums[mid+1]) return mid;
-            else if (nums[mid]<=nums[mid-1]) r = mid-1;
-            else l = mid+1;
+            if (nums[m]>nums[m-1] && nums[m]>nums[m+1]) return m;
+            else if (nums[m]<=nums[m-1]) r = m-1;
+            else l = m+1;
         }
         return -1;
     }

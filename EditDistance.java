@@ -17,6 +17,26 @@ public class EditDistance {
 
 
     /**
+     * https://leetcode.com/discuss/50807/java-dp-solution-o-nm
+     * f(i, j) := minimum cost (or steps) required to convert first i characters of word1 to first j characters of word2
+     Case 1: word1[i] == word2[j], i.e. the ith the jth character matches.
+     f(i, j) = f(i - 1, j - 1)
+     Case 2: word1[i] != word2[j], then we must either insert, delete or replace, whichever is cheaper
+     f(i, j) = 1 + min { f(i, j - 1), f(i - 1, j), f(i - 1, j - 1) }
+     f(i, j - 1) represents insert operation
+     f(i - 1, j) represents delete operation
+     f(i - 1, j - 1) represents replace operation
+     Here, we consider any operation from word1 to word2. It means, when we say insert operation,
+     we insert a new character after word1 that matches the jth character of word2.
+     So, now have to match i characters of word1 to j - 1 characters of word2.
+     Same goes for other 2 operations as well.
+
+     Note that the problem is symmetric. The insert operation in one direction (i.e. from word1 to word2)
+     is same as delete operation in other. So, we could choose any direction.
+
+     Above equations become the recursive definitions for DP.
+     Base Case: f(0, k) = f(k, 0) = k
+     *
      * 参考：http://blog.unieagle.net/2012/09/19/leetcode%E9%A2%98%E7%9B%AE%EF%BC%9Aedit-distance%EF%BC%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E9%97%B4%E7%9A%84%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB%EF%BC%8C%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/
      * D[i,j]: s1的前i个字符和 s2的前j个字符的最短编辑距离
      * 注意置换也是一种基本操作，置换明显比 删除+增加 操作更短；

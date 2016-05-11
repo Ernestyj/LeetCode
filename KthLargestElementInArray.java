@@ -9,6 +9,37 @@ import java.util.Arrays;
  */
 public class KthLargestElementInArray {
 
+
+    class Solu{//https://segmentfault.com/a/1190000003704825
+        public int findKthLargest(int[] nums, int k) {
+            return quickSelect(nums, k-1, 0, nums.length - 1);
+        }
+        //返回第k大的索引
+        private int quickSelect(int[] arr, int k, int left, int right){
+            int pivot = arr[(left + right) / 2];
+            int i = left, j = right;
+            while(i <= j){
+                while(arr[i] > pivot) i++;  // 从左向右找到第一个小于枢纽值的数
+                while(arr[j] < pivot) j--;  // 从右向左找到第一个大于枢纽值的数
+                if(i <= j){ // 将两个数互换
+                    swap(arr, i, j);
+                    i++;
+                    j--;
+                }
+            }// 最后退出的情况应该是右指针在左指针左边一格
+            // 这时如果右指针还大于等于k，说明kth在左半边
+            if(left < j && k <= j) return quickSelect(arr, k, left, j);
+            // 这时如果左指针还小于等于k，说明kth在右半边
+            if(i < right && k >= i) return quickSelect(arr, k, i, right);
+            return arr[k];
+        }
+        private void swap(int[] a, int i, int j) {
+            int tmp = a[i];
+            a[i] = a[j];
+            a[j] = tmp;
+        }
+    }
+
     /**TODO 巩固
      * https://leetcode.com/discuss/45627/ac-clean-quickselect-java-solution-avg-o-n-time
      * O(n)
@@ -21,7 +52,7 @@ public class KthLargestElementInArray {
         int p = quickSelect(a, 0, n-1, n-k+1);
         return a[p];
     }
-    // return the index of the kth smallest number
+    //返回第k小的索引
     private int quickSelect(int[] a, int lo, int hi, int k) {
         // use quick sort's idea, put nums that are <= pivot to the left, put nums that are  > pivot to the right
         int i = lo, j = hi, pivot = a[hi];

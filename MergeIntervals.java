@@ -1,9 +1,6 @@
 package leetcode51_60;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Given a collection of intervals, merge all overlapping intervals.
@@ -15,22 +12,6 @@ import java.util.List;
  */
 public class MergeIntervals {
 
-    public static void main(String[] args) {
-        List<Interval> intervals = new ArrayList<>();
-//        intervals.add(new Interval(1, 3));
-//        intervals.add(new Interval(2, 6));
-//        intervals.add(new Interval(8, 10));
-//        intervals.add(new Interval(15, 18));
-        intervals.add(new Interval(1,4));
-        intervals.add(new Interval(0,4));
-        System.out.println("*****RESULT*****");
-        List<Interval> result = new MergeIntervals().merge(intervals);
-        for (Interval interval : result){
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        }
-    }
-
-
     public static class Interval {
         int start;
         int end;
@@ -38,8 +19,33 @@ public class MergeIntervals {
         Interval(int s, int e) { start = s; end = e; }
     }
 
-
+    //简洁
     public List<Interval> merge(List<Interval> intervals) {
+        if (intervals.size() <= 1) return intervals;
+        Collections.sort(intervals, new Comparator<Interval>() {
+            @Override
+            public int compare(Interval i1, Interval i2) {
+                return Integer.compare(i1.start, i2.start);
+            }
+        });
+        List<Interval> result = new LinkedList<>();
+        int start = intervals.get(0).start;
+        int end = intervals.get(0).end;
+        for (Interval interval : intervals) {
+            if (interval.start <= end) // Overlapping intervals, move the end if needed
+                end = Math.max(end, interval.end);
+            else {                     // Disjoint intervals, add the previous one and reset bounds
+                result.add(new Interval(start, end));
+                start = interval.start;
+                end = interval.end;
+            }
+        }
+        result.add(new Interval(start, end));   // Add the last interval
+        return result;
+    }
+
+    //麻烦,但速度稍快一点
+    public List<Interval> merge1(List<Interval> intervals) {
         List<Interval> result = new ArrayList<>();
         if (intervals == null || intervals.size() == 0) return result;
         HashMap<Integer, Interval> map = new HashMap<>();

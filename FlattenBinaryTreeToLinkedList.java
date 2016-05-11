@@ -17,11 +17,25 @@ public class FlattenBinaryTreeToLinkedList {
     }
 
 
+    private TreeNode prev = null;
+    /**
+     * https://leetcode.com/discuss/30719/my-short-post-order-traversal-java-solution-for-share
+     * @param root
+     */
+    public void flatten(TreeNode root) {
+        if (root == null) return;
+        flatten(root.right);
+        flatten(root.left);
+        root.right = prev;
+        root.left = null;
+        prev = root;
+    }
+
     /**
      * dfs,先序
      * @param root
      */
-    public void flatten(TreeNode root) {
+    public void flatten1(TreeNode root) {
         List<TreeNode> preOrderList = new ArrayList<>();
         preOrderTraversal(preOrderList, root);
         for (int i=0; i<preOrderList.size()-1; i++){
