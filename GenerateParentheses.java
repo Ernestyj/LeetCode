@@ -14,18 +14,36 @@ import java.util.List;
  */
 public class GenerateParentheses {
 
-    public static void main(String[] args) {
-        List<String> result = new GenerateParentheses().generateParenthesis(5);
-        System.out.println("*****RESULT*****");
-        for (String s : result) System.out.println(s);
+    /**
+     * https://leetcode.com/discuss/25063/easy-to-understand-java-backtracking-solution
+     * 简洁,易理解与记忆
+     * @param n
+     * @return
+     */
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<>();
+        backtrack(list, "", 0, 0, n);
+        return list;
     }
+    public void backtrack(List<String> list, String str, int open, int close, int n){
+        if(str.length() == n*2){
+            list.add(str);
+            return;
+        }
+        if(open < n)
+            backtrack(list, str+"(", open+1, close, n);
+        if(close < open)
+            backtrack(list, str+")", open, close+1, n);
+    }
+
+
 
     private int num = 0;
     private StringBuilder builder = new StringBuilder();
     private List<String> list = new ArrayList<>();
-    public List<String> generateParenthesis(int n) {
+    public List<String> generateParenthesis1(int n) {
         num = n;
-        backtrack(1, builder, 0);
+        backtrack1(1, builder, 0);
         return list;
     }
     /**
@@ -36,7 +54,7 @@ public class GenerateParentheses {
      * @param builder
      * @param rightCount
      */
-    private void backtrack(int i, StringBuilder builder, int rightCount){
+    private void backtrack1(int i, StringBuilder builder, int rightCount){
         if (i > num * 2){
             list.add(builder.toString());
         } else {
@@ -47,7 +65,7 @@ public class GenerateParentheses {
                         i - tempRightCount >= tempRightCount){  //剪枝条件2，左括号数>=右括号数
                     builder.append(c);
                     rightCount = tempRightCount;
-                    backtrack(i + 1, builder, rightCount);
+                    backtrack1(i + 1, builder, rightCount);
                     rightCount -= isTake * 1;
                     builder.deleteCharAt(builder.length() - 1);
                 }

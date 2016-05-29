@@ -14,20 +14,41 @@ import java.util.Set;
  */
 public class HappyNumber {
 
-    public static void main(String[] args) {
-        System.out.println(new HappyNumber().isHappy(1));
+    //快慢法:比下面的方法更快,空间更少
+    public boolean isHappy(int n) {
+        int slow = n;
+        int fast = n;
+        while(slow>1){
+            slow = squareSum(slow) ;
+            if(slow==1) return true ;
+            fast = squareSum(squareSum(fast));
+            if(fast==1) return true ;
+            if(slow==fast) return false;
+        }
+        return true ;
+    }
+    int squareSum(int n) {
+        int sum = 0, tmp;
+        while (n>0) {
+            tmp = n%10;
+            sum += tmp*tmp;
+            n /= 10;
+        }
+        return sum;
     }
 
-    //跳出循环的关键在于记录出现过的数
-    public boolean isHappy(int n) {
+
+    //代码简短,注意跳出循环的关键在于记录出现过的数
+    public boolean isHappy1(int n) {
         Set<Integer> set = new HashSet<>();
         while (!set.contains(n)) {
             set.add(n);
-            n = compute(n);
+            n = squareSum(n);
             if (n==1) return true;
         }
         return false;
     }
+    //digitSquareSum另一种计算方法
     private int compute(int n){
         char[] chars = String.valueOf(n).toCharArray();
         int sum = 0;

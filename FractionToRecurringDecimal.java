@@ -17,36 +17,37 @@ public class FractionToRecurringDecimal {
         System.out.println(new FractionToRecurringDecimal().fractionToDecimal(13,97));
     }
 
-    //http://www.programcreek.com/2014/03/leetcode-fraction-to-recurring-decimal-java/
+    //https://leetcode.com/discuss/23079/my-clean-java-solution
     public String fractionToDecimal(int numerator, int denominator) {
         if (numerator == 0) return "0";
         if (denominator == 0) return "";
-        StringBuilder builder = new StringBuilder();
-        if ((numerator < 0) ^ (denominator < 0)) {
-            builder.append("-");
-        }
-        long num = numerator, den = denominator;
+        StringBuilder res = new StringBuilder();
+        if ((numerator<0) ^ (denominator<0)) res.append("-");
+        long num = numerator, den = denominator;    //TODO 使用long防止溢出
         num = Math.abs(num);
         den = Math.abs(den);
-        long quitient = num / den;   //商
-        builder.append(String.valueOf(quitient));
-        long remainder = (num % den) * 10;  //余数
-        if (remainder == 0) return builder.toString();
-        Map<Long, Integer> remainderToPos = new HashMap<>();
-        builder.append(".");
-        while (remainder!=0){
-            if (remainderToPos.containsKey(remainder)){
-                int beg = remainderToPos.get(remainder);
-                String part1 = builder.substring(0, beg);
-                String part2 = builder.substring(beg, builder.length());
-                return part1 + "(" + part2 + ")";
+        // integral part
+        res.append(num/den);
+        num %= den;
+        if (num==0) return res.toString();
+        // fractional part
+        res.append(".");
+        HashMap<Long, Integer> numToPos = new HashMap<>();
+        numToPos.put(num, res.length());
+        while (num!=0) {
+            num *= 10;  //TODO 注意要乘以10
+            res.append(num/den);
+            num %= den;
+            if (numToPos.containsKey(num)) {
+                int index = numToPos.get(num);
+                res.insert(index, "(");
+                res.append(")");
+                break;
+            } else {
+                numToPos.put(num, res.length());
             }
-            remainderToPos.put(remainder, builder.length());
-            quitient = remainder/den;
-            builder.append(String.valueOf(quitient));
-            remainder = (remainder%den)*10; //TODO 注意要乘以10
         }
-        return builder.toString();
+        return res.toString();
     }
 
 }
