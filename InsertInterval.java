@@ -1,6 +1,7 @@
 package leetcode51_60;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,20 +16,6 @@ import java.util.List;
  */
 public class InsertInterval {
 
-    public static void main(String[] args) {
-        List<Interval> intervals = new ArrayList<>();
-        intervals.add(new Interval(0, 2));
-        intervals.add(new Interval(3, 5));
-        intervals.add(new Interval(6, 8));
-        Interval newInterval = new Interval(4, 7);
-        System.out.println("*****RESULT*****");
-        List<Interval> result = new InsertInterval().insert(intervals, newInterval);
-        for (Interval interval : result){
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        }
-    }
-
-
     public static class Interval {
         int start;
         int end;
@@ -36,8 +23,34 @@ public class InsertInterval {
         Interval(int s, int e) { start = s; end = e; }
     }
 
-
+    /**
+     * https://leetcode.com/problems/insert-interval/
+     * 简洁,清晰
+     * @param intervals
+     * @param newInterval
+     * @return
+     */
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        List<Interval> result = new LinkedList<>();
+        int i = 0;
+        // add all the intervals ending before newInterval starts
+        while (i<intervals.size() && intervals.get(i).end<newInterval.start)
+            result.add(intervals.get(i++));
+        // merge all overlapping intervals to one considering newInterval
+        while (i<intervals.size() && intervals.get(i).start<=newInterval.end) {
+            newInterval = new Interval( // we could mutate newInterval here also
+                    Math.min(newInterval.start, intervals.get(i).start),
+                    Math.max(newInterval.end, intervals.get(i).end));
+            i++;
+        }
+        result.add(newInterval); // add the union of intervals we got
+        // add all the rest
+        while (i<intervals.size()) result.add(intervals.get(i++));
+        return result;
+    }
+
+    //快速.先将待插入区间加入原区间数组,再遍历区间数组进行合并.
+    public List<Interval> insert1(List<Interval> intervals, Interval newInterval) {
         List<Interval> result = new ArrayList<>();
         if (intervals == null || intervals.size() == 0){
             result.add(newInterval);
