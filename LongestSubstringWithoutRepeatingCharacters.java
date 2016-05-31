@@ -14,12 +14,25 @@ import java.util.Set;
  */
 public class LongestSubstringWithoutRepeatingCharacters {
 
-    public static void main(String[] args) {
-        String s = "abcabcbb";
-        int x = new LongestSubstringWithoutRepeatingCharacters().lengthOfLongestSubstring(s);
-//        int x = lengthOfLongestSubstring1(s);
-        System.out.print(x);
+    /**https://leetcode.com/discuss/23883/11-line-simple-java-solution-o-n-with-explanation
+     * 简洁清晰,滑动窗口法O(n),借助HashMap
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length()==0) return 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        int max = 0;
+        for (int r=0, l=0; r<s.length(); ++r){
+            if (map.containsKey(s.charAt(r))){
+                l = Math.max(l, map.get(s.charAt(r))+1);    //TODO l,r pointers only move forward
+            }
+            map.put(s.charAt(r), r);    //update pos
+            max = Math.max(max, r-l+1);
+        }
+        return max;
     }
+
 
     /**滑动窗口法O(n)
      * 思路：维护一个窗口，每次关注窗口中的字符串，在每次判断中，左窗口和右窗口选择其一向前移动。
@@ -34,7 +47,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @param s
      * @return
      */
-    public int lengthOfLongestSubstring(String s) {
+    public int lengthOfLongestSubstring1(String s) {
         if (s == null || s.length() == 0) return 0;
         if (s.length() == 1) return 1;
         char[] chars = s.toCharArray();
@@ -44,7 +57,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
         for ( ; r < chars.length; r++){
             if (!set.contains(chars[r])) set.add(chars[r]);
             else {
-                if (max < r - l) max = r - l;
+                if (max < r-l) max = r-l;
                 while (chars[r] != chars[l]){
                     set.remove(chars[l]);
                     l++;
@@ -52,7 +65,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
                 l++;
             }
         }
-        return Math.max(max, r - l);
+        return Math.max(max, r-l);
     }
 
 
@@ -63,7 +76,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @param s
      * @return
      */
-    public static int lengthOfLongestSubstring1(String s) {
+    public static int lengthOfLongestSubstring2(String s) {
         if (s == null || s.length() == 0) return 0;
         if (s.length() == 1) return 1;
         char[] arr = s.toCharArray();

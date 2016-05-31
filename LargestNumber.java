@@ -12,22 +12,40 @@ import java.util.List;
  */
 public class LargestNumber {
 
+    //简洁写法. 关键:拼接待比较的两个数o1与o2，s1=o1+o2，s2=o2+o1，从s1、s2的最高位开始比较
+    public  String largestNumber(int[] nums) {
+        if(nums==null || nums.length==0) return "";
+        String[] numS = new String[nums.length];
+        for(int i=0; i<nums.length; i++)
+            numS[i] = nums[i]+"";
+        Comparator<String> comp = new Comparator<String>(){ //升序
+            @Override
+            public int compare(String str1, String str2){
+                String s1 = str1+str2;
+                String s2 = str2+str1;
+                return s1.compareTo(s2);
+            }
+        };
+        Arrays.sort(numS, comp);
+        if(numS[numS.length-1].charAt(0)=='0')
+            return "0";
+        StringBuilder sb = new StringBuilder();
+        for(String s: numS)
+            sb.insert(0, s);    //降序
+        return sb.toString();
+    }
+
     //拼接待比较的两个数o1与o2，s1=o1+o2，s2=o2+o1，从s1、s2的最高位开始比较。
-    public String largestNumber(int[] nums) {
+    public String largestNumber1(int[] nums) {
         if (nums.length==1) return String.valueOf(nums[0]);
         List<String> list = new ArrayList<>();
         for (int i : nums) list.add(String.valueOf(i));
         list.sort(new Comparator<String>() {    //升序
             @Override
             public int compare(String o1, String o2) {
-                char[] chars1 = (o1+o2).toCharArray();
-                char[] chars2 = (o2+o1).toCharArray();
-                int len = chars1.length;
-                for (int i=0; i<len; i++){
-                    if (chars1[i]>chars2[i]) return 1;
-                    else if (chars1[i]<chars2[i]) return -1;
-                }
-                return 0;
+                String s1 = o1+o2;
+                String s2 = o2+o1;
+                return s1.compareTo(s2);
             }
         });
         StringBuilder builder = new StringBuilder();

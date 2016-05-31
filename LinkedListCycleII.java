@@ -25,19 +25,20 @@ public class LinkedListCycleII {
      * @return
      */
     public ListNode detectCycle(ListNode head) {
-        if (head==null || head.next==null) return null;
         ListNode slow = head;
-        ListNode fast = head.next;
-        while (slow!=fast){
-            if (fast==null || fast.next==null) return null;
+        ListNode fast = head;
+        while (fast!=null && fast.next!=null){
             slow = slow.next;
             fast = fast.next.next;
+            if (slow==fast) break;
         }
-        while (head!=slow.next){
+        if (fast==null || fast.next==null) return null; //TODO 易漏,判断无环情况
+        slow = head;
+        while (fast!=slow){
             slow = slow.next;
-            head = head.next;
+            fast = fast.next;
         }
-        return head;
+        return slow;
     }
 
 }

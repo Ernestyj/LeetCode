@@ -10,28 +10,29 @@ public class LongestPalindromicSubstring {
     /**
      * http://www.programcreek.com/2013/12/leetcode-solution-of-longest-palindromic-substring-java/
      * Time O(n^2), Space O(1)
+     * 注意使用DP会在特殊用例超时,这里采用从中间向两边扩展的方法.
      * @param s
      * @return
      */
     public String longestPalindrome(String s) {
         if (s==null) return null;
         if (s.length()<=1) return s;
-        String longest = s.substring(0, 1);
+        String res = s.substring(0, 1);
         for (int i=0; i<s.length(); i++) {
-            String tmp = helper(s, i, i);
-            if (tmp.length() > longest.length()) longest = tmp;
-            tmp = helper(s, i, i + 1);
-            if (tmp.length() > longest.length()) longest = tmp;
+            String p = extendPalindrome(s, i, i);   //奇数扩展
+            if (p.length()>res.length()) res = p;
+            p = extendPalindrome(s, i, i+1);  //偶数扩展
+            if (p.length()>res.length()) res = p;
         }
-        return longest;
+        return res;
     }
-    // get longest palindrome with center of (begin,end)
-    private String helper(String s, int begin, int end) {
-        while (begin>=0 && end<=s.length()-1 && s.charAt(begin)==s.charAt(end)) {
-            begin--;
-            end++;
+    // get longest palindrome with center of (l,r)
+    private String extendPalindrome(String s, int l, int r) {
+        while (l>=0 && r<=s.length()-1 && s.charAt(l)==s.charAt(r)) {
+            l--;
+            r++;
         }
-        return s.substring(begin + 1, end);
+        return s.substring(l + 1, r);
     }
 
     /**TODO 此法对于全是同一个字符的长字符串用例超时
