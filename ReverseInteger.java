@@ -7,7 +7,20 @@ package leetcode1_10;
  */
 public class ReverseInteger {
 
+    //空间O(1)
     public int reverse(int x) {
+        long rev = 0;
+        while(x!= 0){
+            rev = rev*10 + x%10;
+            x = x/10;
+            if( rev>Integer.MAX_VALUE || rev<Integer.MIN_VALUE)
+                return 0;
+        }
+        return (int)rev;
+    }
+
+    //空间O(n)
+    public int reverse1(int x) {
         if (x==0 || x==Integer.MIN_VALUE) return 0; //TODO Integer.MIN_VALUE时也返回0
         int n = x;
         if (x<0) n = -n;
