@@ -7,6 +7,23 @@ package leetcode201_210;
  */
 public class MinimumSizeSubarraySum {
 
+    //简洁 https://leetcode.com/discuss/45449/accepted-clean-java-o-n-solution-two-pointers
+    //滑动窗口法:双指针,当sum>=s移动左指针直到sum<s再移动右指针.
+    public int minSubArrayLen(int s, int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int i = 0, j = 0;
+        int sum = 0;
+        int minLen = Integer.MAX_VALUE;
+        while (j<nums.length) {
+            sum += nums[j++];
+            while (sum>=s) {
+                minLen = Math.min(minLen, j-i);
+                sum -= nums[i++];
+            }
+        }
+        return minLen==Integer.MAX_VALUE? 0 : minLen;
+    }
+
     /**
      * 滑动窗口法:双指针,当sum>=s,移动左指针;当sum<s,移动右指针.
      * http://www.programcreek.com/2014/05/leetcode-minimum-size-subarray-sum-java/
@@ -14,7 +31,7 @@ public class MinimumSizeSubarraySum {
      * @param nums
      * @return
      */
-    public int minSubArrayLen(int s, int[] nums) {
+    public int minSubArrayLen1(int s, int[] nums) {
         if(nums == null || nums.length == 0) return 0;
         int i = 0, j = 0;
         int minLen = nums.length;

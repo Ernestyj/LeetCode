@@ -32,12 +32,13 @@ public class MergeKSortedLists {
         if (lists == null) return null;
         return mergeSort(lists, 0, lists.length-1);
     }
-    private ListNode mergeSort(ListNode[] lists, int left, int right){
-        if (left>=right) return lists.length == 0 ? null : lists[left];  //TODO 注意new ListNode[0];时的边界条件
+    private ListNode mergeSort(ListNode[] lists, int l, int r){
+        if (l>=r)
+            return lists.length==0? null : lists[l];  //TODO 注意new ListNode[0];时的边界条件
         else {
-            int mid = (left+right)/2;
-            return mergeTwoLists(mergeSort(lists, left, mid),
-                    mergeSort(lists, mid+1, right));
+            int m = l+(r-l)/2;
+            return mergeTwoLists(mergeSort(lists, l, m),
+                    mergeSort(lists, m+1, r));
         }
     }
     private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -52,6 +53,14 @@ public class MergeKSortedLists {
         }
     }
 
+    //TODO 算法测试超时 时间复杂度：C1*C2* ... *n
+    public ListNode mergeKLists2(ListNode[] lists) {
+        ListNode node = null;
+        for (int i = 0; i < lists.length; i++){
+            node = mergeTwoLists(lists[i], node);
+        }
+        return node;
+    }
 
     private List<Integer> array = null;
     private List<Integer> mergedArray = new ArrayList<>();
@@ -78,16 +87,6 @@ public class MergeKSortedLists {
         }
         node.next = null;
         return head;
-    }
-
-
-    //TODO 算法测试超时 时间复杂度：C1*C2* ... *n
-    public ListNode mergeKLists2(ListNode[] lists) {
-        ListNode node = null;
-        for (int i = 0; i < lists.length; i++){
-            node = mergeTwoLists(lists[i], node);
-        }
-        return node;
     }
 
 

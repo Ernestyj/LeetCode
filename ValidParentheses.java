@@ -14,14 +14,18 @@ import java.util.Stack;
  */
 public class ValidParentheses {
 
-    public static void main(String[] args){
-        boolean isValid = new ValidParentheses().isValid("}");
+    //巧妙法
+    public boolean isValid(String s) {
+        int length;
+        do {
+            length = s.length();
+            s = s.replace("()", "").replace("{}", "").replace("[]", "");
+        } while(length != s.length());
 
-        System.out.println("*****RESULT*****");
-        System.out.println("isValid: " + isValid);
+        return s.length() == 0;
     }
 
-    public boolean isValid(String s) {
+    public boolean isValid1(String s) {
         Stack<Character> stack = new Stack<>();
         char c;
         for (int i = 0; i < s.length(); i++){

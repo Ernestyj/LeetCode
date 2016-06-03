@@ -11,14 +11,35 @@ package leetcode221_230;
  */
 public class MaximalSquare {
 
-    /**https://segmentfault.com/a/1190000003709497
-     * 假设dp[i][j]表示以i,j为右下角的正方形的最大边长，则有
-     dp[i][j] = min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])+1
-     若matrix[i][j]==1,dp[i][j]=0.
+    /**https://leetcode.com/discuss/50506/extremely-simple-java-solution
+     * 简洁, DP
      * @param matrix
      * @return
      */
     public int maximalSquare(char[][] matrix) {
+        if(matrix.length==0) return 0;
+        int m = matrix.length, n = matrix[0].length;
+        int result = 0;
+        int[][] dp = new int[m+1][n+1];
+        for (int i=1 ; i<=m; i++) {
+            for (int j=1; j<=n; j++) {
+                if(matrix[i-1][j-1]=='1') {
+                    dp[i][j] = Math.min(Math.min(dp[i][j-1] , dp[i-1][j-1]), dp[i-1][j]) + 1;
+                    result = Math.max(dp[i][j], result); // update result
+                }
+            }
+        }
+        return result*result;
+    }
+
+    /**https://segmentfault.com/a/1190000003709497
+     * 假设dp[i][j]表示以i,j为右下角的正方形的最大边长，则有
+     dp[i][j] = min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])+1
+     若matrix[i][j]=='0',dp[i][j]=0.
+     * @param matrix
+     * @return
+     */
+    public int maximalSquare1(char[][] matrix) {
         int m = matrix.length;
         if (m==0) return 0;
         int n = matrix[0].length;

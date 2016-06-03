@@ -15,13 +15,43 @@ import java.util.HashMap;
  */
 public class MinimumWindowSubstring {
 
-    public static void main(String[] args){
-        System.out.println("*****RESULT*****");
-        System.out.println();
+    /**https://leetcode.com/discuss/94871/java-4ms-bit-97-6%25
+     * TODO 此法可作为substring类题目解答模板
+     * 简洁. 双指针，动态维护一个区间。尾指针不断往后扫，当扫到有一个窗口包含了所有T的字符后，
+     然后再收缩头指针，直到不能再收缩为止。最后记录所有可能的情况中窗口最小的。
+     * @param s
+     * @param t
+     * @return
+     */
+    public String minWindow(String s, String t) {
+        char[] sArr = s.toCharArray();
+        char[] tArr = t.toCharArray();
+        int[] map = new int[256];
+        int j = 0, i = 0;
+        int count = tArr.length;
+        int minLen = Integer.MAX_VALUE;
+        int minI = 0;
+        for(char c: tArr) map[c]++;
+        while(j<s.length()) {
+            if(map[sArr[j]]>0) count--; //in t
+            map[sArr[j]]--; //TODO 此行不能移入上述if块
+            while(count==0) {   //valid
+                if((j-i+1) < minLen) {  //update min len and min start
+                    minLen = j-i+1;
+                    minI = i;
+                }
+                map[sArr[i]]++;
+                if(map[sArr[i]]>0) count++; //make it invalid 收缩
+                i++;
+            }
+            j++;
+        }
+        if(minI+minLen > s.length()) return "";
+        return s.substring(minI, minI+minLen);
     }
 
 
-    /**TODO 重温
+    /**与上面方法一样
      * http://blog.csdn.net/linhuanmars/article/details/20343903
      * 双指针，动态维护一个区间。尾指针不断往后扫，当扫到有一个窗口包含了所有T的字符后，
      * 然后再收缩头指针，直到不能再收缩为止。最后记录所有可能的情况中窗口最小的。
@@ -29,7 +59,7 @@ public class MinimumWindowSubstring {
      * @param t
      * @return
      */
-    public String minWindow(String s, String t) {
+    public String minWindow1(String s, String t) {
         if(s==null || s.length()==0) return "";
         HashMap<Character, Integer> bookT = new HashMap<>();
         //建立T字典

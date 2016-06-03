@@ -17,12 +17,21 @@ public class MinimumDepthOfBinaryTree {
         TreeNode(int x) { val = x; }
     }
 
+    //https://leetcode.com/discuss/25060/my-4-line-java-solution
+    //类似Maximum Depth Of Binary Tree, 最后一行不同
+    public int minDepth(TreeNode root) {
+        if(root==null) return 0;
+        int left = minDepth(root.left);
+        int right = minDepth(root.right);
+        return (left==0 || right==0)? left+right+1 : Math.min(left,right)+1;
+    }
+
     /**
      * 类似Maximum Depth Of Binary Tree,注意边界条件不同.
      * @param root
      * @return
      */
-    public int minDepth(TreeNode root) {
+    public int minDepth1(TreeNode root) {
         if (root == null) return 0;
         return getMin(root);
     }
@@ -39,7 +48,7 @@ public class MinimumDepthOfBinaryTree {
      * @param root
      * @return
      */
-    public int minDepth1(TreeNode root) {
+    public int minDepth2(TreeNode root) {
         if (root==null) return 0;
         Queue<TreeNode> nodes = new LinkedList<>();
         Queue<Integer> counts = new LinkedList<>();

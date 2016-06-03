@@ -9,35 +9,31 @@ import java.util.Stack;
  */
 public class MaximalRectangle {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-    }
-
-    /**
-     * http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html 中给出了O(n^3)的普通方法（会大数据超时）。
+    /**DP方法也行,但相对复杂难以理解
+     * https://leetcode.com/discuss/52670/solution-based-maximum-rectangle-histogram-with-explanation
      * 高效的方法：转化为Largest Rectangle in Histogram的问题，时间复杂为O(n^2).
      * @param matrix
      * @return
      */
     public int maximalRectangle(char[][] matrix) {
-        if (matrix.length == 0) return 0;
+        if (matrix.length==0) return 0;
         int m = matrix.length;
         int n = matrix[0].length;
         //实际上height可以分配一维数组存储
-        int[][] height = new int[m][n + 1]; //末尾多加一个dummy元素0
+        int[][] height = new int[m][n+1]; //末尾多加一个dummy元素0
         int maxArea = 0;
         //矩阵按行转化为柱状图
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i=0; i<m; i++) {
+            for (int j=0; j<n; j++) {
                 if (matrix[i][j] == '0') {
                     height[i][j] = 0;
                 } else {
-                    height[i][j] = (i == 0) ? 1 : height[i - 1][j] + 1;
+                    height[i][j] = (i==0)? 1 : height[i-1][j]+1;
                 }
             }
         }
-        //计算每个柱状图的最大矩形面积
-        for (int i = 0; i < m; i++) {
+        //计算每行柱状图的最大矩形面积
+        for (int i=0; i<m; i++) {
             int area = maxAreaInHist(height[i]);
             if (area > maxArea) {
                 maxArea = area;
@@ -45,7 +41,7 @@ public class MaximalRectangle {
         }
         return maxArea;
     }
-    //Largest Rectangle in Histogram算法，传入的height数组最后一个元素是多加的dummy元素
+    //O(n) Largest Rectangle in Histogram算法，传入的height数组最后一个元素是多加的dummy元素
     private int maxAreaInHist(int[] height) {
         Stack<Integer> stack = new Stack<>();
         int i = 0;
