@@ -17,13 +17,30 @@ import java.util.List;
  */
 public class PascalTriangle {
 
+    /**https://leetcode.com/discuss/20606/my-concise-solution-in-java
+     * 简洁. 与Pascal's Triangle II方法一致.
+     * @param numRows
+     * @return
+     */
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> allrows = new ArrayList<>();
+        ArrayList<Integer> row = new ArrayList<>();
+        for(int i=0; i<numRows; i++) {
+            row.add(0, 1);
+            for(int j=1; j<row.size()-1; j++)
+                row.set(j, row.get(j)+row.get(j+1));
+            allrows.add(new ArrayList<>(row));
+        }
+        return allrows;
+    }
+
     /**
      * 时间复杂度O(1+2+3+...+n)=O(n^2)，空间上只需要二维数组来存储结果;
      因为是求解每一行结果，所以空间上没有更优的办法.
      * @param numRows
      * @return
      */
-    public List<List<Integer>> generate(int numRows) {
+    public List<List<Integer>> generate1(int numRows) {
         List<List<Integer>> result = new ArrayList<>();
         if (numRows==0) return result;
         List<Integer> pre = new ArrayList<>();

@@ -11,12 +11,12 @@ public class PalindromePartitioningII {
     //TODO 重温 hard
     /**http://www.programcreek.com/2014/04/leetcode-palindrome-partitioning-ii-java/
      * DP(双重二维),也可以用回溯法(参考Palindrome Partitioning).
-     * 定义cutNum(i)为[0,i]间最小切割数,n为字符串长度,0<i<=n,
-     有cutNum(0,i)=min[curNum(0,j-1)+curNum(j,i)],
-     存在一个回文的情况下,简化为cutNum(i)=min[cutNum(j-1)+1],0<j=<i;cutNum(i)=0,j=0.
+     * 定义cutNum(i)为[0,i]间最小切割数, 有
+     cutNum(0,i)=min[curNum(0,j-1)+curNum(j,i)],
+     即cut[i] = min{cut[j-1]+1} (j<=i), if [j,i] is palindrome.
      核心思想在于"j从0到i的过程中每找到一个回文,若要切割则在前次切割的基础上加1次".
      * 判断[j,i]间是否为回文也是DP问题,定义palindrome(j,i)为[j,i]间是否为回文,
-     有palindrome(j,i)= str(j)==str(i) && (i-j<=1 || palindrome(j+1, i-1)).
+     palindrome(j,i)= str(j)==str(i) && (i-j<=1 || palindrome(j+1, i-1)).
      i-j<=1因为一个字符一定也是回文(这个条件使得边界情况初始化可以省略).
      * @param s
      * @return
@@ -24,19 +24,19 @@ public class PalindromePartitioningII {
     public int minCut(String s) {
         int len = s.length();
         boolean[][] palindrome = new boolean[len][len];
-        int[] cutNum = new int[len];
+        int[] cut = new int[len];
 
         for (int i=0; i<len; i++){
-            cutNum[i] = Integer.MAX_VALUE;
+            cut[i] = i;
             for (int j=0; j<=i; j++){
                 if (s.charAt(j)==s.charAt(i) && (i-j<=1 || palindrome[j+1][i-1])){
                     palindrome[j][i] = true;
-                    if (j==0) cutNum[i] = 0;
-                    else cutNum[i] = Math.min(cutNum[i], cutNum[j-1]+1);
+                    if (j==0) cut[i] = 0;   //无需切割
+                    else cut[i] = Math.min(cut[i], cut[j-1]+1);
                 }
             }
         }
-        return cutNum[len-1];
+        return cut[len-1];
     }
 
 }

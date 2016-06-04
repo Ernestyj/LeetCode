@@ -19,21 +19,20 @@ import java.util.List;
 public class PascalTriangleII {
 
     /**
-     * 与Pascal's Triangle类似,但是空间可以压缩为O(k).注意in-place更新值时要逆序(观察Pascal三角的特点)
+     * 与Pascal's Triangle类似,但是空间可以压缩为O(k).注意观察Pascal三角的特点
      * @param rowIndex
      * @return
      */
     public List<Integer> getRow(int rowIndex) {
-        List<Integer> result = new ArrayList<>();
-        if (rowIndex<0) return result;
-        result.add(1);
-        for (int row=1; row<rowIndex+1; row++){
-            for (int j=result.size()-1; j>0; j--){    //TODO 注意一定要倒序遍历,因为顺序会覆盖值
-                result.set(j, result.get(j-1) + result.get(j));
+        List<Integer> list = new ArrayList<>();
+        if (rowIndex<0) return list;
+        for (int i=0; i<=rowIndex; i++) {
+            list.add(0, 1); //首部先插入1
+            for (int j=1; j<list.size()-1; j++) {
+                list.set(j, list.get(j) + list.get(j+1));
             }
-            result.add(1);
         }
-        return result;
+        return list;
     }
 
 }

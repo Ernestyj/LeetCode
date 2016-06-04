@@ -11,10 +11,6 @@ package leetcode81_90;
  */
 public class PartitionList {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-    }
-
     // Definition for singly-linked list.
     public static class ListNode {
         int val;
@@ -22,17 +18,32 @@ public class PartitionList {
         ListNode(int x) { val = x; }
     }
 
-    /**TODO 重温 http://bangbingsyb.blogspot.com/2014/11/leetcode-partition-list.html
-     * 由于不要求sort，只要求partition。可以建立一个新的链表l2。遍历原链表l1的每个节点p。
-     p->val < x，保留。
-     p->val >= x，从l1中移出并插入l2。
+    /**https://leetcode.com/discuss/22895/concise-java-code-with-explanation-one-pass
+     * maintain two queues, the first one stores all nodes with val less than x ,
+     and the second queue stores all the rest nodes. Then concat these two queues.
+     Remember to set the tail of second queue a null next, or u will get TLE.
+     * @param head
+     * @param x
+     * @return
      */
     public ListNode partition(ListNode head, int x) {
-        return null;
+        ListNode dummy1 = new ListNode(0), dummy2 = new ListNode(0);
+        ListNode curr1 = dummy1, curr2 = dummy2;    //current tails of the two queues;
+        while (head!=null){
+            if (head.val<x) {
+                curr1.next = head;
+                curr1 = head;
+            }else {
+                curr2.next = head;
+                curr2 = head;
+            }
+            head = head.next;
+        }
+        curr2.next = null;  //TODO avoid cycle in linked list. otherwise u will get TLE.
+        curr1.next = dummy2.next;
+        return dummy1.next;
     }
 
-
-    // 与上述算法复杂度一样
     // 从左往右扫描，找到第一个大于x的节点，然后再在该节点左边不断插入小于x的元素。
     public ListNode partition1(ListNode head, int x) {
         ListNode dummy = new ListNode(0);
