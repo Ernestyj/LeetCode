@@ -8,27 +8,6 @@ package leetcode141_150;
  */
 public class ReorderList {
 
-    public static void main(String[] args) {
-        ListNode n1 = new ListNode(1);
-        ListNode n2 = new ListNode(2);
-        ListNode n3 = new ListNode(3);
-        ListNode n4 = new ListNode(4);
-        ListNode n5 = new ListNode(5);
-        ListNode n6 = new ListNode(6);
-        n1.next = n2; n2.next = n3; n3.next = n4; n4.next = n5; n5.next = n6;
-        printList(n1);
-        new ReorderList().reorderList(n1);
-        printList(n1);
-    }
-    private static void printList(ListNode n) {
-        System.out.println("------");
-        while (n != null) {
-            System.out.print(n.val);
-            n = n.next;
-        }
-        System.out.println();
-    }
-
     static class ListNode {
         int val;
         ListNode next;
@@ -76,43 +55,6 @@ public class ReorderList {
             p2.next = temp1;
             p1 = temp1;
             p2 = temp2;
-        }
-    }
-
-    //超时
-    public void reorderList1(ListNode head) {
-        if (head==null || head.next==null) return;
-        ListNode first = head;
-        ListNode p = first;
-        int num = 0;
-        while (p!=null && p.next!=null){
-            if (p.next.next==null){
-                ListNode nextFirst = first.next;
-                first.next = p.next;
-                p.next.next = nextFirst;
-                first = nextFirst;
-                p.next = null;
-                break;
-            }
-            num++;
-            p = p.next;
-        }
-        num++;
-        int count = (num-2)/2;
-        while (count!=0){
-            p = first;
-            while (p!=null && p.next!=null){
-                if (p.next.next==null){
-                    ListNode nextFirst = first.next;
-                    first.next = p.next;
-                    p.next.next = nextFirst;
-                    first = nextFirst;
-                    p.next = null;
-                    break;
-                }
-                p = p.next;
-            }
-            count--;
         }
     }
 

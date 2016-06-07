@@ -9,10 +9,6 @@ package leetcode81_90;
  */
 public class RemoveDuplicatesFromSortedList {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-    }
-
     // Definition for singly-linked list.
     public static class ListNode {
         int val;
@@ -20,8 +16,15 @@ public class RemoveDuplicatesFromSortedList {
         ListNode(int x) { val = x; }
     }
 
-
+    //简洁 递归 https://leetcode.com/discuss/37323/3-line-java-recursive-solution
     public ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null)return head;
+        head.next = deleteDuplicates(head.next);
+        return head.val==head.next.val? head.next : head;
+    }
+
+    //TODO 记忆此方法
+    public ListNode deleteDuplicates1(ListNode head) {
         if (head == null) return head;
         ListNode p = head;
         while (p.next != null){
@@ -35,7 +38,7 @@ public class RemoveDuplicatesFromSortedList {
     }
 
     //利用RemoveDuplicatesFromSortedListII思路
-    public ListNode deleteDuplicates1(ListNode head) {
+    public ListNode deleteDuplicates2(ListNode head) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode p = dummy;

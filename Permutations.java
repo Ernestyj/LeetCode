@@ -1,6 +1,7 @@
 package leetcode41_50;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,17 +13,28 @@ import java.util.List;
  */
 public class Permutations {
 
-    public static void main(String[] args) {
-        int nums[] = { 1,2,3 };
-        List<List<Integer>> result = new Permutations().permute(nums);
-        for (List<Integer> integers : result){
-            for (Integer i : integers){
-                System.out.print(i);
+    //TODO 记忆回溯法
+    /**https://leetcode.com/discuss/29483/share-my-short-iterative-java-solution
+     * tricky 复制插入方法
+     * @param num
+     * @return
+     */
+    public List<List<Integer>> permute(int[] num) {
+        LinkedList<List<Integer>> res = new LinkedList<>();
+        res.add(new ArrayList<>());
+        for (int n : num) {
+            int len = res.size();
+            for (; len>0; len--) {
+                List<Integer> r = res.pollFirst();
+                for (int i=0; i<=r.size(); i++) {
+                    List<Integer> t = new ArrayList<>(r);
+                    t.add(i, n);
+                    res.add(t);
+                }
             }
-            System.out.print(" ");
         }
+        return res;
     }
-
 
     private List<List<Integer>> result = new ArrayList<>();
     private List<Integer> temp;
@@ -37,7 +49,7 @@ public class Permutations {
      * 分析图：http://segmentfault.com/a/1190000002710424
      * @param nums
      */
-    public List<List<Integer>> permute(int[] nums) {
+    public List<List<Integer>> permute1(int[] nums) {
         permutation(nums, 0, nums.length);
         return result;
     }
@@ -48,15 +60,13 @@ public class Permutations {
                 temp.add(nums[i]);
             }
             result.add(temp);
+            return;
         }
-        else {
-            for (int i = start; i < len; i ++) {
-                swap(nums, start, i);
-                permutation(nums, start + 1, len);
-                swap(nums, start, i);
-            }
+        for (int i=start; i<len; i ++) {
+            swap(nums, start, i);
+            permutation(nums, start+1, len);
+            swap(nums, start, i);
         }
-
     }
     private void swap(int[] s, int i, int j) {
         int temp = s[i];

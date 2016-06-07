@@ -10,17 +10,12 @@ package leetcode81_90;
  */
 public class RemoveDuplicatesFromSortedListII {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-    }
-
     // Definition for singly-linked list.
     public static class ListNode {
         int val;
         ListNode next;
         ListNode(int x) { val = x; }
     }
-
 
     /**
      * TODO 第一次尝试，思路不清晰导致代码无法继续写
@@ -29,12 +24,12 @@ public class RemoveDuplicatesFromSortedListII {
      * @param head
      * @return
      */
-    public ListNode deleteDuplicates(ListNode head) {
+    public ListNode deleteDuplicates1(ListNode head) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode p = dummy;
         while(p.next!=null && p.next.next!=null){
-            if(p.next.val == p.next.next.val){
+            if(p.next.val==p.next.next.val){
                 int dup = p.next.val;
                 while(p.next!=null && p.next.val==dup){
                     p.next = p.next.next;

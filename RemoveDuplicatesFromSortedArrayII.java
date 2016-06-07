@@ -12,16 +12,34 @@ package leetcode71_80;
  */
 public class RemoveDuplicatesFromSortedArrayII {
 
-
-    public static void main(String[] args) {
-        int[] nums = {-2, -1, 0, 0, 1, 2, 2, 4, 6};
-//        int[] nums = {1};
-        System.out.println("************************");
-        int count = new RemoveDuplicatesFromSortedArrayII().removeDuplicates(nums);
-        System.out.println(count);
-        for (int i : nums) System.out.print(i + " ");
+    //简洁 tricky
+    public int removeDuplicates(int[] nums) {
+        int i = 0;
+        for (int n: nums)
+            if (i<2 || n!=nums[i-2])
+                nums[i++] = n;
+        return i;
     }
 
+    //TODO at most K 通用解法
+    int removeDuplicates(int nums[], int n, int k) {
+        if (n <= k) return n;
+        int i = 1, j = 1;
+        int count = 1;
+        while (j < n) {
+            if (nums[j] != nums[j-1]) {
+                count = 1;
+                nums[i++] = nums[j];
+            } else {
+                if (count < k) {
+                    nums[i++] = nums[j];
+                    count++;
+                }
+            }
+            ++j;
+        }
+        return i;
+    }
 
     /**
      * 用index存不同数字的个数(可以含两次重复的数字)，遍历数组判断当前值是否和前一个值不一样。
@@ -29,7 +47,7 @@ public class RemoveDuplicatesFromSortedArrayII {
      * @param nums
      * @return
      */
-    public int removeDuplicates(int[] nums) {
+    public int removeDuplicates1(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
         int index = 1;
         int count = 0;

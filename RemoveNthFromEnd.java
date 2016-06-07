@@ -13,22 +13,6 @@ package leetcode11_20;
  */
 public class RemoveNthFromEnd {
 
-    public static void main(String[] args) {
-        ListNode l11 = new ListNode(1);
-        ListNode l12 = new ListNode(2);
-        ListNode l13 = new ListNode(3);
-        ListNode l14 = new ListNode(4);
-        ListNode l15 = new ListNode(5);
-        l11.next = l12; l12.next = l13; l13.next = l14; l14.next = l15; l15.next = null;
-        ListNode node = new RemoveNthFromEnd().removeNthFromEnd(l11, 1);
-
-        System.out.println("*****RESULT*****");
-        while (node != null){
-            System.out.print(node.val + " ");
-            node = node.next;
-        }
-    }
-
     // Definition for singly-linked list.
     public static class ListNode {
         int val;
@@ -36,7 +20,27 @@ public class RemoveNthFromEnd {
         ListNode(int x) { val = x; }
     }
 
+    //one pass
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode slow = dummy, fast = dummy;
+        //Move fast in front so that the gap between slow and fast becomes n
+        for(int i=1; i<=n+1; i++) { //TODO 注意边界
+            fast = fast.next;
+        }
+        //Move fast to the end, maintaining the gap
+        while(fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        //Skip the desired node
+        slow.next = slow.next.next;
+        return dummy.next;
+    }
+
+    //two pass
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
         int length = 0;
         ListNode temp = head;
         while (temp != null){

@@ -16,7 +16,15 @@ public class RemoveLinkedListElements {
         ListNode(int x) { val = x; }
     }
 
+    //类似RemoveDuplicatesFromSortedList
     public ListNode removeElements(ListNode head, int val) {
+        if (head==null) return null;
+        head.next = removeElements(head.next, val);
+        return head.val==val? head.next : head;
+    }
+
+    //标准删除:dummy+pre+cur
+    public ListNode removeElements1(ListNode head, int val) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode pre = dummy;

@@ -16,8 +16,27 @@ public class PlusOne {
         System.out.println();
     }
 
-
+    /**https://leetcode.com/discuss/58149/my-simple-java-solution
+     * 简洁, 巧妙
+     * @param digits
+     * @return
+     */
     public int[] plusOne(int[] digits) {
+        int n = digits.length;
+        for(int i=n-1; i>=0; i--) {
+            if(digits[i] < 9) {
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;
+        }
+        int[] newRes = new int [n+1];
+        newRes[0] = 1;
+        return newRes;
+    }
+
+
+    public int[] plusOne1(int[] digits) {
         if (digits == null || digits.length == 0) return new int[0];
         int len = digits.length;
         int extra = 1, temp = 0;

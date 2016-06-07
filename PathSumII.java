@@ -19,9 +19,35 @@ public class PathSumII {
         TreeNode(int x) { val = x; }
     }
 
+    //TODO 下面两种方法都不错,第二种思路更自然,第一种更简洁
+    /**https://leetcode.com/discuss/16980/dfs-with-one-linkedlist-accepted-java-solution
+     * dfs,递归,与Path Sum思路一致
+     * @param root
+     * @param sum
+     * @return
+     */
+    public List<List<Integer>> pathSum(TreeNode root, int sum){
+        List<List<Integer>> result  = new LinkedList<>();
+        List<Integer> path  = new LinkedList<>();
+        pathSum(root, sum, path, result);
+        return result;
+    }
+    public void pathSum(TreeNode root, int sum, List<Integer> path, List<List<Integer>> result) {
+        if (root == null) return;
+        path.add(root.val);
+        if (root.left==null && root.right==null && sum==root.val) {
+            result.add(new LinkedList<>(path));
+        } else {
+            pathSum(root.left, sum-root.val, path, result);
+            pathSum(root.right, sum-root.val, path, result);
+        }
+        path.remove(path.size()-1);
+    }
+
+
     //dfs,递归,与Path Sum思路一致,但引入一个数组存储结果
     //http://www.programcreek.com/2014/05/leetcode-path-sum-ii-java/
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+    public List<List<Integer>> pathSum1(TreeNode root, int sum) {
         List<List<Integer>> result = new ArrayList<>();
         if(root == null) return result;
         List<Integer> path = new ArrayList<>();
@@ -47,7 +73,7 @@ public class PathSumII {
     }
 
     //层次遍历,超时
-    public List<List<Integer>> pathSum1(TreeNode root, int sum) {
+    public List<List<Integer>> pathSum2(TreeNode root, int sum) {
         List<List<Integer>> result = new ArrayList<>();
         if(root == null) return result;
         LinkedList<TreeNode> nodes = new LinkedList<>();
