@@ -11,15 +11,38 @@ package leetcode91_100;
  */
 public class ReverseLinkedListII {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-    }
-
     // Definition for singly-linked list.
     public static class ListNode {
         int val;
         ListNode next;
         ListNode(int x) { val = x; }
+    }
+
+    /**https://leetcode.com/discuss/25580/simple-java-solution-with-clear-explanation
+     * 与下面方法一致,但更简洁
+     dummy-> 1 -> 2 -> 3 -> 4 -> 5 m=2 n=4 有 pre = 1, start = 2, then = 3
+     first reversing : dummy->1 - 3 - 2 - 4 - 5; pre = 1, start = 2, then = 4
+     second reversing: dummy->1 - 4 - 3 - 2 - 5; pre = 1, start = 2, then = 5 (finish)
+     * @param head
+     * @param m
+     * @param n
+     * @return
+     */
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        if(head == null) return null;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy; // make a pointer pre as a marker for the node before reversing
+        for(int i=0; i<m-1; i++) pre = pre.next;
+        ListNode start = pre.next; // a pointer to the beginning of a sub-list that will be reversed
+        ListNode then = start.next; // a pointer to a node that will be reversed
+        for(int i=0; i<n-m; i++) {
+            start.next = then.next;
+            then.next = pre.next;
+            pre.next = then;
+            then = start.next;
+        }
+        return dummy.next;
     }
 
 
@@ -39,7 +62,7 @@ public class ReverseLinkedListII {
      * @param n
      * @return
      */
-    public ListNode reverseBetween(ListNode head, int m, int n) {
+    public ListNode reverseBetween1(ListNode head, int m, int n) {
         ListNode dummy = new ListNode(0);   //因为有“放到链表首位”的操作，需要一个dummy的头节点
         dummy.next = head;
         ListNode pre = null;

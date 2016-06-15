@@ -7,10 +7,29 @@ package leetcode81_90;
  */
 public class ScrambleString {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
+    /**https://leetcode.com/discuss/46803/accepted-java-solution
+     * 递归 O(3^n) 但是比下面的DP快
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public boolean isScramble(String s1, String s2) {
+        if (s1.equals(s2)) return true;
+        int[] letters = new int[26];
+        for (int i=0; i<s1.length(); i++) {
+            letters[s1.charAt(i)-'a']++;
+            letters[s2.charAt(i)-'a']--;
+        }
+        for (int i=0; i<26; i++)
+            if (letters[i]!=0) return false;
+        for (int i=1; i<s1.length(); i++) {
+            if (isScramble(s1.substring(0,i), s2.substring(0,i))
+                    && isScramble(s1.substring(i), s2.substring(i))) return true;
+            if (isScramble(s1.substring(0,i), s2.substring(s2.length()-i))
+                    && isScramble(s1.substring(i), s2.substring(0,s2.length()-i))) return true;
+        }
+        return false;
     }
-
 
     /** TODO 重温
      * http://blog.csdn.net/fightforyourdream/article/details/17707187
@@ -30,7 +49,7 @@ public class ScrambleString {
      * @param s2
      * @return
      */
-    public boolean isScramble(String s1, String s2) {
+    public boolean isScramble1(String s1, String s2) {
         int len = s1.length();
         if(len != s2.length()) return false;
         boolean[][][] canScramble = new boolean[len][len][len+1];   // i,j with sub length

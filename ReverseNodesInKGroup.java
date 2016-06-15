@@ -17,23 +17,6 @@ package leetcode21_30;
  */
 public class ReverseNodesInKGroup {
 
-    public static void main(String[] args) {
-        ListNode l11 = new ListNode(1);
-        ListNode l12 = new ListNode(2);
-        ListNode l13 = new ListNode(3);
-        ListNode l14 = new ListNode(4);
-        ListNode l15 = new ListNode(5);
-        l11.next = l12; l12.next = l13; l13.next = l14; l14.next = l15; l15.next = null;
-        ListNode l21 = null;
-
-//        ListNode node = new ReverseNodesInKGroup().reverseExactK(null, l11, 2);
-        ListNode node = new ReverseNodesInKGroup().reverseKGroup(l11, 2);
-        while (node != null){
-            System.out.print(node.val + " ");
-            node = node.next;
-        }
-    }
-
     public static class ListNode {
         int val;
         ListNode next;
@@ -63,6 +46,17 @@ public class ReverseNodesInKGroup {
         }
         return dummy.next;
     }
+    private ListNode reverse(ListNode pre, ListNode next){
+        ListNode last = pre.next;   //where first will be doomed "last"
+        ListNode cur = last.next;
+        while(cur != next){
+            last.next = cur.next;
+            cur.next = pre.next;
+            pre.next = cur;
+            cur = last.next;
+        }
+        return last;
+    }
     /**首先，搞清楚怎么逆转一个单链表。其实O(n)就可以了。
      * 第一个肯定是last one，然后我们每遍历到一个node，就把它放到最链表的首位，最后一个就成为第一个了。
      * Reverse a link list between pre and next exclusively
@@ -79,17 +73,7 @@ public class ReverseNodesInKGroup {
      * @param next
      * @return the reversed list's last node, which is the precedence of parameter next
      */
-    private ListNode reverse(ListNode pre, ListNode next){
-        ListNode last = pre.next;   //where first will be doomed "last"
-        ListNode cur = last.next;
-        while(cur != next){
-            last.next = cur.next;
-            cur.next = pre.next;
-            pre.next = cur;
-            cur = last.next;
-        }
-        return last;
-    }
+
 
 
 

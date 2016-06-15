@@ -10,20 +10,14 @@ package leetcode61_70;
  */
 public class RotateList {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-        System.out.println();
-    }
-
-
     public static class ListNode {
         int val;
         ListNode next;
         ListNode(int x) { val = x; }
     }
 
-
     //因为k可以超过list本身长度，可以先首尾连起来，然后找到该断开的地方断开。
+    //TODO 注意边界
     public ListNode rotateRight(ListNode head, int k) {
         if (head == null || k == 0) return head;
         ListNode p = head;
@@ -34,7 +28,7 @@ public class RotateList {
         }
         p.next = head;  //form a loop
         k = k % len;
-        for (int i = 0; i < len - k; i++) p = p.next;
+        for (int i=0; i<len-k; i++) p = p.next;
         //now p points to the prev of the new head
         head = p.next;
         p.next = null;

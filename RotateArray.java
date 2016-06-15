@@ -15,6 +15,7 @@ public class RotateArray {
      2. Rotate first part: 4,3,2,1,5,6
      3. Rotate second part: 4,3,2,1,6,5
      4. Rotate the whole array: 5,6,1,2,3,4
+     或者 6,5,4,3,2,1 -> 5,6|1,2,3,4 (代码简洁)
      http://www.programcreek.com/2015/03/rotate-array-in-java/
      * @param nums
      * @param k
@@ -22,16 +23,17 @@ public class RotateArray {
     public void rotate(int[] nums, int k) {
         k = k%nums.length;
         if (k==0) return;
-        reverse(nums, 0, nums.length-k);
-        reverse(nums, nums.length-k, nums.length);
-        reverse(nums, 0, nums.length);
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.length - 1);
     }
     private void reverse(int[] nums, int start, int end){
-        int l = start+end;
-        for (int i=start; i<l/2; i++){
-            int temp = nums[i];
-            nums[i] = nums[l-i-1];
-            nums[l-i-1] = temp;
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
         }
     }
 

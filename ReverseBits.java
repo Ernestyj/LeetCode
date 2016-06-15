@@ -7,8 +7,23 @@ package leetcode181_190;
  */
 public class ReverseBits {
 
-    // you need treat n as an unsigned value
+    /**
+     * https://leetcode.com/discuss/27328/java-solution-and-optimization
+     * @param n
+     * @return
+     */
     public int reverseBits(int n) {
+        int result = 0;
+        for (int i=0; i<32; i++) {
+            result += n&1;
+            n >>= 1;
+            if (i<31) result <<= 1; //注意最后一位不移
+        }
+        return result;
+    }
+
+    // you need treat n as an unsigned value
+    public int reverseBits1(int n) {
         for (int i=0; i<16; i++)
             n = swapBit(n, i, 32-i-1);
         return n;

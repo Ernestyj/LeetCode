@@ -11,14 +11,6 @@ import java.util.List;
  */
 public class SameTree {
 
-    public static void main(String[] args) {
-        TreeNode p = new TreeNode(0);
-        TreeNode q = new TreeNode(0);
-        System.out.println("*****RESULT*****");
-        System.out.println(new SameTree().isSameTree(p, q));
-    }
-
-
     //Definition for a binary tree node.
     public static class TreeNode {
         int val;
