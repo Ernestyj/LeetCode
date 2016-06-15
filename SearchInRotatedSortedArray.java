@@ -10,14 +10,6 @@ package leetcode31_40;
  */
 public class SearchInRotatedSortedArray {
 
-    public static void main(String[] args) {
-        int[] nums = {4, 5, 6, 7, 0, 1, 2};
-
-        System.out.println("*****RESULT*****");
-        int index = new SearchInRotatedSortedArray().search(nums, 0);
-        System.out.println(index);
-    }
-
     /**
      * http://blog.csdn.net/linhuanmars/article/details/20525681
      * 假设数组是A，每次左边缘为l，右边缘为r，还有中间位置是m。在每次迭代中，分三种情况：
@@ -28,6 +20,7 @@ public class SearchInRotatedSortedArray {
      （3）如果A[m]>=A[r]，那么说明从l到m一定是有序的，同样只需要判断target是否在这个范围内，
      相应的移动边缘即可。
      * 根据以上方法，每次我们都可以切掉一半的数据，所以算法的时间复杂度是O(logn)，空间复杂度是O(1)。
+     * 4 5 6 7 0 1 2
      * @param nums
      * @param target
      * @return
@@ -37,7 +30,7 @@ public class SearchInRotatedSortedArray {
         int l = 0, r = nums.length-1;
         int m = 0;
         while (l<=r){
-            m = (l+r)/2;
+            m = l+(r-l)/2;
             if (target==nums[m]) return m;
             if (nums[m]<nums[r]) {
                 if (nums[m]<target && target<=nums[r]) l = m+1;

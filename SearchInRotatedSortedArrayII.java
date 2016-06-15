@@ -9,15 +9,6 @@ package leetcode81_90;
  */
 public class SearchInRotatedSortedArrayII {
 
-    public static void main(String[] args) {
-        int[] nums = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 5, 6, 6, 7, 7, 7, 0, 1, 2};
-
-        System.out.println("*****RESULT*****");
-        boolean isFound = new SearchInRotatedSortedArrayII().search(nums, 0);
-        System.out.println(isFound);
-    }
-
-
     /**
      * 当有重复数字，会存在A[m] = A[r]的情况。此时右半序列可能是sorted，也可能并没有sorted，如下例子。
      3 1 2 3 3 3 3
@@ -31,17 +22,17 @@ public class SearchInRotatedSortedArrayII {
      */
     public boolean search(int[] nums, int target) {
         if (nums == null || nums.length == 0) return false;
-        int l = 0, r = nums.length - 1;
+        int l = 0, r = nums.length-1;
         int m = 0;
-        while (l <= r){
-            m = (l + r) / 2;
-            if (target == nums[m]) return true;
-            if (nums[m] < nums[r]) {    //m~r有序
-                if (nums[m] < target && target <= nums[r]) l = m + 1;
-                else r = m - 1;
+        while (l<=r){
+            m = l+(r-l)/2;
+            if (target==nums[m]) return true;
+            if (nums[m]<nums[r]) {    //m~r有序
+                if (nums[m]<target && target<=nums[r]) l = m+1;
+                else r = m-1;
             } else if (nums[m] > nums[r]){  //l~m有序
-                if (nums[l] <= target && target < nums[m]) r = m - 1;
-                else l = m + 1;
+                if (nums[l]<=target && target<nums[m]) r = m-1;
+                else l = m+1;
             } else {    //nums[m] == nums[r]时
                 r--;
             }
