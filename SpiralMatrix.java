@@ -17,11 +17,31 @@ import java.util.List;
  */
 public class SpiralMatrix {
 
-    public static void main(String[] args) {
-        int[][] matrix = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
-        System.out.println("*****RESULT*****");
-        List<Integer> result = new SpiralMatrix().spiralOrder(matrix);
-        for (Integer i : result) System.out.print(i + " ");
+    /**https://leetcode.com/discuss/12228/super-simple-and-easy-to-understand-solution
+     * 此思路不易出错
+     * @param matrix
+     * @return
+     */
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        if (matrix.length == 0) return res;
+        int m = matrix.length-1, n = matrix[0].length-1;    //end
+        int r = 0, c = 0;   //begin
+        while (r<=m && c<=n) {
+            for (int j = c; j <= n; j++) res.add(matrix[r][j]);// Traverse Right
+            r++;
+            for (int i = r; i <= m; i++) res.add(matrix[i][n]);// Traverse Down
+            n--;
+            if (r<=m) {   // Traverse Left TODO
+                for (int j = n; j >= c; j--) res.add(matrix[m][j]);
+            }
+            m--;
+            if (c<=n) {   // Traver Up TODO
+                for (int i = m; i >= r; i--) res.add(matrix[i][c]);
+            }
+            c++;
+        }
+        return res;
     }
 
     /**
@@ -30,7 +50,7 @@ public class SpiralMatrix {
      * @param matrix
      * @return
      */
-    public ArrayList<Integer> spiralOrder(int[][] matrix) {
+    public ArrayList<Integer> spiralOrder1(int[][] matrix) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         if(matrix == null || matrix.length == 0) return result;
         int m = matrix.length;
@@ -54,45 +74,6 @@ public class SpiralMatrix {
             y++;
             m=m-2;
             n=n-2;
-        }
-        return result;
-    }
-
-
-    //TODO 边界过于复杂调试失败
-    public List<Integer> spiralOrder1(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        int circleCount;
-        if (m < n) circleCount = m%2 == 0 ? m/2 : m/2 + 1;
-        else circleCount = n%2 == 0 ? n/2 : n/2 + 1;
-        List<Integer> result = new ArrayList<>();
-        for (int k = 0; k < circleCount; k++){
-            int i = 0, j = 0;
-            while (j < n - k){
-                if (j + k >= n || i + k >= n) break;
-                result.add(matrix[i + k][j + k]);
-                j++;
-            }
-            i++;
-            while (i < m - k){
-                if (i + k >= m || j + k >= n) break;
-                result.add(matrix[i + k][j + k]);
-                i++;
-            }
-            j--;
-            while (j > 0 + k){
-                if (j - k <= 0 || i - k <= 0) break;
-                result.add(matrix[i - k][j - k]);
-                j--;
-            }
-            i--;
-            while (i > 0 + k ){
-                if (i - k <= 0 || j - k <= 0) break;
-                result.add(matrix[i - k][j - k]);
-                i--;
-            }
-            j++;
         }
         return result;
     }

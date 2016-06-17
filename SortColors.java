@@ -9,11 +9,29 @@ package leetcode71_80;
  */
 public class SortColors {
 
-    public static void main(String[] args){
-        System.out.println("*****RESULT*****");
-        System.out.println();
+    //https://leetcode.com/discuss/17000/share-my-one-pass-constant-space-10-line-solution
+    //1-pass every elem left low pointer is 0, elem right high pointer is 2
+    public void sortColors(int[] nums) {
+        if(nums==null || nums.length<2) return;
+        int l = 0;
+        int r = nums.length-1;
+        for(int i=0; i<=r; ) {
+            if(nums[i]==0) { // swap nums[i] and nums[l] and i,l both ++
+                swap(nums, i, l);
+                i++; l++;   //TODO i也++
+            }else if(nums[i]==2) { //swap nums[i] and nums[r] and r--;
+                swap(nums, i, r);
+                r--;    //TODO i不++
+            }else {
+                i++;
+            }
+        }
     }
-
+    private static void swap(int[] a, int i, int j) {
+        int tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
 
     /**
      * http://www.programcreek.com/2014/06/leetcode-sort-colors-java/
@@ -21,7 +39,7 @@ public class SortColors {
      * the original array, instead of creating a new one.
      * @param nums
      */
-    public void sortColors(int[] nums) {
+    public void sortColors1(int[] nums) {
         if(nums==null || nums.length<2) return;
         int[] counts = new int[3];
         for(int i=0; i<nums.length; i++) counts[nums[i]]++;
@@ -29,8 +47,8 @@ public class SortColors {
         int k = 0;
         while(color<=2){
             if(counts[color]!=0){
-                nums[k++]=color;
-                counts[color] = counts[color]-1;
+                nums[k++] = color;
+                counts[color]--;
             }else{
                 color++;
             }

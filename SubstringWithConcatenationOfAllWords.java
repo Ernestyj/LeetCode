@@ -18,33 +18,32 @@ import java.util.List;
  *
  * Created by DCLab on 11/13/2015.
  */
-public class SubstringWithConcatenationOfAllWords {
+public class SubstringWithConcatenationOfAllWords { //TODO HARD 待重看
 
-    public static void main(String[] args) {
-//        String s = "barfoothefoobarman";
-//        String[] words = {"foo", "bar"};
-//        String s = "pjzkrkevzztxductzzxmxsvwjkxpvukmfjywwetvfnujhweiybwvvsrfequzkhossmootkmyxgjgfordrpapjuunmqnxxdrqrfgkrsjqbszgiqlcfnrpjlcwdrvbumtotzylshdvccdmsqoadfrpsvnwpizlwszrtyclhgilklydbmfhuywotjmktnwrfvizvnmfvvqfiokkdprznnnjycttprkxpuykhmpchiksyucbmtabiqkisgbhxngmhezrrqvayfsxauampdpxtafniiwfvdufhtwajrbkxtjzqjnfocdhekumttuqwovfjrgulhekcpjszyynadxhnttgmnxkduqmmyhzfnjhducesctufqbumxbamalqudeibljgbspeotkgvddcwgxidaiqcvgwykhbysjzlzfbupkqunuqtraxrlptivshhbihtsigtpipguhbhctcvubnhqipncyxfjebdnjyetnlnvmuxhzsdahkrscewabejifmxombiamxvauuitoltyymsarqcuuoezcbqpdaprxmsrickwpgwpsoplhugbikbkotzrtqkscekkgwjycfnvwfgdzogjzjvpcvixnsqsxacfwndzvrwrycwxrcismdhqapoojegggkocyrdtkzmiekhxoppctytvphjynrhtcvxcobxbcjjivtfjiwmduhzjokkbctweqtigwfhzorjlkpuuliaipbtfldinyetoybvugevwvhhhweejogrghllsouipabfafcxnhukcbtmxzshoyyufjhzadhrelweszbfgwpkzlwxkogyogutscvuhcllphshivnoteztpxsaoaacgxyaztuixhunrowzljqfqrahosheukhahhbiaxqzfmmwcjxountkevsvpbzjnilwpoermxrtlfroqoclexxisrdhvfsindffslyekrzwzqkpeocilatftymodgztjgybtyheqgcpwogdcjlnlesefgvimwbxcbzvaibspdjnrpqtyeilkcspknyylbwndvkffmzuriilxagyerjptbgeqgebiaqnvdubrtxibhvakcyotkfonmseszhczapxdlauexehhaireihxsplgdgmxfvaevrbadbwjbdrkfbbjjkgcztkcbwagtcnrtqryuqixtzhaakjlurnumzyovawrcjiwabuwretmdamfkxrgqgcdgbrdbnugzecbgyxxdqmisaqcyjkqrntxqmdrczxbebemcblftxplafnyoxqimkhcykwamvdsxjezkpgdpvopddptdfbprjustquhlazkjfluxrzopqdstulybnqvyknrchbphcarknnhhovweaqawdyxsqsqahkepluypwrzjegqtdoxfgzdkydeoxvrfhxusrujnmjzqrrlxglcmkiykldbiasnhrjbjekystzilrwkzhontwmehrfsrzfaqrbbxncphbzuuxeteshyrveamjsfiaharkcqxefghgceeixkdgkuboupxnwhnfigpkwnqdvzlydpidcljmflbccarbiegsmweklwngvygbqpescpeichmfidgsjmkvkofvkuehsmkkbocgejoiqcnafvuokelwuqsgkyoekaroptuvekfvmtxtqshcwsztkrzwrpabqrrhnlerxjojemcxel";
-//        String[] words = {"dhvf","sind","ffsl","yekr","zwzq","kpeo","cila","tfty","modg","ztjg","ybty","heqg","cpwo","gdcj","lnle","sefg","vimw","bxcb"};
-//        String s = "wordgoodgoodgoodbestword";
-//        String[] words = {"word","good","best","good"};
-        //TODO 下面这组答案输出[]，但易超时
-        String s =
-                "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab";
-        String[] words = {"ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba",
-                "ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba",
-                "ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba"}
-;       System.out.println("s.length():" + s.length());
-;       System.out.println("words.length:" + words.length);
-
-        System.out.println("*****RESULT*****");
-        List<Integer> indexes = new ArrayList<>();
-        indexes = new SubstringWithConcatenationOfAllWords().findSubstring(s, words);
-        for (Integer i : indexes) System.out.print(i + " ");
-//        for (char[] chars : permutatedList){
-//            System.out.println(String.valueOf(chars));
-//        }
+    //较慢方法
+    public static List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> res = new ArrayList<>();
+        if (s == null || words == null || words.length == 0) return res;
+        int wL = words[0].length(); // length of each word
+        HashMap<String, Integer> map = new HashMap<>(); // map for words
+        for (String w : words) map.put(w, map.containsKey(w) ? map.get(w) + 1 : 1);
+        for (int i = 0; i <= s.length() - wL*words.length; i++) {
+            HashMap<String, Integer> copy = new HashMap<>(map);
+            for (int j = 0; j < words.length; j++) { // checkc if match
+                String str = s.substring(i + j*wL, i + j*wL + wL); // next word
+                if (copy.containsKey(str)) { // is in remaining words
+                    int count = copy.get(str);
+                    if (count == 1) copy.remove(str);
+                    else copy.put(str, count - 1);
+                    if (copy.isEmpty()) { // matches
+                        res.add(i);
+                        break;
+                    }
+                } else break; // not in words
+            }
+        }
+        return res;
     }
-
 
     /** TODO
      * http://segmentfault.com/a/1190000002625580
@@ -76,22 +75,19 @@ public class SubstringWithConcatenationOfAllWords {
      * @param words
      * @return
      */
-    public List<Integer> findSubstring(String s, String[] words) {
+    public List<Integer> findSubstring1(String s, String[] words) {
         List<Integer> indexes = new ArrayList<>();
         if (s == null || s.length() == 0 || words == null || words.length == 0) return indexes;
-        int wLen = words[0].length();
-        HashMap<String,Integer> book = new HashMap<String,Integer>();
-        for (int k = 0; k < words.length; k++){
-            if (book.containsKey(words[k])) book.put(words[k], book.get(words[k]) + 1);
-            else book.put(words[k], 1);
-        }
-        for(int i = 0; i < wLen; i++) {
-            HashMap<String,Integer> curMap = new HashMap<String,Integer>();
+        int wL = words[0].length();
+        HashMap<String,Integer> book = new HashMap<>();
+        for (String w: words) book.put(w, book.containsKey(w)? book.get(w)+1 : 1);
+        for(int i = 0; i < wL; i++) {
+            HashMap<String,Integer> curMap = new HashMap<>();
             int count = 0;
             int left = i;   //left标记，记录滑块左起点
             //以单词长度为步长，遍历目标字符串
-            for(int right = i; right <= s.length() - wLen; right += wLen) {
-                String str = s.substring(right, right + wLen);
+            for(int right = i; right <= s.length() - wL; right += wL) {
+                String str = s.substring(right, right + wL);
                 if(book.containsKey(str)) { //当前单词在总单词表内
                     //set frequency in current map
                     if(curMap.containsKey(str)) curMap.put(str, curMap.get(str) + 1);
@@ -101,14 +97,14 @@ public class SubstringWithConcatenationOfAllWords {
                     else {
                         while(curMap.get(str) > book.get(str)) {
                             //根据左起点left收缩滑块
-                            String temp = s.substring(left, left + wLen);
+                            String temp = s.substring(left, left + wL);
                             //直到收缩到与当前单词相同的字符串片段
                             if(curMap.containsKey(temp)) {
                                 //将其剔除之后，滑块的收缩工作完成
                                 curMap.put(temp, curMap.get(temp) - 1);
                                 if(curMap.get(temp) < book.get(temp)) count--;
                             }
-                            left += wLen;
+                            left += wL;
                         }
                     }
                     //如果当前count计数等于单词集合长度
@@ -116,17 +112,17 @@ public class SubstringWithConcatenationOfAllWords {
                         //记录下left左起点的位置
                         indexes.add(left);
                         //将left右移
-                        String temp = s.substring(left, left + wLen);
+                        String temp = s.substring(left, left + wL);
                         //当前滑块中相应单词计数减1
                         if(curMap.containsKey(temp)) curMap.put(temp, curMap.get(temp) - 1);
                         //总计数减1
                         count--;
-                        left += wLen;
+                        left += wL;
                     }
                 } else {    //当前单词不在总单词表内
                     curMap.clear();
                     count = 0;
-                    left = right + wLen;
+                    left = right + wL;
                 }
             }
         }
@@ -143,85 +139,11 @@ public class SubstringWithConcatenationOfAllWords {
      * @param words
      * @return
      */
-    public List<Integer> findSubstring1(String s, String[] words) {
-        List<Integer> indexes = new ArrayList<>();
-        if (s == null || words == null || words.length == 0) return indexes;
-        HashMap<String, Integer> map;
-        for (int i = 0; i <= s.length() - words.length * words[0].length(); i++){//TODO 注意取等
-            //也可以采用HashMap.clone()进行浅拷贝（针对基本类型和String类型可以说是“深拷贝”）
-            map = new HashMap<>();
-            for (int k = 0; k < words.length; k++){
-                if (map.get(words[k]) != null) map.put(words[k], map.get(words[k]) + 1);
-                else map.put(words[k], 1);
-            }
-            int count = 0;
-            int headIndex = 0;
-            for (int j = i; j < s.length(); j += words[0].length()){ //匹配内的循环，步长为一个word长度
-                String temp = s.substring(j, j + words[0].length());
-                if (map.get(temp) != null && map.get(temp) > 0){    //匹配words中存在的字
-                    map.put(temp, map.get(temp) - 1);
-                    count++;
-                    if (count == 1){    //标记匹配的头索引
-                        headIndex = j;
-                    }
-                    if (count == words.length){ //全匹配
-                        indexes.add(headIndex);
-                        break;
-                    }
-                }else{  //不匹配则跳出循环
-                    break;
-                }
-            }
-        }
-        return indexes;
-    }
-
 
     /**
      * TODO 全排列words再匹配，超时
      * 超时用例：
-     * "pjzkrkevzztxductzzxmxsvwjkxpvukmfjywwetvfnujhweiybwvvsrfequzkhossmootkmyxgjgfordrpapjuunmqnxxdrqrfgkrsjqbszgiqlcfnrpjlcwdrvbumtotzylshdvccdmsqoadfrpsvnwpizlwszrtyclhgilklydbmfhuywotjmktnwrfvizvnmfvvqfiokkdprznnnjycttprkxpuykhmpchiksyucbmtabiqkisgbhxngmhezrrqvayfsxauampdpxtafniiwfvdufhtwajrbkxtjzqjnfocdhekumttuqwovfjrgulhekcpjszyynadxhnttgmnxkduqmmyhzfnjhducesctufqbumxbamalqudeibljgbspeotkgvddcwgxidaiqcvgwykhbysjzlzfbupkqunuqtraxrlptivshhbihtsigtpipguhbhctcvubnhqipncyxfjebdnjyetnlnvmuxhzsdahkrscewabejifmxombiamxvauuitoltyymsarqcuuoezcbqpdaprxmsrickwpgwpsoplhugbikbkotzrtqkscekkgwjycfnvwfgdzogjzjvpcvixnsqsxacfwndzvrwrycwxrcismdhqapoojegggkocyrdtkzmiekhxoppctytvphjynrhtcvxcobxbcjjivtfjiwmduhzjokkbctweqtigwfhzorjlkpuuliaipbtfldinyetoybvugevwvhhhweejogrghllsouipabfafcxnhukcbtmxzshoyyufjhzadhrelweszbfgwpkzlwxkogyogutscvuhcllphshivnoteztpxsaoaacgxyaztuixhunrowzljqfqrahosheukhahhbiaxqzfmmwcjxountkevsvpbzjnilwpoermxrtlfroqoclexxisrdhvfsindffslyekrzwzqkpeocilatftymodgztjgybtyheqgcpwogdcjlnlesefgvimwbxcbzvaibspdjnrpqtyeilkcspknyylbwndvkffmzuriilxagyerjptbgeqgebiaqnvdubrtxibhvakcyotkfonmseszhczapxdlauexehhaireihxsplgdgmxfvaevrbadbwjbdrkfbbjjkgcztkcbwagtcnrtqryuqixtzhaakjlurnumzyovawrcjiwabuwretmdamfkxrgqgcdgbrdbnugzecbgyxxdqmisaqcyjkqrntxqmdrczxbebemcblftxplafnyoxqimkhcykwamvdsxjezkpgdpvopddptdfbprjustquhlazkjfluxrzopqdstulybnqvyknrchbphcarknnhhovweaqawdyxsqsqahkepluypwrzjegqtdoxfgzdkydeoxvrfhxusrujnmjzqrrlxglcmkiykldbiasnhrjbjekystzilrwkzhontwmehrfsrzfaqrbbxncphbzuuxeteshyrveamjsfiaharkcqxefghgceeixkdgkuboupxnwhnfigpkwnqdvzlydpidcljmflbccarbiegsmweklwngvygbqpescpeichmfidgsjmkvkofvkuehsmkkbocgejoiqcnafvuokelwuqsgkyoekaroptuvekfvmtxtqshcwsztkrzwrpabqrrhnlerxjojemcxel"
      ["dhvf","sind","ffsl","yekr","zwzq","kpeo","cila","tfty","modg","ztjg","ybty","heqg","cpwo","gdcj","lnle","sefg","vimw","bxcb"]
      */
-    static List<char[]> permutatedList = new ArrayList<>();
-    public List<Integer> findSubstring2(String s, String[] words) {
-        List<Integer> indexes = new ArrayList<>();
-        if (s == null || words == null || words.length == 0) return indexes;
-
-        permutation(words, 0, words.length);
-
-        for (int i = 0; i < s.length(); i++){
-            for (char[] tempCombinedArray : permutatedList){
-                if (i + tempCombinedArray.length < s.length()){
-                    String temp = s.substring(i, i + tempCombinedArray.length);
-                    if (temp.equals(String.valueOf(tempCombinedArray))) indexes.add(i);
-                }
-            }
-        }
-        return indexes;
-    }
-    private StringBuilder builder;
-    private void permutation(String[] str, int start, int len) {
-        if (start == len - 1) {
-            builder = new StringBuilder();
-            for (int i = 0; i < len; i ++) {
-                builder.append(str[i]);
-            }
-            permutatedList.add(builder.toString().toCharArray());
-        }
-        else {
-            for (int i = start; i < len; i ++) {
-                swap(str, start, i);
-                permutation(str, start + 1, len);
-                swap(str, start, i);
-            }
-        }
-
-    }
-    private void swap(String[] s, int i, int j) {
-        String temp = s[i];
-        s[i] = s[j];
-        s[j] = temp;
-    }
 
 }

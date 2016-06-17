@@ -16,20 +16,32 @@ import java.util.List;
  */
 public class SpiralMatrixII {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-        int[][] matrix = new SpiralMatrixII().generateMatrix(5);
-        for (int[] i : matrix){
-            for (int j : i){
-                System.out.print(j + " ");
+    //与SpiralMatrix思路一致,此法不易出错
+    public int[][] generateMatrix(int n){
+        int[][] res = new int[n][n];
+        n -= 1;
+        int m = n;
+        int r = 0, c = 0;   //begin
+        int k = 1;
+        while (r<=m && c<=n){
+            for (int j=c; j<=n; j++) res[r][j] = k++;
+            r++;
+            for (int i=r; i<=m; i++) res[i][n] = k++;
+            n--;
+            if (r<=m){
+                for (int j=n; j>=c; j--) res[m][j] = k++;
             }
-            System.out.println();
+            m--;
+            if (c<=n){
+                for (int i=m; i>=r; i--) res[i][c] = k++;
+            }
+            c++;
         }
+        return res;
     }
 
-
     //若只剩下一行/列，则只处理此行/列，其余按circle方式处理
-    public int[][] generateMatrix(int n) {
+    public int[][] generateMatrix1(int n) {
         int[][] matrix = new int[n][n];
         if (n == 0) return matrix;
         if (n == 1) {
