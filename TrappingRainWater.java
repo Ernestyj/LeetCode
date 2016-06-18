@@ -42,20 +42,20 @@ public class TrappingRainWater {
      */
     public int trap1(int[] height) {
         if (height == null || height.length <= 2) return 0;
-        int[] leftMostHeight = new int[height.length];
+        int[] lMax = new int[height.length];
         int len = height.length;
         int max = height[0];
         int trapped = 0;
-        for (int i = 0; i < len; i++){    //left -> right
-            leftMostHeight[i] = max;
-            if (height[i] > max) max = height[i];
+        for (int i = 0; i<len; i++){    //left -> right
+            lMax[i] = max;
+            if (height[i]>max) max = height[i];
         }
-        max = height[len - 1];
-        for (int i = len - 1; i >= 0; i--){    //right -> left
-            if (Math.min(leftMostHeight[i], max) > height[i]){
-                trapped += Math.min(leftMostHeight[i], max) - height[i];
+        max = height[len-1];
+        for (int i = len-1; i>=0; i--){    //right -> left
+            if (Math.min(lMax[i], max) > height[i]){
+                trapped += Math.min(lMax[i], max) - height[i];
             }
-            if (height[i] > max) max = height[i];
+            if (height[i]>max) max = height[i];
         }
         return trapped;
     }

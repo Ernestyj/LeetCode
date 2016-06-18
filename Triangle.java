@@ -28,12 +28,12 @@ public class Triangle {
      * @return
      */
     public int minimumTotal(List<List<Integer>> triangle) {
-        int rowNum = triangle.size();
-        if (rowNum==0) return 0;
-        int[] sum = new int[rowNum];
-        for (int i=0; i<triangle.get(rowNum-1).size(); i++)
-            sum[i] = triangle.get(rowNum-1).get(i);
-        for (int i=rowNum-2; i>=0; i--){
+        int m = triangle.size();
+        if (m==0) return 0;
+        int[] sum = new int[m];
+        for (int i=0; i<triangle.get(m-1).size(); i++)
+            sum[i] = triangle.get(m-1).get(i);
+        for (int i=m-2; i>=0; i--){
             for (int j=0; j<triangle.get(i).size(); j++)
                 sum[j] = Math.min(sum[j], sum[j+1]) + triangle.get(i).get(j);
         }

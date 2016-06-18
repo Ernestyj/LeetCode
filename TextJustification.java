@@ -1,6 +1,7 @@
 package leetcode61_70;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,14 +22,40 @@ import java.util.List;
  * Created by DCLab on 12/20/2015.
  */
 public class TextJustification {
-
-    public static void main(String[] args) {
-        String[] words = {"This", "is", "an", "example", "of", "text", "justification."};
-        int maxWidth = 16;
-        System.out.println("*****RESULT*****");
-        System.out.println(new TextJustification().fullJustify(words, maxWidth));
+    //TODO 待处理
+    /**https://leetcode.com/discuss/13610/share-my-concise-c-solution-less-than-20-lines
+     * For each line, I first figure out which words can fit in. According to the code,
+     these words are words[i] through words[i+k-1]. Then spaces are added between the words.
+     The trick here is to use mod operation to manage the spaces that can't be evenly distrubuted:
+     the first (L-l) % (k-1) gaps acquire an additional space.
+     * @param words
+     * @param L
+     * @return
+     */
+    public List<String> fullJustify(String[] words, int L) {
+        List<String> list = new LinkedList<>();
+        for (int i = 0, w; i < words.length; i = w) {
+            int len = -1;
+            for (w = i; w < words.length && len + words[w].length() + 1 <= L; w++) {
+                len += words[w].length() + 1;
+            }
+            StringBuilder strBuilder = new StringBuilder(words[i]);
+            int space = 1, extra = 0;
+            if (w != i + 1 && w != words.length) { // not 1 char, not last line
+                space = (L - len) / (w - i - 1) + 1;
+                extra = (L - len) % (w - i - 1);
+            }
+            for (int j = i + 1; j < w; j++) {
+                for (int s = space; s > 0; s--) strBuilder.append(' ');
+                if (extra-- > 0) strBuilder.append(' ');
+                strBuilder.append(words[j]);
+            }
+            int strLen = L - strBuilder.length();
+            while (strLen-- > 0) strBuilder.append(' ');
+            list.add(strBuilder.toString());
+        }
+        return list;
     }
-
 
     /**TODO 边界极易出错 HARD
      * 每行中，有下一个单词，才需要补一个空格。
@@ -38,7 +65,7 @@ public class TextJustification {
      * @param maxWidth
      * @return
      */
-    public List<String> fullJustify(String[] words, int maxWidth) {
+    public List<String> fullJustify1(String[] words, int maxWidth) {
         ArrayList<String> res = new ArrayList<>();
         if(words==null || words.length==0) return res;
         int count = 0;

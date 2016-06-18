@@ -9,18 +9,8 @@ package leetcode61_70;
  */
 public class UniquePathsII {
 
-    public static void main(String[] args) {
-//        int[][] obstacleGrid = {{0,0,0},
-//                                {0,1,0},
-//                                {0,0,0}};
-        int[][] obstacleGrid = {{1}};
-        System.out.println("*****RESULT*****");
-        System.out.println(new UniquePathsII().uniquePathsWithObstacles(obstacleGrid));
-    }
-
-
     /**
-     * 动态规划：res[i][j]=res[i-1][j]+res[i][j-1]
+     * 动态规划：res[i][j]=res[i-1][j]+res[i][j-1] 与UniquePaths一样,多了障碍判断
      * @param obstacleGrid
      * @return
      */

@@ -14,41 +14,26 @@ import java.util.Arrays;
  */
 public class ThreeSumClosest {
 
-    public static void main(String[] args) {
-        int[] nums = {1,1,1,0,0,0,0,0,0,0,0};  //{-1, 2, 1, -4}排序后是 -4 -1 1 2
-        int target = -1000;
-        int result = new ThreeSumClosest().threeSumClosest(nums, target);
-
-        System.out.println("************************");
-        System.out.print(result);
-
-    }
-
-
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
         int closestDiff = Integer.MAX_VALUE;
-        int threeSum = 0;
+        int result = 0;
         for (int i = 0; i < nums.length - 2; i++){
             if (i > 0 && nums[i] == nums[i - 1]) continue;  //去重
-            int m = i + 1;
-            int n = nums.length - 1;
-            while (m < n){
-                int tempThreeSum = nums[m] + nums[n] + nums[i];
-                int tempDiff = Math.abs(tempThreeSum - target);
-                if (tempThreeSum == target) return tempThreeSum;
-                else if (tempThreeSum > target){
-                    n--;
-                } else {
-                    m++;
-                }
-                if (tempDiff < closestDiff){
-                    threeSum = tempThreeSum;
-                    closestDiff = tempDiff;
+            int l = i + 1, r = nums.length - 1;
+            while (l < r){
+                int sum = nums[l] + nums[r] + nums[i];
+                if (sum == target) return sum;
+                else if (sum > target) r--;
+                else l++;
+                int diff = Math.abs(sum - target);
+                if (diff < closestDiff){
+                    result = sum;
+                    closestDiff = diff;
                 }
             }
         }
-        return threeSum;
+        return result;
     }
 
 

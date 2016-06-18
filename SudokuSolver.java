@@ -9,64 +9,45 @@ package leetcode31_40;
  */
 public class SudokuSolver {
 
-    public static void main(String[] args) {
-        String[] input = {"..9748...","7........",".2.1.9...","..7...24.",".64.1.59.",".98...3..","...8.3.2.","........6","...2759.."};
-        char[][] in = new char[9][9];
-        for (int i = 0; i < 9; i++) in[i] = input[i].toCharArray();
-
-        System.out.println("*****RESULT*****");
-        new SudokuSolver().solveSudoku(in);
-        for (int row = 0; row < 9; ++row) {
-            for (int col = 0; col < 9; ++col) System.out.print(in[row][col] + " ");
-            System.out.println();
-        }
-    }
-
-
     /**
-     * 回溯法
-     * 和Valid Sudoku这题相比，此题中的输入保证是有效的。这样用回溯法我们只要检查新加入的值
+     * 回溯法 TODO 注意此回溯法的特点
+     * 和Valid Sudoku这题相比，此题中的输入是合法的。这样用回溯法我们只要检查新加入的值
      * 能否在行、列以及小方块里有效即可，没有必要检查整个矩阵。
      * http://www.cnblogs.com/panda_lin/archive/2013/11/04/sudoku_solver.html
      * @param board
      */
     public void solveSudoku(char[][] board) {
-        backTrackSolveSudoku(board);
+        dfs(board);
     }
-    private boolean backTrackSolveSudoku(char[][] board){
-        for (int row = 0; row < 9; ++row) {
-            for (int col = 0; col < 9; ++col) {
-
-                if (board[row][col] == '.'){
-                    for (char c = '1'; c <= '9'; c++){
-                        board[row][col] = c;
-                        if (isValidSudoku(board, row, col)){    //限制条件
-                            if (backTrackSolveSudoku(board)) return true;
+    private boolean dfs(char[][] board){
+        for (int r=0; r<9; ++r) {
+            for (int c=0; c<9; ++c) {
+                if (board[r][c]=='.'){
+                    for (char ch='1'; ch<='9'; ch++){
+                        board[r][c] = ch;
+                        if (isValidSudoku(board, r, c)){    //限制条件
+                            if (dfs(board)) return true;
                         }
-                        board[row][col] = '.';
+                        board[r][c] = '.';
                     }
                     return false;
                 }
-
             }
         }
         return true;
     }
-    //只要检查新加入的值能否在行、列以及小方块里有效即可，没有必要检查整个矩阵
+    //TODO 注意如何计算所在3*3 block的起始行号/列号
     private boolean isValidSudoku(char[][] board, int x, int y) {   //x,y为坐标
-        int row, col;
-        // Same value in the same column?
-        for (row = 0; row < 9; ++row) {
-            if ((x != row) && (board[row][y] == board[x][y])) return false;
+        int r, c;
+        for (r = 0; r<9; ++r) {   // Same value in the same c?
+            if ((x!=r) && (board[r][y]==board[x][y])) return false;
         }
-        // Same value in the same row?
-        for (col = 0; col < 9; ++col) {
-            if ((y != col) && (board[x][col] == board[x][y])) return false;
+        for (c = 0; c<9; ++c) {   // Same value in the same r?
+            if ((y!=c) && (board[x][c]==board[x][y])) return false;
         }
-        // Same value in the 3 * 3 block it belong to?
-        for (row = (x / 3) * 3; row < (x / 3 + 1) * 3; ++row) {
-            for (col = (y / 3) * 3; col < (y / 3 + 1) * 3; ++col) {
-                if ((x != row) && (y != col) && (board[row][col] == board[x][y])) return false;
+        for (r = (x/3)*3; r < (x/3+1)*3; ++r) {   // Same value in the 3 * 3 block it belong to?
+            for (c = (y/3)*3; c < (y/3+1)*3; ++c) {
+                if ((x!=r) && (y!=c) && (board[r][c]==board[x][y])) return false;
             }
         }
         return true;

@@ -1,6 +1,7 @@
 package leetcode31_40;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
@@ -10,21 +11,33 @@ import java.util.HashMap;
  */
 public class ValidSudoku {
 
-    public static void main(String[] args) {
-        String[] input = {".87654321","2........","3........","4........","5........","6........","7........",
-                "8........","9........"};
-        char[][] in = new char[9][9];
-        for (int i = 0; i < 9; i++) in[i] = input[i].toCharArray();
-
-        System.out.println("*****RESULT*****");
-        boolean result = new ValidSudoku().isValidSudoku(in);
-        System.out.println(result);
+    //简洁,不易出错  https://leetcode.com/discuss/17990/sharing-my-easy-understand-java-solution-using-set
+    public boolean isValidSudoku(char[][] board) {
+        for (int i=0; i<9; i++) {
+            if (!partValid(board,i,0,i,8)) return false;    //每行
+            if (!partValid(board,0,i,8,i)) return false;    //每列
+        }
+        for (int i=0;i<3;i++){  //每3*3单元
+            for(int j=0;j<3;j++){
+                if (!partValid(board,i*3,j*3,i*3+2,j*3+2)) return false;
+            }
+        }
+        return true;
+    }
+    private boolean partValid(char[][] board, int x1, int y1, int x2, int y2){
+        HashSet set = new HashSet();
+        for (int i=x1; i<=x2; i++){
+            for (int j=y1; j<=y2; j++){
+                if (board[i][j]!='.') if(!set.add(board[i][j])) return false;
+            }
+        }
+        return true;
     }
 
     // Brute force，对每个九宫格，行号起始block/3*3，列号起始block%3*3
     // 如果把九宫格按照行从0开始标号，那么数字board[i][j]位于第 i/3*3+j/3 个九宫格内
     // 时间复杂度：O(3*n^2), n=9
-    public boolean isValidSudoku(char[][] board) {
+    public boolean isValidSudoku1(char[][] board) {
         int len = board[0].length;
         HashMap<Character, Integer> map, book = new HashMap<>();
         for (char c = '1'; c <= '9'; c++) book.put(c, 0);

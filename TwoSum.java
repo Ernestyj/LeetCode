@@ -19,13 +19,6 @@ import java.util.Map;
  */
 public class TwoSum {
 
-    public static void main(String[] args) {
-        int[] nums = {0, 4, 3, 0};
-//        int[] indexes = new TwoSum().twoSumBruteForce(nums, 9);
-        int[] indexes = new TwoSum().twoSum(nums, 0);
-        System.out.print("index1: " + indexes[0] + ", index2: " + indexes[1]);
-    }
-
     /**O(n)
      * http://www.programcreek.com/2012/12/leetcode-solution-of-two-sum-in-java/
      * @param numbers
@@ -40,10 +33,9 @@ public class TwoSum {
                 int index = map.get(numbers[i]);
                 result[0] = index;
                 result[1] = i;
-                break;
-            } else {
+                return result;
+            } else
                 map.put(target - numbers[i], i);
-            }
         }
         return result;
     }
