@@ -11,12 +11,31 @@ package leetcode121_130;
  */
 public class ValidPalindrome {
 
-    /**
-     * 正则表达式与双指针。
-     * @param s
-     * @return
-     */
+    //不借助正则,最快
     public boolean isPalindrome(String s) {
+        if (s.isEmpty()) return true;
+        int l = 0, r = s.length()-1;
+        char c1, c2;
+        while(l<r) {
+            c1 = s.charAt(l); c2 = s.charAt(r);
+            if (!Character.isLetterOrDigit(c1)) l++;
+            else if(!Character.isLetterOrDigit(c2)) r--;
+            else {
+                if (Character.toLowerCase(c1) != Character.toLowerCase(c2)) return false;
+                l++; r--;
+            }
+        }
+        return true;
+    }
+
+    //取巧
+    public boolean isPalindrome1(String s) {
+        String actual = s.replaceAll("[^A-Za-z0-9]", "").toLowerCase();
+        String rev = new StringBuffer(actual).reverse().toString();
+        return actual.equals(rev);
+    }
+
+    public boolean isPalindrome2(String s) {
         if (s==null) return false;
         if (s.length()<=1) return true;
         s = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();

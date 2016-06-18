@@ -14,15 +14,14 @@ import java.util.Stack;
  */
 public class ValidParentheses {
 
-    //巧妙法
+    //巧妙法,但速度很慢
     public boolean isValid(String s) {
-        int length;
-        do {
-            length = s.length();
+        int preLen = -1;
+        while (preLen!=s.length()){
+            preLen = s.length();
             s = s.replace("()", "").replace("{}", "").replace("[]", "");
-        } while(length != s.length());
-
-        return s.length() == 0;
+        }
+        return s.length()==0;
     }
 
     public boolean isValid1(String s) {
@@ -49,8 +48,7 @@ public class ValidParentheses {
                     break;
             }
         }
-        if (!stack.isEmpty()) return false; //TODO 易漏 如"("这种情况应排除
-        return true;
+        return stack.isEmpty(); //TODO 易漏 如"("这种情况应排除
     }
 
 }
