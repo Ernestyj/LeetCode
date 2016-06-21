@@ -1,5 +1,6 @@
 package leetcode121_130;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
@@ -24,13 +25,11 @@ public class WordLadder {
     class WordNode{
         String word;
         int numSteps;
-
         public WordNode(String word, int numSteps){
             this.word = word;
             this.numSteps = numSteps;
         }
     }
-
     /**
      * http://www.programcreek.com/2012/12/leetcode-word-ladder/
      * 分支限界法(BFS,最短路径),算法引入WordNode数据结构
@@ -39,14 +38,14 @@ public class WordLadder {
      * @param wordList
      * @return
      */
-    public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
+    public int ladderLength1(String beginWord, String endWord, Set<String> wordList) {
         Queue<WordNode> queue = new LinkedList<>();
         queue.add(new WordNode(beginWord, 1));
         wordList.add(endWord);
         while(!queue.isEmpty()){
-            WordNode top = queue.remove();
-            String word = top.word;
-            if(word.equals(endWord)) return top.numSteps;
+            WordNode node = queue.remove();
+            String word = node.word;
+            if(word.equals(endWord)) return node.numSteps;
 
             char[] chars = word.toCharArray();
             for(int i=0; i<chars.length; i++){
@@ -55,7 +54,7 @@ public class WordLadder {
                     if(chars[i]!=c) chars[i] = c;
                     String newWord = new String(chars);
                     if(wordList.contains(newWord)){
-                        queue.add(new WordNode(newWord, top.numSteps+1));
+                        queue.add(new WordNode(newWord, node.numSteps+1));
                         wordList.remove(newWord);
                     }
                     chars[i] = temp;

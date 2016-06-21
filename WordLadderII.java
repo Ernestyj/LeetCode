@@ -19,22 +19,6 @@ import java.util.*;
  */
 public class WordLadderII {
 
-    public static void main(String[] args) {
-        String beginWord = "a";
-        String endWord = "c";
-        Set<String> wordList = new HashSet<>();
-        wordList.add("a");
-        wordList.add("b");
-        wordList.add("c");
-        List<List<String>> result = new WordLadderII().findLadders(beginWord, endWord, wordList);
-        for (List<String> list : result){
-            for (String s : list){
-                System.out.print(s + " ");
-            }
-            System.out.println();
-        }
-    }
-
     class WordNode{
         String word;
         List<String> transformList; //TODO 这里可以改成存储WordNode pre来优化性能
@@ -78,13 +62,11 @@ public class WordLadderII {
                 minSteps = curSteps;
                 result.add(top.transformList);
             }
-
             //只有转换步数发生变化,才从字典中移除(观察到不同转换序列不可能出现重复的词,除了首尾两个词)
             if (curSteps > preSteps) {
                 unVisited.removeAll(visited);
                 preSteps = curSteps;
             }
-
             char[] chars = top.word.toCharArray();
             for (int i=0; i<chars.length; i++){
                 char origin = chars[i];

@@ -1,8 +1,6 @@
 package leetcode131_140;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**Given a string s and a dictionary of words dict, add spaces in s
  to construct a sentence where each word is a valid dictionary word.
@@ -14,6 +12,35 @@ import java.util.Set;
  * Created by eugene on 16/2/28.
  */
 public class WordBreakII {
+    //TODO 重温
+    /**https://leetcode.com/discuss/65692/my-concise-java-solution-based-on-memorized-dfs
+     * Using DFS directly will lead to TLE,
+     so used HashMap to save the previous results to prune duplicated branches
+     * @param s
+     * @param wordDict
+     * @return
+     */
+    public List<String> wordBreak(String s, Set<String> wordDict) {
+        return dfs(s, wordDict, new HashMap<>());
+    }
+    List<String> dfs(String s, Set<String> wordDict, HashMap<String, LinkedList<String>> map) {
+        if (map.containsKey(s)) return map.get(s);  //TODO 重复情况直接返回,提速
+        LinkedList<String> list = new LinkedList<>();
+        if (s.length() == 0) {  //TODO 便于末尾情况处理
+            list.add("");
+            return list;
+        }
+        for (String word : wordDict) {
+            if (s.startsWith(word)) {
+                List<String> sublist = dfs(s.substring(word.length()), wordDict, map);
+                for (String w: sublist)
+                    list.add(word + (w.isEmpty()? "" : " ") + w);
+            }
+        }
+        map.put(s, list);
+        return list;
+    }
+
 
     /**
      * DP+回溯,与Word Break I不同在于用数组记录断词处有哪些单词,而不是简单记录布尔数组.
@@ -23,7 +50,7 @@ public class WordBreakII {
      * @param wordDict
      * @return
      */
-    public List<String> wordBreak(String s, Set<String> wordDict) {
+    public List<String> wordBreak1(String s, Set<String> wordDict) {
         List<String> result = new ArrayList<>();
         List<String> dp[] = new ArrayList[s.length()+1];
         dp[0] = new ArrayList<>();
@@ -54,29 +81,6 @@ public class WordBreakII {
             tmp.add(str);
             dfs(dp, end-str.length(), result, tmp);
             tmp.remove(tmp.size()-1);
-        }
-    }
-
-    //回溯,但无法过大数据集(可以尝试引入剪枝函数提速)
-    public List<String> wordBreak1(String s, Set<String> wordDict) {
-        List<String> result = new ArrayList<>();
-        wordBreakHelper(s, wordDict, 0, result, new StringBuilder());
-        return result;
-    }
-    private void wordBreakHelper(String s, Set<String> wordDict, int start,
-                                 List<String> result, StringBuilder builder){
-        if (start==s.length()){
-            result.add(builder.toString().trim());
-            return;
-        }
-        for (int i=start+1; i<s.length(); i++){
-            String str = s.substring(start, i+1);
-            if (wordDict.contains(str)) {
-                int len = builder.length();
-                builder.append(" "+str);
-                wordBreakHelper(s, wordDict, i+1, result, builder);
-                builder.delete(len, len+str.length()+1);
-            }
         }
     }
 
