@@ -8,7 +8,19 @@ package leetcode151_160;
  */
 public class FindMinimumInRotatedSortedArray {
 
+    //简洁,但是非标准二分形式
     public int findMin(int[] nums) {
+        int l = 0, r = nums.length-1;
+        while(l<r){
+            int m = l+(r-l)/2;
+            if(nums[m]>nums[r]) l = m+1;
+            else r = m; //TODO 此处不是r = m+1
+        }
+        return nums[l];
+    }
+
+
+    public int findMin1(int[] nums) {
         int l = 0, r = nums.length - 1;
         int m = 0;
         int min = Integer.MAX_VALUE;
