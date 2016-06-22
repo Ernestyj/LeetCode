@@ -20,14 +20,21 @@ package leetcode281_290;
  */
 public class GameOfLife {
 
-    //简洁
-    int[][] dir ={{1,-1},{1,0},{1,1},{0,-1},{0,1},{-1,-1},{-1,0},{-1,1}};
+    /**注意如何引入预定义directions简化代码
+     * 注意如何设定状态机值
+     状态0： 死细胞转为死细胞
+     状态1： 活细胞转为活细胞
+     状态2： 活细胞转为死细胞
+     状态3： 死细胞转为活细胞
+     最后我们对所有状态对2取余，那么状态0和2就变成死细胞，状态1和3就是活细胞.
+     */
+    int[][] directions ={{1,-1},{1,0},{1,1},{0,-1},{0,1},{-1,-1},{-1,0},{-1,1}};
     public void gameOfLife(int[][] board) {
         int m = board.length, n = board[0].length;
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 int live=0;
-                for(int[] d:dir){
+                for(int[] d: directions){
                     if(d[0]+i<0 || d[0]+i>=m || d[1]+j<0 || d[1]+j>=n) continue;
                     if(board[d[0]+i][d[1]+j]==1 || board[d[0]+i][d[1]+j]==2) live++;
                 }
@@ -37,61 +44,6 @@ public class GameOfLife {
         }
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                board[i][j] %= 2;
-            }
-        }
-    }
-
-    /**
-     * 状态0： 死细胞转为死细胞
-     状态1： 活细胞转为活细胞
-     状态2： 活细胞转为死细胞
-     状态3： 死细胞转为活细胞
-     最后我们对所有状态对2取余，那么状态0和2就变成死细胞，状态1和3就是活细胞.
-     * @param board
-     */
-    public void gameOfLife1(int[][] board) {
-        int m = board.length, n = board[0].length;
-        for (int i=0; i<m; i++){
-            for (int j=0; j<n; j++){
-                int count = 0;
-                if (i-1>=0 && j-1>=0) {
-                    if (board[i-1][j-1]==1 || board[i-1][j-1]==2) count++;
-                }
-                if (i-1>=0) {
-                    if (board[i-1][j]==1 || board[i-1][j]==2) count++;
-                }
-                if (i-1>=0 && j+1<n) {
-                    if (board[i-1][j+1]==1 || board[i-1][j+1]==2) count++;
-                }
-                if (j-1>=0) {
-                    if (board[i][j-1]==1 || board[i][j-1]==2) count++;
-                }
-                if (j+1<n) {
-                    if (board[i][j+1]==1 || board[i][j+1]==2) count++;
-                }
-                if (i+1<m && j-1>=0) {
-                    if (board[i+1][j-1]==1 || board[i+1][j-1]==2) count++;
-                }
-                if (i+1<m) {
-                    if (board[i+1][j]==1 || board[i+1][j]==2) count++;
-                }
-                if (i+1<m && j+1<n) {
-                    if (board[i+1][j+1]==1 || board[i+1][j+1]==1) count++;
-                }
-                if (board[i][j]==1){
-                    if (!(count==2 || count==3)){
-                        board[i][j] = 2;
-                    } else
-                        board[i][j] = 1;
-                } else {
-                    if (count==3) board[i][j] = 3;
-                    else board[i][j] = 0;
-                }
-            }
-        }
-        for (int i=0; i<m; ++i) {
-            for (int j=0; j<n; ++j) {
                 board[i][j] %= 2;
             }
         }

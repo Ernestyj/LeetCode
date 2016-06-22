@@ -3,7 +3,8 @@ package leetcode281_290;
 import java.util.ArrayList;
 import java.util.List;
 
-/**Given a string that contains only digits 0-9 and a target value, return all possibilities to add binary operators (not unary) +, -, or * between the digits so they evaluate to the target value.
+/**Given a string that contains only digits 0-9 and a target value, return all possibilities to
+ * add binary operators (not unary) +, -, or * between the digits so they evaluate to the target value.
  Examples:
  "123", 6 -> ["1+2+3", "1*2*3"]
  "232", 8 -> ["2*3+2", "2+3*2"]
@@ -24,11 +25,10 @@ public class ExpressionAddOperators {
     public List<String> addOperators(String num, int target) {
         ArrayList<String> result = new ArrayList<>();
         if(num==null || num.length()==0) return result;
-        helper(num, target, 0, "", result, 0, 0);
+        dfs(num, target, 0, "", result, 0, 0);
         return result;
     }
-    private void helper(String num, int target, int start, String path, List<String> result,
-                        long eval, long multed){
+    private void dfs(String num, int target, int start, String path, List<String> result, long eval, long multed){
         if (start==num.length()){
             if (target==eval) result.add(path);
             return;
@@ -39,12 +39,12 @@ public class ExpressionAddOperators {
             }
             long x = Long.parseLong(num.substring(start, i+1));
             if (start==0)
-                helper(num, target, i+1, path+x, result, x, x);
+                dfs(num, target, i+1, path+x, result, x, x);
             else {
-                helper(num, target, i+1, path+"+"+x, result, eval+x, x);
-                helper(num, target, i+1, path+"-"+x, result, eval-x, -x);
+                dfs(num, target, i+1, path+"+"+x, result, eval+x, x);
+                dfs(num, target, i+1, path+"-"+x, result, eval-x, -x);
                 //减去之前操作的,再加上相乘值
-                helper(num, target, i+1, path+"*"+x, result, eval-multed+multed*x, multed*x);
+                dfs(num, target, i+1, path+"*"+x, result, eval-multed+multed*x, multed*x);
             }
         }
     }
