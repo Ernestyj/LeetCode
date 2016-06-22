@@ -5,8 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.TreeSet;
 
-/**Given an array of integers, find out whether there are two distinct indices i and j in the array such that
- the difference between nums[i] and nums[j] is at most t and the difference between i and j is at most k.
+/**Given an array of integers, find out whether there are two distinct indices i and j
+ in the array such that the difference between nums[i] and nums[j] is at most t
+ and the difference between i and j is at most k.
  * Created by eugene on 16/4/14.
  */
 public class ContainsDuplicateIII {
@@ -23,11 +24,11 @@ public class ContainsDuplicateIII {
         if (k < 1 || t < 0) return false;
         TreeSet<Integer> set = new TreeSet<>();
         for (int i=0; i<nums.length; i++) {
-            int c = nums[i];
-            if ((set.floor(c)!=null && c<=set.floor(c)+t)
-                    || (set.ceiling(c)!=null && c>=set.ceiling(c)-t))
+            int n = nums[i];
+            if ((set.floor(n)!=null && n-set.floor(n)<=t)
+                    || (set.ceiling(n)!=null && set.ceiling(n)-n<=t))
                 return true;
-            set.add(c);
+            set.add(n);
             if (i>=k) set.remove(nums[i-k]);
         }
         return false;

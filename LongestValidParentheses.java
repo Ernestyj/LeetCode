@@ -12,7 +12,31 @@ import java.util.Stack;
  */
 public class LongestValidParentheses {
 
-    /**TODO 重温理解及记忆,尤其是代码最后一个else部分
+    /**https://leetcode.com/discuss/7609/my-o-n-solution-using-a-stack
+     * V[i] represents number of valid parentheses matches from S[j to i] (j<i)
+     V[i] = V[i-1]+2+previous matches V[i-(V[i-1]+2)], if S[i]==')' and open'('count > 0
+     * @param s
+     * @return
+     */
+    public int longestValidParentheses(String s) {
+        char[] chars = s.toCharArray();
+        int[] dp = new int[chars.length];
+        int open = 0;
+        int max = 0;
+        for (int i=0; i<chars.length; i++) {
+            if (chars[i]=='(') open++;
+            if (chars[i]==')' && open>0) {
+                dp[i] = 2+dp[i-1];  // matches found
+                if(i-dp[i]>0)   // add matches from previous
+                    dp[i] += dp[i-dp[i]];
+                open--;
+            }
+            if (dp[i]>max) max = dp[i];
+        }
+        return max;
+    }
+
+    /**TODO 难记; 重温理解及记忆,尤其是代码最后一个else部分
      * http://www.cnblogs.com/lichen782/p/leetcode_Longest_Valid_Parentheses.html
      * DP可解,但是大数据超时.
      * 用栈来存左括号的index，遍历s，遇到'('就放入lefts栈。
@@ -22,7 +46,7 @@ public class LongestValidParentheses {
      * @param s
      * @return
      */
-    public int longestValidParentheses(String s) {
+    public int longestValidParentheses1(String s) {
         int maxLen = 0, lastNoMatchRight = -1;  //TODO 注意赋值为-1的巧妙处
         Stack<Integer> lefts = new Stack<>();
         for (int i = 0; i < s.length(); ++i) {
@@ -42,46 +66,5 @@ public class LongestValidParentheses {
         }
         return maxLen;
     }
-
-
-    /**
-     * TODO 用例"()(()" 失败
-     * @param s
-     * @return
-     */
-    public int longestValidParentheses1(String s) {
-        if (s == null || s.length() == 0 || s.length() == 1) return 0;
-        char[] chars = s.toCharArray();
-        boolean canAddRight = false;
-        int len = 0;
-        int tempLen = 0;
-        int leftCount = 0;  //TODO 提速（用例："(((((((((((((..."）
-        Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < chars.length && leftCount <= chars.length - i + 1; i++){
-            if (chars[i] == '('){
-                stack.push(chars[i]);
-                leftCount++;
-                canAddRight = true;
-            }else if (chars[i] == ')' && canAddRight){
-                if (!stack.isEmpty() && stack.pop() == '('){
-                    leftCount--;
-                    tempLen += 2;
-                }
-                else {
-                    canAddRight = false;
-                    if (tempLen > len){
-                        len = tempLen;
-                        tempLen = 0;
-                        leftCount = 0;
-                    }
-                }
-            }
-        }
-        if (tempLen > len){
-            len = tempLen;
-        }
-        return len;
-    }
-
 
 }

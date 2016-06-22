@@ -8,51 +8,26 @@ import java.util.*;
 /**
  * Given an array of strings, group anagrams together.
  For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
- Return:
- [
- ["ate", "eat","tea"],
+ Return: [ ["ate", "eat","tea"],
  ["nat","tan"],
- ["bat"]
- ]
- Note:
- For the return value, each inner list's elements must follow the lexicographic order.
+ ["bat"] ]
+ Note: For the return value, each inner list's elements must follow the lexicographic order.
  All inputs will be in lower-case.
  * Created by DCLab on 12/2/2015.
  */
 public class GroupAnagrams {
 
-    public static void main(String[] args) {
-        String[] strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
-        System.out.println("*****RESULT*****");
-        List<List<String>> result = new GroupAnagrams().groupAnagrams(strs);
-        for (List<String> list : result){
-            for (String s : list){
-                System.out.print(s + " ");
-            }
-            System.out.println();
-        }
-    }
-
-
     //易位构词的排序结果是一样的
     public List<List<String>> groupAnagrams(String[] strs) {
         if(strs == null || strs.length == 0) return new ArrayList<>();
-        Arrays.sort(strs);
         HashMap<String, List<String>> books = new HashMap<>();
-        String s;
-        char[] chars;
-        List<String> temp;
+        Arrays.sort(strs);
         for (int i = 0; i < strs.length; i++){
-            chars = strs[i].toCharArray();
+            char[] chars = strs[i].toCharArray();
             Arrays.sort(chars);
-            s = String.valueOf(chars);
-            if (books.containsKey(s)){
-                books.get(s).add(strs[i]);
-            } else {
-                temp = new ArrayList<>();
-                temp.add(strs[i]);
-                books.put(s, temp);
-            }
+            String s = String.valueOf(chars);
+            if (!books.containsKey(s)) books.put(s, new ArrayList<>());
+            books.get(s).add(strs[i]);
         }
         return new ArrayList<>(books.values());
     }

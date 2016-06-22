@@ -17,6 +17,8 @@ public class GenerateParentheses {
     /**
      * https://leetcode.com/discuss/25063/easy-to-understand-java-backtracking-solution
      * 简洁,易理解与记忆
+     * 剪枝条件1，左右括号数小于num
+     * 剪枝条件2，左括号数>=右括号数
      * @param n
      * @return
      */

@@ -20,17 +20,16 @@ public class UglyNumberII {
      * @return
      */
     public int nthUglyNumber(int n) {
+        int[] primes = {2,3,5};
+        int[] idx = new int[3];
         int[] uglys = new int[n];
         uglys[0] = 1;
-        int i2 = 0, i3 = 0, i5 = 0;
-        for (int i = 1; i < n; i++) {   //共i,i2,i3,i5四个指针移动
-            int u2 = uglys[i2]*2, u3 = uglys[i3]*3, u5 = uglys[i5]*5;
-            // generate ugly number by multiply all the factors
-            uglys[i] = Math.min(u2, Math.min(u3, u5));
-            // bump up index for the current minimum ugly number
-            if (uglys[i] == u2) i2++;
-            if (uglys[i] == u3) i3++;   //不能用else if
-            if (uglys[i] == u5) i5++;
+        for (int i=1; i<n; i++) {
+            uglys[i] = Integer.MAX_VALUE;
+            for (int j=0; j<3; j++)
+                uglys[i] = Math.min(uglys[i], uglys[idx[j]]*primes[j]);
+            for (int j=0; j<3; j++) // bump up index for the current minimum ugly number
+                if (uglys[i]==uglys[idx[j]]*primes[j]) idx[j]++;
         }
         return uglys[n-1];
     }

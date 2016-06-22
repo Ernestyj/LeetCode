@@ -22,7 +22,7 @@ public class WordPattern {
     public boolean wordPattern(String pattern, String str) {
         String[] strings = str.split(" ");
         if (strings.length != pattern.length()) return false;
-        HashMap index = new HashMap();
+        HashMap index = new HashMap();  //TODO 没有指定类型
         for (Integer i=0; i<strings.length; ++i){   //TODO Integer不能写成int
             if (index.put(pattern.charAt(i), i) != index.put(strings[i], i))
                 return false;
