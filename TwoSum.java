@@ -19,47 +19,13 @@ import java.util.Map;
  */
 public class TwoSum {
 
-    /**O(n)
-     * http://www.programcreek.com/2012/12/leetcode-solution-of-two-sum-in-java/
-     * @param numbers
-     * @param target
-     * @return
-     */
-    public int[] twoSum(int[] numbers, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
-        int[] result = new int[2];
-        for (int i = 0; i < numbers.length; i++) {
-            if (map.containsKey(numbers[i])) {
-                int index = map.get(numbers[i]);
-                result[0] = index;
-                result[1] = i;
-                return result;
-            } else
-                map.put(target - numbers[i], i);
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i=0; i<nums.length; i++){
+            if(!map.containsKey(nums[i])) map.put(target-nums[i], i);
+            else return new int[]{map.get(nums[i]), i};
         }
-        return result;
-    }
-
-    /**
-     * bruteforce, 时间复杂度 n^2
-     * @param nums
-     * @param target
-     * @return
-     */
-    public int[] twoSum1(int[] nums, int target) {
-        int[] indexes = new int[2];
-
-        for (int i = 0; i < nums.length; i++){
-            for (int j = i + 1; j < nums.length; j++){
-                int sum = nums[i] + nums[j];
-                if (sum == target){
-                    indexes[0] = i;
-                    indexes[1] = j;
-                    return indexes;
-                }
-            }
-        }
-        return null;
+        return new int[2];
     }
 
 }

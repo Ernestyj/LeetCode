@@ -1,6 +1,7 @@
 package leetcode11_20;
 
 
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -25,27 +26,13 @@ public class ValidParentheses {
     }
 
     public boolean isValid1(String s) {
-        Stack<Character> stack = new Stack<>();
-        char c;
-        for (int i = 0; i < s.length(); i++){
-            c = s.charAt(i);
-            switch (c){
-                case '(':
-                case '[':
-                case '{':
-                    stack.push(c);
-                    break;
-                case ')':   //TODO 判空易漏（短路求值）
-                    if (stack.isEmpty() || stack.pop() != '(') return false;
-                    break;
-                case ']':
-                    if (stack.isEmpty() || stack.pop() != '[') return false;
-                    break;
-                case '}':
-                    if (stack.isEmpty() || stack.pop() != '{') return false;
-                    break;
-                default:
-                    break;
+        LinkedList<Character> stack = new LinkedList<>();
+        for(char c: s.toCharArray()){
+            switch(c){
+                case '(': case '[': case '{': stack.push(c); break;
+                case ')': if(stack.isEmpty() || stack.pop()!='(') return false; break; //TODO 判空易漏（短路求值）
+                case ']': if(stack.isEmpty() || stack.pop()!='[') return false; break;
+                case '}': if(stack.isEmpty() || stack.pop()!='{') return false; break;
             }
         }
         return stack.isEmpty(); //TODO 易漏 如"("这种情况应排除

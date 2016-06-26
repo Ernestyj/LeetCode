@@ -13,30 +13,25 @@ package leetcode31_40;
  * Created by DCLab on 11/21/2015.
  */
 public class CountAndSay {
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-        String s = new CountAndSay().countAndSay(5);
-        System.out.println(s);
-    }
 
     public String countAndSay(int n) {
-        if (n < 1) return null;
-        if (n == 1) return "1";
-        return translate(countAndSay(n - 1));
+        String s = "1";
+        for(int i=1; i<n; i++) s = build(s);    //注意i<n而不是i<=n
+        return s;
     }
-    private String translate(String s){
-        char[] chars = s.toCharArray();
-        StringBuilder builder = new StringBuilder();
+    private String build(String s){
+        StringBuilder sb = new StringBuilder();
+        char preC = s.charAt(0);
         int count = 1;
-        int i = 1;
-        for ( ; i < chars.length; i++){
-            if (chars[i - 1] != chars[i]){
-                builder.append(count + String.valueOf(chars[i - 1]));
+        for(int i = 1; i < s.length(); i++){
+            if(s.charAt(i)==preC) count++;
+            else {
+                sb.append(count).append(preC);
+                preC = s.charAt(i);
                 count = 1;
             }
-            else count++;
         }
-        builder.append(count + String.valueOf(chars[i - 1]));
-        return builder.toString();
+        sb.append(count).append(preC);
+        return sb.toString();
     }
 }

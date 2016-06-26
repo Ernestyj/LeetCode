@@ -21,42 +21,18 @@ public class BestTimeToBuyAndSellStockIII {
     public int maxProfit(int[] prices) {
         if (prices.length < 2) return 0;
         int len = prices.length;
-        int[] preProfit = new int[len];
-        int[] postProfit = new int[len];
+        int[] preP = new int[len];
+        int[] postP = new int[len];
         int min = prices[0];
         for (int i=1; i<len; i++){
             min = Math.min(min, prices[i]);
-            preProfit[i] = Math.max(preProfit[i-1], prices[i]-min); //注意是i-1
+            preP[i] = Math.max(preP[i-1], prices[i]-min); //注意是i-1
         }
-        int max = prices[len-1];
-        for (int i=len-2; i>=0; i--){
+        int max = prices[len-1], profit = 0;
+        for (int i=len-2; i>=0; i--){   //TODO 巧妙点在于从后往前计算
             max = Math.max(max, prices[i]);
-            postProfit[i] = Math.max(postProfit[i+1], max-prices[i]);   //注意是i+1
-        }
-        int profit = 0;
-        for (int i=0; i<len; i++){
-            profit = Math.max(profit, preProfit[i]+postProfit[i]);
-        }
-        return profit;
-    }
-    //超时
-    public int maxProfit1(int[] prices) {
-        int len = prices.length;
-        int min = Integer.MAX_VALUE;
-        int preProfit = 0;
-        int postProfit = 0;
-        int profit = 0;
-        for (int k=0; k<len; k++){
-            for (int i=0; i<k; i++){
-                min = Math.min(min, prices[i]);
-                preProfit = Math.max(preProfit, prices[i]-min);
-            }
-            min = Integer.MAX_VALUE;
-            for (int j=k; j<len; j++){
-                min = Math.min(min, prices[j]);
-                postProfit = Math.max(postProfit, prices[j]-min);
-            }
-            profit = Math.max(profit, preProfit+postProfit);
+            postP[i] = Math.max(postP[i+1], max-prices[i]);   //注意是i+1
+            profit = Math.max(profit, preP[i]+postP[i]);    //TODO 同时计算最大收益
         }
         return profit;
     }

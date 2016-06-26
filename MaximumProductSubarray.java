@@ -11,17 +11,14 @@ public class MaximumProductSubarray {
     // 采用局部和全局变量追踪局部与最终结果。
     public int maxProduct(int[] nums) {
         if(nums==null || nums.length==0) return 0;
-        int max = nums[0];
-        int min = nums[0];
-        int globalMax = nums[0];
-        for (int i=1; i<nums.length; i++){
-            int temp1 = nums[i]*max;
-            int temp2 = nums[i]*min;
-            max = Math.max(Math.max(temp1, nums[i]), temp2);
-            min = Math.min(Math.min(temp1, nums[i]), temp2);
-            globalMax = Math.max(globalMax, max);
+        int max = nums[0], min = nums[0], globalM = nums[0];
+        for(int i=1; i<nums.length; i++){
+            int t1 = max*nums[i], t2 = min*nums[i];
+            max = Math.max(nums[i], Math.max(t1, t2));
+            min = Math.min(nums[i], Math.min(t1, t2));
+            globalM = Math.max(globalM, max);
         }
-        return globalMax;
+        return globalM;
     }
 
 }

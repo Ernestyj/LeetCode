@@ -18,30 +18,28 @@ public class PalindromePartitioning {
      * @return
      */
     public List<List<String>> partition(String s) {
-        List<List<String>> result = new ArrayList<>();
-        if (s==null || s.length()==0) return result;
-        List<String> partitionList = new ArrayList<>();
-        partitionHepler(s, 0, partitionList, result);
-        return result;
+        List<List<String>> res = new ArrayList<>();
+        dfs(res, s, 0, new ArrayList<>());
+        return res;
     }
-    private void partitionHepler(String s, int start, List<String> partitionList, List<List<String>> result){
-        if (start==s.length()){
-            result.add(new ArrayList<>(partitionList));
+    private void dfs(List<List<String>> res, String s, int start, List<String> sol){
+        if(start==s.length()){
+            res.add(new ArrayList<>(sol));
             return;
         }
-        for (int i=start+1; i<=s.length(); i++){
-            String str = s.substring(start, i);
-            if (isPalindrome(str)){
-                partitionList.add(str);
-                partitionHepler(s, i, partitionList, result);
-                partitionList.remove(partitionList.size()-1);
+        for(int i=start; i<s.length(); i++){
+            String str = s.substring(start, i+1);
+            if(isPalindrome(str)){
+                sol.add(str);
+                dfs(res, s, i+1, sol);
+                sol.remove(sol.size()-1);
             }
         }
     }
-    private boolean isPalindrome(String str){
-        int l=0, r=str.length()-1;
-        while (l<r){
-            if (str.charAt(l++)!=str.charAt(r--)) return false;
+    private boolean isPalindrome(String s){
+        int l = 0, r = s.length()-1;
+        while(l<r){
+            if(s.charAt(l++)!=s.charAt(r--)) return false;
         }
         return true;
     }

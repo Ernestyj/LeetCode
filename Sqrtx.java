@@ -15,16 +15,15 @@ public class Sqrtx {
      * @return
      */
     public int mySqrt(int x) {
-        long l = 0;
-        long r = x/2 + 1;
+        int l = 0, r = x/2 + 1;
         while (l<=r){
-            long m = l+(r-l)/2;
-            long square = m*m;
-            if (square==x) return (int)m;
-            else if (square<x) l = m + 1;
+            int m = l+(r-l)/2;
+            long square = (long)m*m;    //TODO 强制转化为long非常重要,否则溢出
+            if (square==x) return m;
+            else if (square<x) l = m+1;
             else r = m-1;
         }
-        return (int)r;
+        return r;
     }
 
 }

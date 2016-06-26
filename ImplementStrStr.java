@@ -12,32 +12,15 @@ package leetcode21_30;
  */
 public class ImplementStrStr {
 
-    //简洁,但比下面方法慢
-    public int strStr(String haystack, String needle) {
-        for (int start=0; ; start++) {
-            for (int j=0; ; j++) {
-                if (j == needle.length()) return start;
-                if (start+j == haystack.length()) return -1;
-                if (needle.charAt(j) != haystack.charAt(start+j)) break;
-            }
-        }
-    }
-
     //按思路写
-    public int strStr1(String haystack, String needle) {
-        if (haystack==null || needle==null) return -1;
-        int needLen = needle.length(), hayLen = haystack.length();
-        if (needLen==0) return 0;
-        for (int start=0; start<hayLen; start++){
-            if (needLen <= hayLen-start && //TODO 注意此条件
-                    haystack.charAt(start) == needle.charAt(0)){
-                if (needLen==1) return start;
-                for (int j=1; j<needLen; j++){
-                    if (needle.charAt(j) != haystack.charAt(start+j)) break;
-                    if (j == needLen-1) return start;
-                }
+    public int strStr(String haystack, String needle) {
+        int l1 = haystack.length(), l2 = needle.length();
+        if(l2==0) return 0; //TODO 不能漏
+        for(int start=0; start<=l1-l2; start++){
+            for(int j=0; j<l2; j++){
+                if(haystack.charAt(start+j)!=needle.charAt(j)) break;
+                if(j==l2-1) return start;
             }
-
         }
         return -1;
     }

@@ -7,25 +7,16 @@ package leetcode61_70;
  */
 public class ClimbingStairs {
 
-    public static void main(String[] args) {
-        System.out.println("*****RESULT*****");
-        System.out.println(new ClimbingStairs().climbStairs(3));
-    }
-
-    /**
-     * 动态规划：res[i]=res[i-1]+res[i-2]
-     * @param n
-     * @return
-     */
+    //动态规划：res[i]=res[i-1]+res[i-2] Fibonacci
     public int climbStairs(int n) {
         if (n == 1) return 1;
-        int[] res = new int[n];
-        res[0] = 1;
-        res[1] = 2;
+        int[] dp = new int[n];
+        dp[0] = 1;
+        dp[1] = 2;
         for (int i=2; i<n; i++){
-            res[i] = res[i-1] + res[i-2];
+            dp[i] = dp[i-1]+dp[i-2];
         }
-        return res[n-1];
+        return dp[n-1];
     }
 
 }

@@ -13,7 +13,8 @@ public class StringToInteger {
      * @return
      */
     public int myAtoi(String str) {
-        int i = 0, sign = 1, total = 0;
+        int i = 0, sign = 1;
+        long total = 0; //TODO 使用long
         if(str.length()==0) return 0;
         while(str.charAt(i)==' ' && i<str.length()) i++;    //1. Remove Spaces
         if(str.charAt(i)=='+' || str.charAt(i)=='-'){   //2. Handle signs
@@ -23,13 +24,12 @@ public class StringToInteger {
         while(i<str.length()){  //3. Convert number and avoid overflow
             int digit = str.charAt(i)-'0';
             if(digit<0 || digit>9) break;
-            //4 check if total will be overflow after 10 times and add digit
-            if(Integer.MAX_VALUE/10<total || Integer.MAX_VALUE/10==total && Integer.MAX_VALUE%10<digit)
-                return sign==1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             total = 10*total + digit;
+            if (total*sign>=Integer.MAX_VALUE) return Integer.MAX_VALUE;    //4. Check
+            else if (total*sign<=Integer.MIN_VALUE) return Integer.MIN_VALUE;
             i++;
         }
-        return total*sign;
+        return (int)total*sign;
     }
 
     //TODO 此法失败用例:9223372036854775809应返回Integer.MAX_VALUE,而不是0

@@ -31,6 +31,21 @@ public class Subsets {
         }
     }
 
+    //另一种快速解法
+    public List<List<Integer>> subsets0(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        res.add(new ArrayList<>());
+        for (int num: nums){
+            int n = res.size();
+            for (int i=0; i<n; i++){
+                ArrayList<Integer> sol = new ArrayList<>(res.get(i));
+                sol.add(num);
+                res.add(sol);
+            }
+        }
+        return res;
+    }
+
     /**
      * 位图法：判断数i第k位是否为1：i&(1 << k-1) != 0则为1
      * 回溯法、添加数字法参考“全组合算法”

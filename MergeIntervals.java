@@ -29,18 +29,18 @@ public class MergeIntervals {
             }
         });
         List<Interval> result = new LinkedList<>();
-        int start = intervals.get(0).start;
-        int end = intervals.get(0).end;
-        for (Interval interval : intervals) {
-            if (interval.start <= end) // Overlapping intervals, move the end if needed
-                end = Math.max(end, interval.end);
+        int preL = intervals.get(0).start;
+        int preR = intervals.get(0).end;
+        for (Interval span : intervals) {
+            if (span.start <= preR) // Overlapping intervals, move the preR if needed
+                preR = Math.max(preR, span.end);
             else {                     // Disjoint intervals, add the previous one and reset bounds
-                result.add(new Interval(start, end));
-                start = interval.start;
-                end = interval.end;
+                result.add(new Interval(preL, preR));
+                preL = span.start;
+                preR = span.end;
             }
         }
-        result.add(new Interval(start, end));   // Add the last interval
+        result.add(new Interval(preL, preR));   // Add the last interval
         return result;
     }
 
