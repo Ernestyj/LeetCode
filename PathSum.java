@@ -17,18 +17,10 @@ public class PathSum {
         TreeNode(int x) { val = x; }
     }
 
-
-    /**
-     * dfs,递归
-     * http://www.programcreek.com/2013/01/leetcode-path-sum/
-     * @param root
-     * @param sum
-     * @return
-     */
+    //http://www.programcreek.com/2013/01/leetcode-path-sum/
     public boolean hasPathSum(TreeNode root, int sum) {
         if (root == null) return false;
-        if (root.val == sum && root.left == null && root.right == null)
-            return true;
+        if (root.val == sum && root.left == null && root.right == null) return true;
         return hasPathSum(root.left, sum-root.val) || hasPathSum(root.right, sum-root.val);
     }
 

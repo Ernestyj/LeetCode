@@ -10,7 +10,6 @@ import java.util.*;
  */
 public class MergeKSortedLists {
 
-
     // Definition for singly-linked list.
     public static class ListNode {
         int val;
@@ -18,27 +17,22 @@ public class MergeKSortedLists {
         ListNode(int x) { val = x; }
     }
 
-
     /**
      * 二分法（分治法）
      * http://blog.csdn.net/linhuanmars/article/details/19899259
      * 时间复杂度：nklogk
      * 分析：假设总共有k个list，每个list的最大长度是n，那么运行时间满足递推式T(k) = 2T(k/2)+O(n*k)。
      * 根据主定理，可以算出算法的总复杂度是O(nklogk)
-     * @param lists
-     * @return
      */
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null) return null;
+        if(lists.length==0) return null;
         return mergeSort(lists, 0, lists.length-1);
     }
-    private ListNode mergeSort(ListNode[] lists, int l, int r){
-        if (l>=r)
-            return lists.length==0? null : lists[l];  //TODO 注意new ListNode[0];时的边界条件
-        else {
+    private ListNode mergeSort(ListNode[] lists, int l, int r){ //归并排序范式
+        if(l>=r) return lists[l];
+        else{ //l<r
             int m = l+(r-l)/2;
-            return mergeTwoLists(mergeSort(lists, l, m),
-                    mergeSort(lists, m+1, r));
+            return mergeTwoLists(mergeSort(lists, l, m), mergeSort(lists, m+1, r));
         }
     }
     private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -52,42 +46,5 @@ public class MergeKSortedLists {
             return l2;
         }
     }
-
-    //TODO 算法测试超时 时间复杂度：C1*C2* ... *n
-    public ListNode mergeKLists2(ListNode[] lists) {
-        ListNode node = null;
-        for (int i = 0; i < lists.length; i++){
-            node = mergeTwoLists(lists[i], node);
-        }
-        return node;
-    }
-
-    private List<Integer> array = null;
-    private List<Integer> mergedArray = new ArrayList<>();
-    //利用JDK排序（偷懒算法)
-    public ListNode mergeKLists1(ListNode[] lists) {
-        for (ListNode l : lists){
-            if (l == null) continue;
-            int i = 0;
-            array  = new ArrayList<>();
-            while (l != null){
-                array.add(l.val);
-                l = l.next;
-            }
-            mergedArray.addAll(array);
-        }
-        if (mergedArray.size() == 0) return null;
-        Object[] result = mergedArray.toArray();
-        Arrays.sort(result);
-        ListNode head = new ListNode((Integer) result[0]);
-        ListNode node = head;
-        for (int i = 1; i < result.length; i++){
-            node.next = new ListNode((Integer) result[i]);
-            node = node.next;
-        }
-        node.next = null;
-        return head;
-    }
-
 
 }

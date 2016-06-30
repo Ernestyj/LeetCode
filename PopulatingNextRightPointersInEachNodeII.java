@@ -16,6 +16,28 @@ public class PopulatingNextRightPointersInEachNodeII {
         TreeLinkNode(int x) { val = x; }
     }
 
+    //https://leetcode.com/discuss/67291/java-solution-with-constant-space 通用解法
+    public void connect(TreeLinkNode root) {
+        TreeLinkNode levelHead = new TreeLinkNode(0);
+        TreeLinkNode pre = levelHead, cur = root;
+        while (cur != null) {
+            if (cur.left != null) {
+                pre.next = cur.left;
+                pre = pre.next;
+            }
+            if (cur.right != null) {
+                pre.next = cur.right;
+                pre = pre.next;
+            }
+            cur = cur.next;
+            if (cur == null) {
+                pre = levelHead;
+                cur = levelHead.next;
+                levelHead.next = null;
+            }
+        }
+    }
+
     /**(OJ 78%) TODO 难理解
      * http://fisherlei.blogspot.tw/2012/12/leetcode-populating-next-right-pointers_29.html
      * 找到规律用递归求解,类似上一题Populating Next Right Pointers in Each Node,
@@ -23,7 +45,7 @@ public class PopulatingNextRightPointersInEachNodeII {
      空间复杂度O(1)
      * @param root
      */
-    public void connect(TreeLinkNode root) {
+    public void connect0(TreeLinkNode root) {
         if (root==null) return;
         TreeLinkNode p = root.next;
         while (p!=null){
@@ -37,8 +59,8 @@ public class PopulatingNextRightPointersInEachNodeII {
         }
         if (root.right!=null) root.right.next = p;
         if (root.left!=null) root.left.next = root.right!=null ? root.right : p;
-        connect(root.right);
-        connect(root.left);
+        connect0(root.right);
+        connect0(root.left);
     }
 
     /**(OJ 30%)

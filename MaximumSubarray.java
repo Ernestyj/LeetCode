@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- *
- * Find the contiguous subarray within an array (containing at least one number)
+/**Find the contiguous subarray within an array (containing at least one number)
  * which has the largest sum.
  For example, given the array [−2,1,−3,4,−1,2,1,−5,4],
  the contiguous subarray [4,−1,2,1] has the largest sum = 6.
@@ -14,7 +12,6 @@ import java.util.List;
  */
 public class MaximumSubarray {
 
-    //DP
     public int maxSubArray(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
         int len = nums.length;
@@ -22,7 +19,6 @@ public class MaximumSubarray {
         int global = nums[0];
         for (int k = 1; k < len; k++){
             //TODO 注意不是Math.max(local+nums[k], local); 若local+nums[k]<nums[k]"应该"直接抛弃k前面的所有数
-            //也不是 local = Math.max(local+nums[k], Math.max(nums[k], local));
             local = Math.max(local+nums[k], nums[k]);
             global = Math.max(local, global);
         }

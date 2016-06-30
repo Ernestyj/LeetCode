@@ -19,43 +19,16 @@ public class GroupAnagrams {
 
     //易位构词的排序结果是一样的
     public List<List<String>> groupAnagrams(String[] strs) {
-        if(strs == null || strs.length == 0) return new ArrayList<>();
-        HashMap<String, List<String>> books = new HashMap<>();
         Arrays.sort(strs);
-        for (int i = 0; i < strs.length; i++){
-            char[] chars = strs[i].toCharArray();
+        HashMap<String, List<String>> map = new HashMap<>();
+        for(String str: strs){
+            char[] chars = str.toCharArray();
             Arrays.sort(chars);
             String s = String.valueOf(chars);
-            if (!books.containsKey(s)) books.put(s, new ArrayList<>());
-            books.get(s).add(strs[i]);
+            if(!map.containsKey(s)) map.put(s, new LinkedList<>());
+            map.get(s).add(str);
         }
-        return new ArrayList<>(books.values());
+        return new LinkedList<>(map.values());
     }
 
-
-    //TODO 超时
-    public List<List<String>> groupAnagrams1(String[] strs) {
-        Arrays.sort(strs);
-        List<String> temp;
-        HashMap<HashMap<Character, Integer>, List<String>> books = new HashMap<>();
-        HashMap<Character, Integer> book;
-        for (int i = 0; i < strs.length; i++){
-            book = new HashMap<>();
-            //获取小字典
-            for (char c : strs[i].toCharArray()){
-                if (book.containsKey(c)) book.put(c, book.get(c) + 1);
-                else book.put(c, 1);
-            }
-            //大字典中找小字典
-            if (books.containsKey(book)) {
-                temp = books.get(book);
-                temp.add(strs[i]);
-            } else {
-                temp = new ArrayList<>();
-                temp.add(strs[i]);
-                books.put(book, temp);
-            }
-        }
-        return new ArrayList<>(books.values());
-    }
 }

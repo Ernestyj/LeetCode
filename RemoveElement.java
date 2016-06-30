@@ -17,26 +17,23 @@ public class RemoveElement {
         return index;
     }
 
-
+    //快速
     public int removeElement1(int[] nums, int val) {
-        if (nums == null || nums.length == 0) return 0;
-        int end = nums.length - 1;
-        for (int cur = 0; cur <= end; cur++){
-            if (nums[cur] == val){
-                for ( ; end >= cur; end--){
-                    if (nums[end] != val){
-                        swap(nums, cur, end);
-                        end--;
-                        break;
-                    }
-                }
+        int i = 0, j = nums.length-1;
+        while(i<=j){
+            if(nums[i]==val) {
+                swap(nums, i, j);
+                j--;
+            }else{
+                i++;
             }
         }
-        return end + 1;
+        return j+1;
     }
-    private void swap(int[] nums, int i, int j){
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+    private static void swap(int[] a, int i, int j) {
+        int tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
     }
+
 }

@@ -1,8 +1,6 @@
 package leetcode41_50;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Given a collection of numbers, return all possible permutations.
@@ -13,64 +11,62 @@ import java.util.List;
  */
 public class Permutations {
 
-    //TODO 记忆回溯法
+    /**TODO 不含重复
+     * 回溯法：从集合依次选出每一个元素，作为排列的第一个元素，然后对剩余的元素进行全排列，如此递归处理。
+     * 时间复杂度：n! 空间复杂度：（in place置换）
+     * 以abc为例子：
+     1. a和a交换(固定a), 求后面bc的全排列： abc, acb。 求完后，a和b交换； 得到bac,开始第二轮
+     2. b和b交换(固定b), 求后面ac的全排列： bac, bca。 求完后，b和c交换； 得到cab,开始第三轮
+     3. c和c交换(固定c), 求后面ba的全排列： cab, cba.
+     * http://blog.csdn.net/randyjiawenjie/article/details/6313729
+     * 分析图：http://segmentfault.com/a/1190000002710424
+     * @param nums
+     */
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+        dfs(nums, res, 0);
+        return res;
+    }
+    private void dfs(int[] nums, List<List<Integer>> res, int start){
+        if(start==nums.length){
+            List<Integer> sol = new LinkedList<>();
+            for(int n: nums) sol.add(n);
+            res.add(sol);
+            return;
+        }
+        for(int i=start; i<nums.length; i++){
+            swap(nums, start, i);
+            dfs(nums, res, start+1);    //TODO 注意特殊的地方,不是i+1而是start+1
+            swap(nums, start, i);
+        }
+    }
+    private void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+
     /**https://leetcode.com/discuss/29483/share-my-short-iterative-java-solution
-     * tricky 复制插入方法
-     * @param num
+     * tricky 复制插入方法,类似subsets中的复制插入方法,但更不易理解
+     * @param nums
      * @return
      */
-    public List<List<Integer>> permute(int[] num) {
+    public List<List<Integer>> permute1(int[] nums) {
         LinkedList<List<Integer>> res = new LinkedList<>();
         res.add(new ArrayList<>());
-        for (int n : num) {
-            int len = res.size();
-            for (; len>0; len--) {
-                List<Integer> r = res.pollFirst();
-                for (int i=0; i<=r.size(); i++) {
-                    List<Integer> t = new ArrayList<>(r);
-                    t.add(i, n);
-                    res.add(t);
+        for (int num : nums) {
+            int n = res.size();
+            for (int k=0; k<n; k++) {
+                List<Integer> sol = res.poll();
+                for (int i=0; i<=sol.size(); i++) {
+                    List<Integer> nSol = new ArrayList<>(sol);
+                    nSol.add(i, num);
+                    res.add(nSol);
                 }
             }
         }
         return res;
     }
 
-    private List<List<Integer>> result = new ArrayList<>();
-    private List<Integer> temp;
-    /**
-     * 回溯法：从集合依次选出每一个元素，作为排列的第一个元素，然后对剩余的元素进行全排列，如此递归处理。
-     * 时间复杂度：n! 空间复杂度：（in place置换）
-     * 以abc为例子：
-     1. a和a交换(固定a), 求后面bc的全排列： abc, acb。 求完后，a 和 b交换； 得到bac,开始第二轮
-     2. b和b交换(固定b), 求后面ac的全排列： bac, bca。 求完后，b 和 c交换； 得到cab,开始第三轮
-     3. c和c交换(固定c), 求后面ba的全排列： cab, cba.
-     * http://blog.csdn.net/randyjiawenjie/article/details/6313729
-     * 分析图：http://segmentfault.com/a/1190000002710424
-     * @param nums
-     */
-    public List<List<Integer>> permute1(int[] nums) {
-        permutation(nums, 0, nums.length);
-        return result;
-    }
-    private void permutation(int[] nums, int start, int len) {
-        if (start == len - 1) {
-            temp = new ArrayList<>();
-            for (int i = 0; i < len; i ++) {
-                temp.add(nums[i]);
-            }
-            result.add(temp);
-            return;
-        }
-        for (int i=start; i<len; i ++) {
-            swap(nums, start, i);
-            permutation(nums, start+1, len);
-            swap(nums, start, i);
-        }
-    }
-    private void swap(int[] s, int i, int j) {
-        int temp = s[i];
-        s[i] = s[j];
-        s[j] = temp;
-    }
 }

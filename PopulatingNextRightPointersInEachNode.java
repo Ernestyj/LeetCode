@@ -18,8 +18,42 @@ public class PopulatingNextRightPointersInEachNode {
         TreeLinkNode(int x) { val = x; }
     }
 
+    //https://leetcode.com/discuss/67291/java-solution-with-constant-space
+    //PopulatingNextRightPointersInEachNodeII 通用解法
+    public void connect(TreeLinkNode root) {
+        TreeLinkNode levelHead = new TreeLinkNode(0);
+        TreeLinkNode pre = levelHead, cur = root;
+        while (cur != null) {
+            if (cur.left != null) {
+                pre.next = cur.left;
+                pre = pre.next;
+            }
+            if (cur.right != null) {
+                pre.next = cur.right;
+                pre = pre.next;
+            }
+            cur = cur.next;
+            if (cur == null) {
+                pre = levelHead;
+                cur = levelHead.next;
+                levelHead.next = null;
+            }
+        }
+    }
 
-    //用Populating Next Right Pointers in Each Node II解法兼容此特殊情况(类似二叉树层次遍历)
+    //https://leetcode.com/discuss/19061/java-solution-with-o-1-memory-o-n-time
+    public void connect1(TreeLinkNode root) {
+        TreeLinkNode levelHead = root;
+        while(levelHead!=null){
+            TreeLinkNode cur = levelHead;
+            while(cur!=null){
+                if(cur.left!=null) cur.left.next = cur.right;
+                if(cur.right!=null && cur.next!=null) cur.right.next = cur.next.left;
+                cur = cur.next;
+            }
+            levelHead = levelHead.left;
+        }
+    }
 
     /**
      * 由于题目中的二叉树是完全二叉树,找到规律可用递归求解(OJ 82%);
@@ -29,7 +63,7 @@ public class PopulatingNextRightPointersInEachNode {
      * https://gist.github.com/benjaminwu7/4700435
      * @param root
      */
-    public void connect(TreeLinkNode root) {
+    public void connect2(TreeLinkNode root) {
         if(root == null) return;
         TreeLinkNode leftN = root.left;
         TreeLinkNode rightN = root.right;

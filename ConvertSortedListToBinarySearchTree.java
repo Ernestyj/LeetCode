@@ -24,9 +24,27 @@ public class ConvertSortedListToBinarySearchTree {
         ListNode(int x) { val = x; }
     }
 
-    //获取链表长度后,自底向上(中序顺序)递归建树
-    private ListNode node = null;
+    //https://leetcode.com/discuss/83856/share-my-java-solution-1ms-very-short-and-concise
     public TreeNode sortedListToBST(ListNode head) {
+        if(head==null) return null;
+        return toBST(head, null);
+    }
+    public TreeNode toBST(ListNode head, ListNode tail){
+        ListNode slow = head, fast = head;
+        if(head==tail) return null;
+        while(fast!=tail && fast.next!=tail){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        TreeNode node = new TreeNode(slow.val);
+        node.left = toBST(head,slow);
+        node.right = toBST(slow.next,tail);
+        return node;
+    }
+
+    //获取链表长度后,自底向上(中序顺序)递归建树 TODO 引入递归外变量,不好控制
+    private ListNode node = null;
+    public TreeNode sortedListToBST1(ListNode head) {
         if (head==null) return null;
         node = head;
         int len = 0;
@@ -51,7 +69,7 @@ public class ConvertSortedListToBinarySearchTree {
 
 
     //先将链表转为数组,再自顶向下(先根再左右子树)递归建树
-    public TreeNode sortedListToBST1(ListNode head) {
+    public TreeNode sortedListToBST2(ListNode head) {
         if (head==null) return null;
         ListNode node = head;
         List<Integer> list = new ArrayList<>();

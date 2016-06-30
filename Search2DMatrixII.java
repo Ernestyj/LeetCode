@@ -18,22 +18,14 @@ package leetcode231_240;
  */
 public class Search2DMatrixII {
 
-    /**
-     * 均从右上角开始搜索
-     * @param matrix
-     * @param target
-     * @return
-     */
+    //均从右上角开始搜索
     public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length, n = matrix[0].length;
         int i = 0, j = n-1;
         while (i<m && j>=0){
-            if (matrix[i][j]==target){
-                return true;
-            }else if (matrix[i][j]<target)
-                i++;
-            else
-                j--;
+            if (matrix[i][j]==target) return true;
+            else if (matrix[i][j]<target) i++;
+            else j--;
         }
         return false;
     }

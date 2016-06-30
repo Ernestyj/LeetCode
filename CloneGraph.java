@@ -20,23 +20,20 @@ public class CloneGraph {
      * @return
      */
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-        if(node == null) return null;
-        LinkedList<UndirectedGraphNode> queue = new LinkedList<>();
+        if(node==null) return null;
+        LinkedList<UndirectedGraphNode> q = new LinkedList<>();
         HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+        q.offer(node);
         UndirectedGraphNode newHead = new UndirectedGraphNode(node.label);
-        queue.offer(node);
         map.put(node, newHead);
-        while(!queue.isEmpty()){
-            UndirectedGraphNode curr = queue.poll();
-            for(UndirectedGraphNode aNeighbor: curr.neighbors){
-                if(!map.containsKey(aNeighbor)){
-                    UndirectedGraphNode copy = new UndirectedGraphNode(aNeighbor.label);
-                    map.put(aNeighbor, copy);
-                    map.get(curr).neighbors.add(copy);
-                    queue.add(aNeighbor);
-                }else{
-                    map.get(curr).neighbors.add(map.get(aNeighbor));
+        while(!q.isEmpty()){
+            UndirectedGraphNode old = q.poll();
+            for(UndirectedGraphNode oldN: old.neighbors){
+                if(!map.containsKey(oldN)){
+                    map.put(oldN, new UndirectedGraphNode(oldN.label));
+                    q.offer(oldN);
                 }
+                map.get(old).neighbors.add(map.get(oldN));//TODO 注意是add(map.get(oldN))，不是add(oldN)
             }
         }
         return newHead;

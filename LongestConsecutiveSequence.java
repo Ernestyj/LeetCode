@@ -15,19 +15,17 @@ public class LongestConsecutiveSequence {
 
     /**
      * http://www.programcreek.com/2013/01/leetcode-longest-consecutive-sequence-java/
-     * 因为排序至少要O(nlogn),先排序是不行的.这里使用哈希表.
+     * 因为排序至少要O(nlogn),先排序是不行的.这里使用哈希表. 中间向两边发散法
      * @param nums
      * @return
      */
     public int longestConsecutive(int[] nums) {
         if (nums.length==0) return 0;
-        Set<Integer> set = new HashSet<Integer>();
+        Set<Integer> set = new HashSet<>();
         int longest = 0;
         for (int e : nums) set.add(e);
         for (int e : nums) {
-            int left = e-1;
-            int right = e+1;
-            int count = 1;
+            int left = e-1, right = e+1, count = 1;
             while (set.contains(left)){
                 count++;
                 set.remove(left);

@@ -11,9 +11,7 @@ import java.util.*;
  */
 public class PermutationsII {
 
-
-
-    /**注意：用例{1,-1,1,2,-1,2,2,-1}{2,2,-1,2,3}容易超时，注意添加跳过重复的逻辑判断
+    /**TODO 含重复
      * 回溯法：从集合依次选出每一个元素，作为排列的第一个元素，然后对剩余的元素进行全排列，如此递归处理。
      * 时间复杂度：n! 空间复杂度：（in place置换）
      * 以abc为例子：
@@ -24,27 +22,22 @@ public class PermutationsII {
      * 分析图：http://segmentfault.com/a/1190000002710424
      * @param nums
      */
-    private Set<List<Integer>> res = new HashSet<>();   //TODO 使用集合
-    private List<Integer> temp;
     public List<List<Integer>> permuteUnique(int[] nums) {
-        Arrays.sort(nums);  //TODO 先排序
-        permutation(nums, 0, nums.length);
-        List<List<Integer>> result = new ArrayList<>(res);
-        return result;
+        Arrays.sort(nums);  //TODO 先排序可提速
+        Set<List<Integer>> res = new HashSet<>();   //TODO 一定要用集合
+        dfs(nums, res, 0);
+        return new LinkedList<>(res);
     }
-    private void permutation(int[] nums, int start, int len) {
-        if (start == len - 1) {
-            temp = new ArrayList<>();
-            for (int i = 0; i < len; i ++) {
-                temp.add(nums[i]);
-            }
-            res.add(temp);
-            return;
+    private void dfs(int[] nums, Set<List<Integer>> res, int start){
+        if(start==nums.length){
+            LinkedList<Integer> sol = new LinkedList<>();
+            for(int n: nums) sol.add(n);
+            res.add(sol);
         }
-        for (int i = start; i < len; i ++) {
-            if (i + 1 < len && nums[i] == nums[i + 1]) continue;    //TODO 跳过重复
+        for(int i=start; i<nums.length; i++){
+            if(i>start && nums[i]==nums[i-1]) continue; //TODO 跳过重复元素
             swap(nums, start, i);
-            permutation(nums, start + 1, len);
+            dfs(nums, res, start+1);
             swap(nums, start, i);
         }
     }
@@ -53,4 +46,5 @@ public class PermutationsII {
         s[i] = s[j];
         s[j] = temp;
     }
+
 }

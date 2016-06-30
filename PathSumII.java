@@ -22,18 +22,14 @@ public class PathSumII {
     //TODO 下面两种方法都不错,第二种思路更自然,第一种更简洁
     /**https://leetcode.com/discuss/16980/dfs-with-one-linkedlist-accepted-java-solution
      * dfs,递归,与Path Sum思路一致
-     * @param root
-     * @param sum
-     * @return
      */
     public List<List<Integer>> pathSum(TreeNode root, int sum){
         List<List<Integer>> result  = new LinkedList<>();
-        List<Integer> path  = new LinkedList<>();
-        pathSum(root, sum, path, result);
+        pathSum(root, sum, new LinkedList<>(), result);
         return result;
     }
     public void pathSum(TreeNode root, int sum, List<Integer> path, List<List<Integer>> result) {
-        if (root == null) return;
+        if (root == null) return;   //统一判空处理
         path.add(root.val);
         if (root.left==null && root.right==null && sum==root.val) {
             result.add(new LinkedList<>(path));
