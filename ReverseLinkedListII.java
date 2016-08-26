@@ -20,9 +20,9 @@ public class ReverseLinkedListII {
 
     /**https://leetcode.com/discuss/25580/simple-java-solution-with-clear-explanation
      * 与下面方法一致,但更简洁
-     dummy-> 1 -> 2 -> 3 -> 4 -> 5 m=2 n=4 有 pre = 1, start = 2, then = 3
-     first reversing : dummy->1 - 3 - 2 - 4 - 5; pre = 1, start = 2, then = 4
-     second reversing: dummy->1 - 4 - 3 - 2 - 5; pre = 1, start = 2, then = 5 (finish)
+     dummy-> 1 -> 2 -> 3 -> 4 -> 5 m=2 n=4 有 pre = 1, last = 2, cur = 3
+     first reversing : dummy->1 - 3 - 2 - 4 - 5; pre = 1, last = 2, cur = 4
+     second reversing: dummy->1 - 4 - 3 - 2 - 5; pre = 1, last = 2, cur = 5 (finish)
      * @param head
      * @param m
      * @param n
@@ -34,13 +34,13 @@ public class ReverseLinkedListII {
         dummy.next = head;
         ListNode pre = dummy; // make a pointer pre as a marker for the node before reversing
         for(int i=0; i<m-1; i++) pre = pre.next;
-        ListNode start = pre.next; // a pointer to the beginning of a sub-list that will be reversed
-        ListNode then = start.next; // a pointer to a node that will be reversed
+        ListNode last = pre.next; // a pointer to the beginning of a sub-list that will be reversed
+        ListNode cur = last.next;
         for(int i=0; i<n-m; i++) {
-            start.next = then.next;
-            then.next = pre.next;
-            pre.next = then;
-            then = start.next;
+            last.next = cur.next;
+            cur.next = pre.next;
+            pre.next = cur;
+            cur = last.next;
         }
         return dummy.next;
     }

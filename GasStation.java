@@ -10,30 +10,23 @@ package leetcode131_140;
  */
 public class GasStation {
 
-    /**
-     * 贪心:关键是要可以总结出来这道题目的属性，注意Note这个地方，其属性主要有两个：
+    /**贪心:关键是要可以总结出来这道题目的属性，注意Note这个地方，其属性主要有两个：
      1 如果总的gas - cost小于零的话，那么没有解返回-1;
      2 如果前面所有的gas - cost加起来小于零，那么前面所有的点都不能作为出发点。
      http://blog.csdn.net/kenden23/article/details/14106137
-     * @param gas
-     * @param cost
-     * @return
      */
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        int remaining = 0;
-        int start = 0;
-        int curRemaining = 0;
-        int totalRemaining = 0;
+        int start = 0, preRemain = 0, totalRemain = 0;
         for (int i=0; i<gas.length; i++){
-            remaining = gas[i]-cost[i];
-            if (curRemaining>=0) curRemaining += remaining;
+            int dif = gas[i]-cost[i];
+            if (preRemain>=0) preRemain += dif;
             else{
-                curRemaining = remaining;
+                preRemain = dif;
                 start = i;
             }
-            totalRemaining += remaining;
+            totalRemain += dif;
         }
-        if (totalRemaining < 0) return -1;
+        if (totalRemain < 0) return -1;
         else return start;
     }
 

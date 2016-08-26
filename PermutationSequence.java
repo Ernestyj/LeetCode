@@ -15,11 +15,6 @@ import java.util.List;
  */
 public class PermutationSequence {
 
-    public static void main(String[] args) {
-        String result = new PermutationSequence().getPermutation(9, 362880);
-        System.out.println(result);
-    }
-
     /** 发现数学规律进行解题：
      * 1. 以某一数字开头的排列有(n-1)!个，先计算(n-1)!；k=k-1将k转换为从0开始（原来k从1开始）；
      2. 第一位数字是“原字符串”位置k/(n-1)!处的字符；更新k=k%(n-1)!；
@@ -27,26 +22,18 @@ public class PermutationSequence {
      4. 不断重复2、3，直至第n位数字。（注意：每确定一位数字，“原字符串”应移除该数字）
      时间复杂度：O(n^2)；空间复杂度：O(n)；
      参考：http://blog.csdn.net/linhuanmars/article/details/22028697
-     * @param n
-     * @param k
-     * @return
      */
     public String getPermutation(int n, int k) {
         StringBuilder sb = new StringBuilder();
-        //生成原字符串
-        List<Integer> origin = new ArrayList<>();
+        List<Integer> origin = new ArrayList<>();//生成原字符串
         for(int i = 1; i <= n; i++) origin.add(i);
-        //计算(n-1)!
-        int factorial = 1;
+        int factorial = 1;//计算(n-1)!
         for (int i = 1; i < n; i++) factorial *= i;
-        //k转换为从0开始
-        k = k - 1;
-        //计算Kth全排列串中第i位(0<i<n)数字
-        for (int i = 0; i < n; i++) {
+        k = k - 1;//k转换为从0开始
+        for (int i = 0; i < n; i++) {//计算Kth全排列串中第i位(0<i<n)数字
             int index = k / factorial;  //得到第i位数字字符
             k = k % factorial;  //更新k
-            sb.append(origin.get(index));
-            origin.remove(index); //每确定一位数字，“原字符串”应移除该数字
+            sb.append(origin.remove(index));//每确定一位数字，“原字符串”应移除该数字
             if (i < n - 1) {    //更新factorial
                 factorial = factorial / (n - 1 - i);
             }

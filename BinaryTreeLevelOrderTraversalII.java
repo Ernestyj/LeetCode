@@ -20,34 +20,22 @@ public class BinaryTreeLevelOrderTraversalII {
     }
 
 
-    /**与Binary Tree Level Order Traversal思路一致
-     * 广度优先搜索，使用队列实现。
-     a. 队列初始化，将根节点压入队列。
-     b. 当队列不为空，进行如下操作：弹出一个节点，访问；若左子节点或右子节点不为空，将其压入队列。
-     由于题目要求按层返回结果,需要利用两个队列.
-     * @param root
-     * @return
-     */
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        if (root==null) return result;
-        Queue<TreeNode> curQueue = new LinkedList<>();
-        Queue<TreeNode> nextQueue = new LinkedList<>();
-        curQueue.offer(root);
-        while (!curQueue.isEmpty()){
-            TreeNode node = curQueue.poll();
-            temp.add(node.val);
-            if (node.left!=null) nextQueue.offer(node.left);
-            if (node.right!=null) nextQueue.offer(node.right);
-            if (curQueue.isEmpty()) {
-                result.add(temp);
-                temp = new ArrayList<>();
-                curQueue = nextQueue;
-                nextQueue = new LinkedList<>();
+        if(root==null) return result;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(q.size()>0){
+            List<Integer> list = new ArrayList<>();
+            int size = q.size();
+            for(int i=0; i<size; i++){
+                TreeNode node = q.poll();
+                list.add(node.val);
+                if(node.left!=null) q.add(node.left);
+                if(node.right!=null) q.add(node.right);
             }
+            result.add(0,list);
         }
-        Collections.reverse(result);
         return result;
     }
 

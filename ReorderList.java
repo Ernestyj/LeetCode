@@ -17,12 +17,11 @@ public class ReorderList {
     /**
      * 使用快慢指针先将链表分成两半,逆转后半段链表,再交叉合并.
      * http://www.programcreek.com/2013/12/in-place-reorder-a-singly-linked-list-in-java/
-     * @param head
      */
     public void reorderList(ListNode head) {
         if (head==null || head.next==null) return;
         ListNode slow = head, fast = head;
-        while (fast!=null && fast.next!=null && fast.next.next!=null){
+        while (fast.next!=null && fast.next.next!=null){
             slow = slow.next;
             fast = fast.next.next;
         }
@@ -31,7 +30,7 @@ public class ReorderList {
         l2 = reverse(l2);
         crossMerge(head, l2);
     }
-    private ListNode reverse(ListNode head){
+    private ListNode reverse(ListNode head){//TODO 用递归法会栈溢出
         if (head==null || head.next==null) return head;
         ListNode pre = head;
         ListNode curr = head.next;
@@ -46,11 +45,9 @@ public class ReorderList {
     }
     //链表l1/l2长度一致,交叉合并
     private void crossMerge(ListNode l1, ListNode l2){
-        ListNode p1 = l1;
-        ListNode p2 = l2;
+        ListNode p1 = l1, p2 = l2;
         while (p2!=null){
-            ListNode temp1 = p1.next;
-            ListNode temp2 = p2.next;
+            ListNode temp1 = p1.next, temp2 = p2.next;
             p1.next = p2;
             p2.next = temp1;
             p1 = temp1;

@@ -19,19 +19,15 @@ public class LongestCommonPrefix {
         return pre;
     }
 
-
-    public String longestCommonPrefix1(String[] strs) {
-        if (strs==null || strs.length==0) return "";
-        String longest = strs[0];
-        for (String s: strs){
-            for (int i=0; i<longest.length(); i++){
-                if (i>=s.length() || longest.charAt(i)!=s.charAt(i)){   //TODO 注意条件i>=s.length()
-                    longest = longest.substring(0, i);
-                    break;
-                }
-            }
+    public String longestCommonPrefix0(String[] strs) {
+        if(strs==null || strs.length==0) return "";
+        String res = strs[0];
+        for(int i=1; i<strs.length; i++){
+            int k = 0, minL = Math.min(res.length(), strs[i].length());
+            while(k<minL && res.charAt(k)==strs[i].charAt(k)) k++;
+            res = res.substring(0, k);
         }
-        return longest;
+        return res;
     }
 
 }
