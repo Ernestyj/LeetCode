@@ -48,10 +48,10 @@ public:
     }
 };
 
-int main() {
-    vector<int> nums{2, 7, 11, 15};
-    int target = 9;
-    Solution s;
-    auto result = s.twoSum(nums, target);
-    cout << result[0] << " " << result[1];
-}
+//int main() {
+//    vector<int> nums{2, 7, 11, 15};
+//    int target = 9;
+//    Solution s;
+//    auto result = s.twoSum(nums, target);
+//    cout << result[0] << " " << result[1];
+//}
