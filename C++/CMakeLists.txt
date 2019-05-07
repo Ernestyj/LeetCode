@@ -3,6 +3,6 @@ project(C__)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(C__ main.cpp TwoSum.cpp ReverseInteger.cpp)
+add_executable(C__ main.cpp TwoSum.cpp ReverseInteger.cpp ValidParentheses.cpp MergeTwoSortedLists.cpp)
 
 include_directories(./)

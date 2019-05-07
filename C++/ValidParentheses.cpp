@@ -1,5 +1,7 @@
-
-
+#include <string>
+#include <iostream>
+#include <stack>
+using namespace std;
 /**
  * Given a string containing just the characters '(', ')', '{', '}', '[' and ']',
  * determine if the input string is valid.
@@ -12,13 +14,56 @@
 class Solution {
 public:
     bool isValid(string s) {
-        int preLen = 0;
+        size_t preLen = 0;
         while(preLen!=s.size()){
             preLen = s.size();
-            s = s.
+            findAndReplaceAll(s, "()", "");
+            findAndReplaceAll(s, "[]", "");
+            findAndReplaceAll(s, "{}", "");
+        }
+        return s.empty();
+    }
+    void findAndReplaceAll(string& s, const string& searchStr, const string& replaceStr){
+        auto pos = s.find(searchStr);
+        while(pos!=string::npos){
+            s.replace(pos, searchStr.size(), replaceStr);
+            pos = s.find(searchStr, pos+replaceStr.size());
         }
     }
+
+    bool isValid1(string s) {
+        stack<char> v;
+        for(auto c: s){
+            switch (c){
+                case '(':
+                case '[':
+                case '{':
+                    v.push(c);
+                    break;
+                case ')':
+                    if(v.empty() || v.top()!='(') return false;
+                    v.pop();
+                    break;
+                case ']':
+                    if(v.empty() || v.top()!='[') return false;
+                    v.pop();
+                    break;
+                case '}':
+                    if(v.empty() || v.top()!='{') return false;
+                    v.pop();
+                    break;
+
+            }
+        }
+        return v.empty();
+    }
 };
+
+//int main(){
+//    Solution s;
+//    string data = "()";
+//    cout<<s.isValid(data)<<endl;
+//}
 
 
 //public class ValidParentheses {
