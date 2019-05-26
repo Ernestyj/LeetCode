@@ -16,10 +16,10 @@ public:
     }
 };
 
-int main(){
-    Solution s;
-    cout << s.hammingWeight(19) << endl;
-}
+//int main(){
+//    Solution s;
+//    cout << s.hammingWeight(19) << endl;
+//}
 
 //public class NumberOf1Bits {
 //
