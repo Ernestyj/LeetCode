@@ -1,4 +1,4 @@
-package leetcode291_300;
+
 
 /**You are playing the following Nim Game with your friend: There is a heap of stones on the table,
  each time one of you take turns to remove 1 to 3 stones. The one who removes the last stone
@@ -14,11 +14,17 @@ package leetcode291_300;
  you will always be the winner?
  * Created by eugene on 16/5/28.
  */
-public class NimGame {
-
-    //从1~7,8,9出发,找到规律:4的倍数个一定输
-    public boolean canWinNim(int n) {
+class Solution {
+public:
+    bool canWinNim(int n) {
         return n%4 != 0;
     }
-
-}
+};
+//public class NimGame {
+//
+//    //从1~7,8,9出发,找到规律:4的倍数个一定输
+//    public boolean canWinNim(int n) {
+//        return n%4 != 0;
+//    }
+//
+//}
