@@ -1,4 +1,3 @@
-package leetcode1_10;
 
 /**Implement atoi to convert a string to an integer.
  Hint: Carefully consider all possible input cases. If you want a challenge, please do not see below and ask yourself what are the possible input cases.
@@ -8,7 +7,20 @@ package leetcode1_10;
 class Solution {
 public:
     int myAtoi(string str) {
-
+        long num = 0;
+        int sign = 1, i = 0;
+        while (i<str.size() && str[i] == ' ') ++i;
+        if(i<str.size() && (str[i] == '+' || str[i] == '-')){
+            sign = str[i] == '+' ? 1 : -1;
+            ++i;
+        }
+        for ( ; i < str.size(); ++i) {
+            if(str[i] < '0' || str[i] > '9') break;
+            num = num*10 + (str[i] - '0');
+            if(num*sign > INT_MAX) return INT_MAX;
+            else if(num*sign < INT_MIN) return INT_MIN;
+        }
+        return static_cast<int>(num*sign);
     }
 };
 //public class StringToInteger {

@@ -19,8 +19,7 @@ struct TreeNode {
 //int main() {
 //    std::cout << "Hello, World!" << std::endl;
 //
-//    queue<int> q;
-//    cout<< q.front() << endl;
-//    q.pop();
+//    float f = 10.0/3;
+//    cout<< f << endl;
 //    return 0;
 //}
