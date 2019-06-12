@@ -14,10 +14,10 @@ public:
         while(l<=r){
             m = l+(r-l)/2;
             if(target==nums[m]) return m;
-            else if(nums[m]<nums[r]){
+            else if(nums[m]<nums[r]){   //m~r有序
                 if(nums[m]<target && target<=nums[r]) l = m+1;
                 else r = m-1;
-            }else{
+            }else{  //l~m有序
                 if(nums[l]<=target && target<nums[m]) r = m-1;
                 else l = m+1;
             }
