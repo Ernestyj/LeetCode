@@ -14,7 +14,7 @@ struct TreeNode {
 };
 class Solution {
 public:
-    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {  //与BinaryTreeLevelOrderTraversal一样，只是加了正反向判断
         vector<vector<int>> res;
         if(root == nullptr) return res;
         queue<TreeNode*> q;
