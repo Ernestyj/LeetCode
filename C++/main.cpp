@@ -16,6 +16,16 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+    Node() {}
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
 //int main() {
 //    std::cout << "Hello, World!" << std::endl;
 //

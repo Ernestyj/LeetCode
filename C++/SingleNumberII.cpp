@@ -1,7 +1,3 @@
-package leetcode131_140;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**Given an array of integers, every element appears three times except for one.
  Find that single one.
@@ -9,6 +5,20 @@ import java.util.Map;
  Could you implement it without using extra memory?
  * Created by eugene on 16/2/25.
  */
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int result = 0;
+        for (int i = 31; i >= 0; --i) { //不是++i
+            int sum = 0;
+            for (int j = 0; j < nums.size(); ++j) {
+                sum += nums[j]>>i & 1;  //nums[j]>>i & 1 是取第i位值(0或1)
+            }
+            result = (result<<1) + sum%3;
+        }
+        return result;
+    }
+};
 public class SingleNumberII {
 
     /**TODO 重温记忆
@@ -23,8 +33,6 @@ public class SingleNumberII {
      _____
      4331    对每一位进行求和
      1001    对每一位的和做%3运算，来消去所有重复3次的数
-     * @param nums
-     * @return
      */
     public int singleNumber(int[] nums) {
         int result = 0;
