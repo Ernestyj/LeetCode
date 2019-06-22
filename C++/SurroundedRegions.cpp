@@ -15,7 +15,7 @@
  */
 class Solution {
 public:
-    void solve(vector<vector<char>>& board) {
+    void solve(vector<vector<char>>& board) {   //类似number of islands
         if(board.empty() || !board[0].size()) return;
         int m = board.size(), n = board[0].size();
         for (int i = 0; i < m; ++i) {// merge O's on left & right boarder
@@ -36,8 +36,8 @@ public:
     void dfs(vector<vector<char>>& board, int x, int y){
         if(board[x][y]=='O'){
             board[x][y] = '#';
-            if(x>1) dfs(board, x-1, y);
-            if(y>1) dfs(board, x, y-1);
+            if(x-1>0) dfs(board, x-1, y);
+            if(y-1>0) dfs(board, x, y-1);
             if(x+1<board.size()) dfs(board, x+1, y);
             if(y+1<board[0].size()) dfs(board, x, y+1);
         }
