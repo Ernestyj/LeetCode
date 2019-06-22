@@ -8,7 +8,7 @@
  Note: The input prerequisites is a graph represented by a list of edges, not adjacency matrices.
  * Created by eugene on 16/4/3.
  */
-class Solution {
+class Solution {//与Course Schedule II一样
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {//判断是否是有向无环图(DAG)，BFS，拓扑排序，关键是要维护一个入度为0的顶点的集合
         vector<vector<int>> graph(numCourses, vector<int>(0));
