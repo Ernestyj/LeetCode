@@ -15,18 +15,34 @@
  Given target = 20, return false.
  * Created by eugene on 16/5/4.
  */
-public class Search2DMatrixII {
-
-    //均从右上角开始搜索
-    public boolean searchMatrix(int[][] matrix, int target) {
-        int m = matrix.length, n = matrix[0].length;
+class Solution {
+public:
+    //与Search2DMatrix代码完全一样,从右上角开始搜
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size();
+        if(m<=0) return false;
+        int n = matrix[0].size();
         int i = 0, j = n-1;
-        while (i<m && j>=0){
-            if (matrix[i][j]==target) return true;
-            else if (matrix[i][j]<target) i++;
-            else j--;
+        while(i<m && j>=0){
+            if(matrix[i][j]==target) return true;
+            else if(matrix[i][j]<target) ++i;
+            else --j;
         }
         return false;
     }
-
-}
+};
+//public class Search2DMatrixII {
+//
+//    //均从右上角开始搜索
+//    public boolean searchMatrix(int[][] matrix, int target) {
+//        int m = matrix.length, n = matrix[0].length;
+//        int i = 0, j = n-1;
+//        while (i<m && j>=0){
+//            if (matrix[i][j]==target) return true;
+//            else if (matrix[i][j]<target) i++;
+//            else j--;
+//        }
+//        return false;
+//    }
+//
+//}
