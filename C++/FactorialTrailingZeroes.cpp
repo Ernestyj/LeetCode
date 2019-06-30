@@ -1,4 +1,3 @@
-package leetcode171_180;
 
 /**Given an integer n, return the number of trailing zeroes in n!.
  Note: Your solution should be in logarithmic time complexity.
@@ -6,7 +5,7 @@ package leetcode171_180;
  */
 class Solution {
 public:
-    int trailingZeroes(int n) {
+    int trailingZeroes(int n) {//num = a * 10^k = a*(5^k * 2^k)
         int count = 0;
         for (long i = 5; n/i >= 1; i *= 5) {//TODO i 的类型不能为int，否则溢出
             count += n/i;

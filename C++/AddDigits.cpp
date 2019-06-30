@@ -1,4 +1,3 @@
-package leetcode251_260;
 
 /**Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
  For example:
@@ -7,8 +6,8 @@ package leetcode251_260;
  */
 class Solution {
 public:
-    int addDigits(int num) {
-        return 1+(num-1)%9;
+    int addDigits(int num) {// ab = a*10+b; ab%9 = (a*9+a+b)%9 = (a+b)%9; abc = a*100+b*10+c; abc%9 = (a+b+c)%9;
+        return 1+(num-1)%9; // 38%9 = 2; 11%9 = 2   //TODO 这里考虑0的情况，写法tricky
     }
 };
 //public class AddDigits {
