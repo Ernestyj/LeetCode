@@ -5,7 +5,7 @@ package leetcode231_240;
  */
 class Solution {
 public:
-    bool isPowerOfTwo(int n) {
+    bool isPowerOfTwo(int n) {//2的次方数都只有一个1，剩下的都是0; 如果减1的话，则最高位会降一位，其余为0的位现在都为变为1，那么把两数相与就会得到0
         return n>0 && (n&(n-1))==0;
     }
 };

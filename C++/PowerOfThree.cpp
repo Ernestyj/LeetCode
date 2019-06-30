@@ -11,6 +11,15 @@ public:
         if(n>0) while (n%3==0) n /= 3;
         return n==1;
     }
+
+    bool is PowerOfThree(int n){
+        //maxPowerOfThree & n == 0; maxPowerOfThree = 3^k; k = log3(INT_MAX)
+        if(n<0) return false;
+        const int maxInt = 0x7fffffff;
+        int k = log(maxInt)/log(3);
+        int maxPowerOfThree = pow(3, k);
+        return (maxPowerOfThree%n == 0);    //1162261467 is 3^19
+    }
 };
 //public class PowerOfThree {
 //
