@@ -19,13 +19,12 @@ public:
         }
         return v.size();
     }
-    //O(n^2) brute force(DP): dp[i]为以nums[i]结尾的LIS
-    //dp[j]=max(dp[j], dp[i]+1), i<j and nums[i]<nums[j]. 再找出dp中的最大值.
-    int lengthOfLIS(vector<int>& nums) {
+    //O(n^2) brute force(DP): dp[i]为以nums[i]结尾的LIS，dp[j]=max(dp[j], dp[i]+1), i<j and nums[i]<nums[j]. 再找出dp中的最大值.
+    int lengthOfLIS(vector<int>& nums) {//与Increasing Triplet Subsequence几乎一样
         if(nums.empty()) return 0;
         vector<int> dp(nums.size(), 1); //初始值为1
         for (int j = 0; j < nums.size(); ++j) {
-            for (int i = 0; i < j; ++i) {
+            for (int i = 0; i < j; ++i) {   //TODO 注意遍历方法，i<j，这样j之前的dp都被遍历赋值过
                 if(nums[i]<nums[j]) dp[j] = max(dp[j], dp[i]+1);
             }
         }
