@@ -7,6 +7,21 @@
 class Solution {
 public:
     int mySqrt(int x) {
+        if(x==1) return 1;
+        int l=0, r=x/2+1, m=0;
+        while(l+1<r){
+            m=l+(r-l)/2;
+            long square = static_cast<long>(m)*m;
+            if(square==x) return m;
+            else if(square<x) l=m;
+            else r=m;
+        }
+        if(x>=static_cast<long>(l)*l) return l;
+        if(x>=static_cast<long>(r)*r) return r;
+        return -1;
+    }
+
+    int mySqrt(int x) {
         int l=0, r=x/2+1;
         while(l<=r){
             int m=l+(r-l)/2;

@@ -16,6 +16,20 @@ class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
         if(nums.empty()) return -1;
+        int l=0, r=nums.size()-1, m=0;
+        while(l+1<r){
+            m = l+(r-l)/2;
+            if(target<nums[m]) r=m;
+            else if(nums[m]<target) l=m;
+            else return m;
+        }
+        if(nums[l]>=target) return l;
+        if(nums[r]>=target) return r;
+        else return r+1;
+    }
+
+    int searchInsert(vector<int>& nums, int target) {
+        if(nums.empty()) return -1;
         int l=0, r=nums.size()-1;
         int m=0;
         while(l<=r){

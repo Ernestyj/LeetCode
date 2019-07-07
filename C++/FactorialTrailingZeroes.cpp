@@ -5,6 +5,15 @@
  */
 class Solution {
 public:
+    int trailingZeroes(int n) {//另一种写法
+        int res = 0;
+        while (n) {
+            res += n / 5;
+            n /= 5;
+        }
+        return res;
+    }
+
     int trailingZeroes(int n) {//num = a * 10^k = a*(5^k * 2^k)
         int count = 0;
         for (long i = 5; n/i >= 1; i *= 5) {//TODO i 的类型不能为int，否则溢出

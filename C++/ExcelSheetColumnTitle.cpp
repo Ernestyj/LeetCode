@@ -18,10 +18,10 @@ public:
         while (n>0){
             --n;
             char c = n%26 + 'A';
-            s = s + c;
+            s = c + s;
             n /= 26;
         }
-        reverse(s.begin(), s.end());
+        //reverse(s.begin(), s.end());
         return s;
     }
 };
