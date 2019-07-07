@@ -9,6 +9,36 @@
  */
 class MyQueue {
 public:
+    MyQueue() {}
+    void push(int x) {
+        _new.push(x);
+    }
+    int pop() {
+        shiftStack();
+        int val = _old.top(); _old.pop();
+        return val;
+    }
+    int peek() {
+        shiftStack();
+        return _old.top();
+    }
+    bool empty() {
+        return _old.empty() && _new.empty();
+    }
+
+    void shiftStack() {
+        if (!_old.empty()) return;
+        while (!_new.empty()) {
+            _old.push(_new.top());
+            _new.pop();
+        }
+    }
+private:
+    stack<int> _old, _new;
+};
+
+class MyQueue {
+public:
     /** Initialize your data structure here. */
     MyQueue() {
     }

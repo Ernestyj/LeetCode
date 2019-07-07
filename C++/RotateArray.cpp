@@ -16,6 +16,13 @@ public:
         reverse(nums.begin()+len-k, nums.end());
         reverse(nums.begin(), nums.end());
     }
+
+    void rotate(vector<int> &nums, int k) {//O(n)空间，利用映射关系 i -> (i+k)%n 来交换数字
+        vector<int> t = nums;
+        for (int i = 0; i < nums.size(); ++i) {
+            nums[(i + k) % nums.size()] = t[i];
+        }
+    }
 };
 
 //public class RotateArray {

@@ -13,12 +13,11 @@ struct ListNode {
 
 class Solution {
 public:
-    ListNode* removeElements(ListNode* head, int val) {
+    ListNode* removeElements(ListNode* head, int val) { //类似RemoveDuplicatesFromSortedList
         if(head == nullptr) return nullptr;
         head->next = removeElements(head->next, val);
         return head->val == val ? head->next : head;
     }
-
     //标准删除:dummy, pre+cur
     ListNode* removeElements(ListNode* head, int val) {
         ListNode* dummy = new ListNode(0);

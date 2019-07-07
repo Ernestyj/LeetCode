@@ -6,14 +6,13 @@ package leetcode201_210;
 class Solution {
 public:
     int countPrimes(int n) {
-        if (n == 0) return 0;//TODO 不能初始化数组长度为0
-        bool notPrimes[n] = {false};
         int count = 0;
+        vector<bool> isPrime(n, true);
         for (int i = 2; i < n; ++i) {
-            if(!notPrimes[i]){
+            if (isPrime[i]) {
                 ++count;
-                for (int j = 2; i*j < n; ++j) {
-                    notPrimes[i*j] = true;
+                for (int j = 2; i * j < n; ++j) {
+                    isPrime[i * j] = false;
                 }
             }
         }

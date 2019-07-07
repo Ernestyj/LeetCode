@@ -14,6 +14,15 @@ public:
         }
         return count;
     }
+
+    int hammingWeight1(uint32_t n) {
+        int count = 0;
+        while(n){
+            ++count;
+            n = n&(n-1);    //将最右边的1置为0
+        }
+        return count;
+    }
 };
 
 //int main(){
