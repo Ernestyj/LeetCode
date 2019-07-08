@@ -9,17 +9,35 @@
  */
 class Solution {
 public:
-    vector<string> letterCombinations(string digits) {
+    vector<string> letterCombinations(string digits) {  //DFS
+        if (digits.empty()) return {};
+        vector<string> res;
+        vector<string> m{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        dfs(digits, m, res, "", 0);
+        return res;
+    }
+    void dfs(string& digits, vector<string>& m, vector<string>& res, string sol, int start) {
+        if (start == digits.size()) {
+            res.push_back(sol);
+            return;
+        }else{
+            string s = m[digits[start] - '0'];
+            for (int i = 0; i < s.size(); ++i) {
+                dfs(digits, m, res, sol+s[i], start+1);
+            }
+        }
+    }
+
+    vector<string> letterCombinations(string digits) {//BFS
         vector<string> m = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         deque<string> q;
         if(digits.size()<=0) return vector<string>{};
         q.push_back("");
         for (int i = 0; i < digits.size(); ++i) {
-            int d = digits[i]-'0';
             while (q.front().size() == i){
                 string old = q.front();
                 q.pop_front();
-                for(auto c: m[d]) q.push_back(old+c);
+                for(auto c: m[digits[i]-'0']) q.push_back(old+c);
             }
         }
         return vector<string>(q.begin(), q.end());

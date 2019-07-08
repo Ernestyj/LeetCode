@@ -8,7 +8,7 @@ package leetcode341_350;
  */
 class Solution {
 public:
-    bool isPowerOfFour(int num) {
+    bool isPowerOfFour(int num) {   //不能用类似maxPowerOfThree的方法了
         if(num>0) while(num%4==0) num /= 4;
         return num==1;
     }
@@ -22,6 +22,7 @@ public:
 //     */
 //    public boolean isPowerOfFour(int num) {
 //        //TODO return num>0 && 1073741824%num==0 无法排除2的情况
+//        //我们在确定其是2的次方数了之后，发现只要是4的次方数，减1之后可以被3整除
 //        return num>0 && (num&(num-1))==0 && (num-1)%3==0;
 //    }
 //

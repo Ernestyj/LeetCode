@@ -29,11 +29,10 @@ public:
     }
     void helper(TreeNode* node){
         if(node == nullptr) return;
-        TreeNode* temp = node->left;
+        //swap(node->left, node->right);//这句也可以放这里
         helper(node->left);
         helper(node->right);
-        node->left = node->right;
-        node->right = temp;
+        swap(node->left, node->right);
     }
 };
 //public class InvertBinaryTree {

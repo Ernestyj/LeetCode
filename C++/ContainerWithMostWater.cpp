@@ -7,11 +7,11 @@
  */
 class Solution {
 public:
-    int maxArea(vector<int>& height) {
+    int maxArea(vector<int>& height) {//类似Trapping Rain Water的双指针解法
         int maxArea = 0, l = 0, r = height.size()-1;
         while (l<r){
             maxArea = max(maxArea, min(height[l], height[r]) * (r-l));
-            if(height[l]<height[r]) ++l;
+            if(height[l]<height[r]) ++l;//核心方法:Every time move the smaller value pointer to inner array
             else --r;
         }
         return maxArea;
