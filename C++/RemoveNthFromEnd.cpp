@@ -17,10 +17,13 @@ struct ListNode {
 };
 class Solution {
 public:
+    //dummy->1->2->3->4->5
+    //  s          f
+    //             s       f
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode dummy(0);
-        dummy.next = head;
-        ListNode* slow = &dummy, *fast = &dummy;
+        ListNode dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* slow = dummy, *fast = dummy;
         for (int i = 1; i <= n + 1; ++i) {  //TODO 注意边界是n+1，为了让slow停止位置为deleting node前一个位置
             fast = fast->next;
         }
@@ -29,7 +32,7 @@ public:
             fast = fast->next;
         }
         slow->next = slow->next->next;
-        return dummy.next;
+        return dummy->next;
     }
 };
 //public class RemoveNthFromEnd {
