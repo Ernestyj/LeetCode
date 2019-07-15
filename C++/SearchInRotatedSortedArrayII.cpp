@@ -11,19 +11,21 @@ public:
     bool search(vector<int>& nums, int target) {
         if(nums.size()<=0) return false;
         int l = 0, r = nums.size()-1, m = 0;
-        while (l<=r){
+        while (l+1<r){
             m = l+(r-l)/2;
             if(target==nums[m]) return true;
             else if(nums[m]<nums[r]){   //m~r有序
-                if(nums[m]<target && target<=nums[r]) l = m+1;
-                else r = m-1;
+                if(nums[m]<target && target<=nums[r]) l = m;
+                else r = m;
             }else if(nums[m]>nums[r]){  //l~m有序
-                if(nums[l]<=target && target<nums[m]) r = m-1;
-                else l = m+1;
+                if(nums[l]<=target && target<nums[m]) r = m;
+                else l = m;
             }else{  //nums[m] == nums[r]时
                 --r;
             }
         }
+        if(nums[l]==target) return true;
+        if(nums[r]==target) return true;
         return false;
     }
 };

@@ -15,6 +15,13 @@ struct ListNode {
 };
 class Solution {
 public:
+    /** dummy-> 1 -> 2 -> 3 -> 4 -> 5
+     *          p    l    c
+     *  dummy-> 1 -> 3 -> 2 -> 4 -> 5
+     *          p         l    c
+     *  dummy-> 1 -> 4 -> 3 -> 2 -> 5
+     *          p              l    c
+     */
     ListNode* reverseBetween(ListNode* head, int m, int n) {
         if(!head) return nullptr;
         ListNode dummy(0);
@@ -23,7 +30,7 @@ public:
         for (int i = 0; i < m - 1; ++i) pre = pre->next;
         ListNode* last = pre->next; // a pointer to the beginning of a sub-list that will be reversed
         ListNode* cur = last->next;
-        for (int i = 0; i < n - m; ++i) {
+        for (int i = 0; i < n - m; ++i) {   //last and pre is permanent
             last->next = cur->next;
             cur->next = pre->next;   //cur->next = pre->next，而不是cur->next = last
             pre->next = cur;
