@@ -17,7 +17,7 @@ public:
 };
 class Solution {
 public:
-    Node* copyRandomList(Node* head) {
+    Node* copyRandomList(Node* head) {//BFS
         if(!head) return nullptr;
         Node* newHead = new Node(head->val, nullptr, nullptr);
         Node* p = head, *q = newHead;
@@ -39,6 +39,20 @@ public:
             q = q->next;
         }
         return newHead;
+    }
+
+    Node* copyRandomList(Node* head) {//DFS
+        unordered_map<Node*, Node*> m;
+        return dfs(head, m);
+    }
+    Node* dfs(Node* node, unordered_map<Node*, Node*>& m) {
+        if (!node) return nullptr;
+        if (m.count(node)) return m[node];
+        Node *res = new Node(node->val, nullptr, nullptr);
+        m[node] = res;
+        res->next = dfs(node->next, m);
+        res->random = dfs(node->random, m);
+        return res;
     }
 };
 //public class CopyListWithRandomPointer {

@@ -16,7 +16,7 @@ public:
     int get(int key) {
         auto it = m.find(key);
         if(it == m.end()) return -1;
-        l.splice(l.begin(), l, it->second); //转移到头部
+        l.splice(l.begin(), l, it->second); //转移到头部, STL 中的函数 splice，专门移动链表中的一个或若干个结点到某个特定的位置
         return it->second->second;
     }
     void put(int key, int value) {
