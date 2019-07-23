@@ -25,11 +25,9 @@ public:
         stk.pop();
         int res = node->val;
         node = node->right; //不存在左节点就出栈访问节点值，然后继续遍历出栈那个节点的右节点
-        if(node){
-            while (node){
-                stk.push(node); //入栈右或左节点
-                node = node->left;  //只要存在左节点就一直入栈
-            }
+        while (node){
+            stk.push(node); //入栈右或左节点
+            node = node->left;  //只要存在左节点就一直入栈
         }
         return res;
     }

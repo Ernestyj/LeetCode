@@ -11,6 +11,8 @@
 class Solution {
 public:
     int rangeBitwiseAnd(int m, int n) {
+        // 为什么要这样与呢，举个简单的例子呗，110与上(110-1)，得到100，这不就相当于去掉最低位的1么，
+        // n就这样每次去掉最低位的1，如果小于等于m了，返回此时的n即可
         while (n>m) n &= n-1; //从n开始&(n-1)，直到结果小于等于m
         return n;
     }
