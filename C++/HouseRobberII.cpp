@@ -15,14 +15,15 @@ public:
         if(nums.size()<=0) return 0;
         if(nums.size()==1) return nums[0];//TODO 不能漏
         if(nums.size()==2) return max(nums[0], nums[1]);
-        return max(helper(nums, 0, nums.size()-2), helper(nums, 1, nums.size()-1));
+        return max(helper(nums, 0, nums.size()-1), helper(nums, 1, nums.size()));
     }
+    //左闭右开 更方便写代码
     int helper(vector<int>& nums, int l, int r){    //DP, dp(i)=max{dp(i-1), dp(i-2)+nums(i)} 和House Robber基本一致
         //if(l>=r) return nums[l];
-        vector<int> dp(r+1, 0);
+        vector<int> dp(r, 0);
         dp[l] = nums[l];
         dp[l+1] = max(nums[l], nums[l+1]);
-        for (int i = l+2; i < r+1; ++i) {
+        for (int i = l+2; i < r; ++i) {
             dp[i] = max(dp[i-1], dp[i-2]+nums[i]);
         }
         return dp.back();

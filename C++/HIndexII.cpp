@@ -5,6 +5,22 @@
  */
 class Solution {
 public:
+    //0,1,3,5,6
+    //0,1,2,3,4
+    int hIndex(vector<int>& citations) {//标准二分法，O(log n)
+        int N = citations.size(), l = 0, r = N-1, m = 0;
+        if(N<=0) return 0;
+        while (l+1<r){
+            m = l+(r-l)/2;
+            if(citations[m]<N-m) l = m;   // 如果该点是有效的H指数，则最大H指数一定在右边
+            else if(citations[m]==N-m) return N-m;
+            else r = m;   //// 否则最大H指数在左边
+        }
+        if(citations[l]>=N-l) return N-l;
+        if(citations[r]>=N-r) return N-r;
+        return 0;
+    }
+
     int hIndex(vector<int>& citations) {//标准二分法，O(log n)
         int N = citations.size(), l = 0, r = N-1, m = 0;
         while (l<=r){
