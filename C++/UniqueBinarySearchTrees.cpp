@@ -7,6 +7,7 @@
  */
 class Solution {
 public:
+    //Count[i] = ∑ Count[0...k] * [ k+1....i], 0<=k<=i-1 (卡特兰数)
     int numTrees(int n) {
         vector<int> count(n+1, 0);
         count[0] = 1;

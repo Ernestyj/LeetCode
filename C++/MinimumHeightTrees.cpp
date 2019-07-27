@@ -17,6 +17,9 @@
  */
 class Solution {
 public:
+    //Remove the leaves, update the degrees of inner vertexes. Then remove the new leaves.
+    //Doing so level by level until there are 2 or 1 nodes left. What's left is our answer!
+    //The time complexity and space complexity are both O(n).
     vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
         if(n==1) return {0};
         vector<int> res;
