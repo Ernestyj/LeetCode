@@ -19,13 +19,12 @@
  */
 class Solution {
 public:
+//     ex. 3 6 4 2
+//         4 6 3 2 (step1 swap)
+//         4 2 3 6 (step2 reverse)
     void nextPermutation(vector<int>& nums) {
         int n = nums.size();
         if(n<=1) return;
-//        if(nums[n-1]>nums[n-2]){//TODO 此block可有可无
-//            swap(nums[n-1], nums[n-2]);
-//            return;
-//        }
         int i = n-2, j = n-1;
         while(i>=0 && nums[i] >= nums[i+1]) --i;    //从右往左找到第一个非递增序(从右开始算)置换点i
         if(i>=0){   //非全递减序列

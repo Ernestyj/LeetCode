@@ -15,6 +15,18 @@
 class Solution {
 public:
     int bulbSwitch(int n) { //找出规律:结果为1有3个,结果为2有5个,结果为3有7个...(n=3是1,n=5是2,n=7是3),或问题就简化为求1到n之间完全平方数的个数
+        int count = 0, i = 1;
+        while (i * i <= n) ++count, ++i;
+        return count;
+    }
+
+    int bulbSwitch(int n) { //进化
+        int res = 1;
+        while (res * res <= n) ++res;
+        return res - 1;
+    }
+
+    int bulbSwitch(int n) { //再进化
         return sqrt(n);
     }
 };

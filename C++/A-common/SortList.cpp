@@ -9,7 +9,7 @@ struct ListNode {
 };
 class Solution {
 public:
-    ListNode* sortList(ListNode* head) {
+    ListNode* sortList(ListNode* head) {//O(nlogn)可以采用快速排序/归并排序/堆排序,对于链表用归并排序方便(配合合并两个有序链表).
         if(!head || !head->next) return head;
         ListNode* slow = head, *fast = head;
         while(fast && fast->next && fast->next->next){
