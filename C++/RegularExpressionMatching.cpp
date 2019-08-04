@@ -21,6 +21,28 @@
 
 class Solution {
 public:
+    //dp[i][j]表示s[0,i)和p[0,j)是否match TODO 有一定难度,注意理解记忆
+    //1. P[i][j] = P[i - 1][j - 1], if p[j - 1] != '*' && (s[i - 1] == p[j - 1] || p[j - 1] == '.');
+    //2. P[i][j] = P[i][j - 2],     if p[j - 1] == '*' and the pattern repeats for 0 times;
+    //3. P[i][j] = P[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.'),
+    //                              if p[j - 1] == '*' and the pattern repeats for at least 1 times.
+    bool isMatch(string s, string p) {
+        int m = s.size(), n = p.size();
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, false));
+        dp[0][0] = true;
+        for (int i = 0; i <= m; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                if (j > 1 && p[j - 1] == '*') {
+                    dp[i][j] = dp[i][j - 2] ||
+                            (i > 0 && (s[i - 1] == p[j - 2] || p[j - 2] == '.') && dp[i - 1][j]);
+                } else {
+                    dp[i][j] = i > 0 && (s[i - 1] == p[j - 1] || p[j - 1] == '.') && dp[i - 1][j - 1];
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
     //1. 先来判断p是否为空，若为空则根据s的为空的情况返回结果。
     //2. 当p的第二个字符为*号时，2.1由于*号前面的字符的个数可以任意，可以为0，那么我们先用递归来调用为0的情况，就是直接把这两个字符去掉再比较，
     //2.2 或者当s不为空，且第一个字符和p的第一个字符相同时，我们再对去掉首字符的s和p调用递归，注意p不能去掉首字符，因为*号前面的字符可以有无限个；

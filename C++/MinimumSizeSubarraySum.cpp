@@ -9,10 +9,10 @@ public:
     int minSubArrayLen(int s, vector<int>& nums) {//滑动窗口法:双指针,r指针++, 当sum>=s时l指针++直到sum<s，再r指针++
         if(nums.empty()) return 0;
         int l = 0, r = 0, sum = 0, minLen = INT_MAX;
-        while(r<nums.size()){
-            sum += nums[r++];
+        for (int r = 0; r < nums.size(); ++r) {
+            sum += nums[r];
             while (sum>=s){
-                minLen = min(minLen, r-l);
+                minLen = min(minLen, r-l+1);
                 sum -= nums[l++];
             }
         }
