@@ -19,8 +19,8 @@ public:
             if (stk.empty() || height[stk.top()] < height[i]) { //维护高度递增条形索引栈
                 stk.push(i++);
             } else {    //当前元素小于栈顶元素
-                int cur = stk.top(); stk.pop();
-                res = max(res, height[cur] * (stk.empty() ? i : (i - stk.top() - 1)));
+                int t = stk.top(); stk.pop();
+                res = max(res, height[t] * (stk.empty() ? i : (i - stk.top() - 1)));
             }
         }
         return res;

@@ -9,7 +9,9 @@
  */
 class Solution {
 public:
-    //dp[i][j] 表示从 word1 的前i个字符转换到 word2 的前j个字符所需要的步骤。
+    //dp[i][j] 表示从word1的前i个字符word1[0,i)转换到word2的前j个字符word2[0,j)所需要的步骤。
+    //replace (i, j)     delete (i, j+1)
+    //insert (i+1, j)    (i+1, j+1)   计算方向
     // 那我们可以先给这个二维数组dp的第一行第一列赋值，这个很简单，因为第一行和第一列对应的总有一个字符串是空串，于是转换步骤完全是另一个字符串的长度。
     //举个例子来看，比如word1是“bbc"，word2是”abcd“，那么我们可以得到dp数组如下
     //  Ø a b c d
@@ -18,9 +20,9 @@ public:
     //b 2 2 1 2 3
     //c 3 3 2 1 2
     //观察可以发现，当word1[i] == word2[j]时，dp[i][j] = dp[i - 1][j - 1]，
-    // 其他情况时，dp[i][j]是其左，左上，上的三个值中的最小值加1，其实这里的左，上，和左上，分别对应的增加，删除，修改操作，具体可以参见解法一种的讲解部分，那么可以得到状态转移方程为：
-    //dp[i][j] =      /    dp[i - 1][j - 1]                                                  if word1[i - 1] == word2[j - 1]
-    //                \    min({dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]}) + 1;          else
+    // 其他情况时，dp[i][j]是其左，左上，上的三个值中的最小值加1，其实这里的左，上，和左上，分别对应的增加，删除，修改操作，状态转移方程为：
+    //dp[i][j] =  / dp[i - 1][j - 1]                                         if word1[i - 1] == word2[j - 1]
+    //            \ min({dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]}) + 1; else
     int minDistance(string word1, string word2) {
         int m = word1.size(), n = word2.size();
         vector<vector<int>> dp(m + 1, vector<int>(n + 1));
