@@ -11,6 +11,16 @@ class Solution {
 public:
     int findMin(vector<int>& nums) {    //记忆
         int l = 0, r = nums.size()-1;
+        while(l+1<r){
+            int m = l+(r-l)/2;
+            if(nums[m]<nums[r]) r = m;  //m~r有序
+            else l = m;   //l~m有序
+        }
+        return min(nums[l], nums[r]);
+    }
+
+    int findMin(vector<int>& nums) {    //记忆
+        int l = 0, r = nums.size()-1;
         while(l<r){
             int m = l+(r-l)/2;
             if(nums[m]<nums[r]) r = m;  //m~r有序, TODO 此处不是r = m+1

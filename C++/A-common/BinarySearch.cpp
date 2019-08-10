@@ -76,3 +76,55 @@ int hIndex(vector<int>& citations) {//标准二分法，O(log n)
     if(citations[r]>=N-r) return N-r;
     return 0;
 }
+
+/**
+ * Follow up for "Search in Rotated Sorted Array":
+ What if duplicates are allowed?
+ Would this affect the run-time complexity? How and why?
+ Write a function to determine if a given target is in the array.
+ * Created by DCLab on 1/2/2016.
+ */
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        if(nums.size()<=0) return false;
+        int l = 0, r = nums.size()-1, m = 0;
+        while (l+1<r){
+            m = l+(r-l)/2;
+            if(target==nums[m]) return true;
+            else if(nums[m]<nums[r]){   //m~r有序
+                if(nums[m]<target && target<=nums[r]) l = m;
+                else r = m;
+            }else if(nums[m]>nums[r]){  //l~m有序
+                if(nums[l]<=target && target<nums[m]) r = m;
+                else l = m;
+            }else{  //nums[m] == nums[r]时
+                --r;
+            }
+        }
+        if(nums[l]==target) return true;
+        if(nums[r]==target) return true;
+        return false;
+    }
+};
+
+/**Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+ (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+ Find the minimum element.
+ You may assume no duplicate exists in the array.
+ * 6 7 0 1 2 3 4
+ * 4 5 6 7 0 1 2
+ * Created by eugene on 16/3/12.
+ */
+class Solution {
+public:
+    int findMin(vector<int>& nums) {    //记忆
+        int l = 0, r = nums.size()-1;
+        while(l+1<r){
+            int m = l+(r-l)/2;
+            if(nums[m]<nums[r]) r = m;  //m~r有序
+            else l = m;   //l~m有序
+        }
+        return min(nums[l], nums[r]);
+    }
+};
