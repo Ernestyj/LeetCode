@@ -8,6 +8,7 @@
  */
 class Solution {
 public:
+    //dp[i]为区间[0,i)能否被分割
     bool wordBreak(string s, vector<string>& wordDict) {
         vector<bool> dp(s.size()+1, false);
         dp[0] = true;
