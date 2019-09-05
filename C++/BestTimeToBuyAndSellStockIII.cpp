@@ -5,6 +5,34 @@
  (ie, you must sell the stock before you buy again).
  * Created by eugene on 16/2/10.
  */
+/**http://liangjiabin.com/blog/2015/04/leetcode-best-time-to-buy-and-sell-stock.html
+ * 两次一维动态规划组合:以第i天为分界线，计算第i天之前(含)进行一次交易的最大收益preProfit[i]，
+ 和第i天之后(含)进行一次交易的最大收益postProfit[i]，
+ 遍历的同时，max{preProfit[i] + postProfit[i]}(0≤i≤n-1)就是最大收益。
+ 第i天之前和第i天之后进行一次的最大收益求法同Best Time to Buy and Sell Stock I。
+ 上述方法时间复杂度O(n^2),超时.
+ 优化:用数组暂存结果提速,时间复杂度O(n).
+ */
+class Solution {
+public:
+    int maxProfit(vector<int> &prices) {
+        if (prices.size() < 2) return 0;
+        int len = prices.size();
+        vector<int> preP(len, 0), postP(len, 0);
+        int minPrice = prices[0];
+        for (int i=1; i<len; i++){
+            minPrice = min(minPrice, prices[i]);
+            preP[i] = max(preP[i-1], prices[i]-minPrice); //注意是i-1
+        }
+        int maxPrice = prices[len-1], profit = 0;
+        for (int i=len-2; i>=0; i--){   //TODO 巧妙点在于从后往前计算
+            maxPrice = max(maxPrice, prices[i]);
+            postP[i] = max(postP[i+1], maxPrice-prices[i]);   //注意是i+1
+            profit = max(profit, preP[i]+postP[i]);    //TODO 同时计算最大收益
+        }
+        return profit;
+    }
+};
  //local[i][j]为在到达第i天时最多可进行j次交易并且最后一次交易在最后一天卖出的最大利润，此为局部最优。(第 i 天卖第 j 支股票)
  //global[i][j]为在到达第i天时最多可进行j次交易的最大利润，此为全局最优。它们的递推式为：
  //local[i][j] = max(global[i-1][j-1], local[i-1][j]) + diff

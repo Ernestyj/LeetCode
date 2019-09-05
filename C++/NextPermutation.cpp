@@ -26,9 +26,9 @@ public:
         int n = nums.size();
         if(n<=1) return;
         int i = n-2, j = n-1;
-        while(i>=0 && nums[i] >= nums[i+1]) --i;    //从右往左找到第一个非递增序(从右开始算)置换点i
+        while(i>=0 && nums[i] >= nums[i+1]) --i;    //从右往左找到第一个非递增序(从右开始算)置换点i，TODO 注意是>=不是>
         if(i>=0){   //非全递减序列
-            while (j>i && nums[i]>=nums[j]) --j;    //从右往左找到第一个比置换点i处值大的置换点j
+            while (j>i && nums[i]>=nums[j]) --j;    //从右往左找到第一个比置换点i处值大的置换点j TODO 注意是>=不是>
             swap(nums[i], nums[j]); //交换i,j处的值
         }
         reverse(nums.begin()+i+1, nums.end());

@@ -25,7 +25,7 @@ class Solution {
 public:
     Node* connect(Node* root) {
         if(!root) return nullptr;
-        Node* nLevelHead = new Node(0, nullptr, nullptr, nullptr);  // dummy head of next level
+        Node* nLevelHead = new Node(0, nullptr, nullptr, nullptr);  // dummy head of next level TODO 不能用new Node()初始化
         Node* pre = nLevelHead, *cur = root;
         while (cur){
             if(cur->left){
@@ -39,7 +39,7 @@ public:
             cur = cur->next;
             if(!cur){   // to the end of the level
                 cur = nLevelHead->next; // cur change to next level head
-                nLevelHead->next = nullptr; // reset next level head for reuse
+                nLevelHead->next = nullptr; // reset next level head for reuse TODO 漏掉将导致超时
                 pre = nLevelHead;  // reset pre
             }
         }

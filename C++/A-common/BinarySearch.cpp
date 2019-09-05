@@ -48,6 +48,34 @@ int firstGeq(vector<int>& nums, int target){
     return nums.size();  //TODO 找不到时，返回r+1或nums.size()，这里按题目情况返回具体标记值，方便程序判断
 }
 
+/**Given a sorted array of integers, find the starting and ending position of a given target value.
+ Your algorithm's runtime complexity must be in the order of O(log n).
+ If the target is not found in the array, return [-1, -1].
+ For example, Given [5, 7, 7, 8, 8, 10] and target value 8,
+ return [3, 4].
+ */
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        if(nums.empty()) return vector<int>{-1, -1};
+        int l = firstGeq(nums, target);
+        if(l==nums.size() || nums[l]!=target)
+            return vector<int>{-1, -1};
+        return vector<int>{l, firstGeq(nums, target+1)-1};
+    }
+    int firstGeq(vector<int>& nums, int target){
+        int l = 0, r = nums.size()-1, m;
+        while (l+1<r){
+            m = l+(r-l)/2;
+            if(nums[m]>=target) r = m;
+            else l = m;
+        }
+        if(nums[l]>=target) return l;
+        if(nums[r]>=target) return r;
+        return nums.size();  //TODO 找不到时，返回r+1或nums.size()
+    }
+};
+
 // 考虑使用类似于二分查找法来缩短时间。由于只是需要找到任意一个峰值，那么我们在确定二分查找折半后中间那个元素后，和紧跟的那个元素比较下大小，
 // 如果大于，则说明峰值在前面，如果小于则在后面。这样就可以找到一个峰值了
 int findPeakElement(vector<int>& nums) {

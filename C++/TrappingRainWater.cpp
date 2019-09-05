@@ -19,9 +19,10 @@ public:
             if (stk.empty() || height[i] <= height[stk.top()]) {
                 stk.push(i++);
             } else {
-                int t = stk.top(); stk.pop();   //stk.top()为左边界位置，t为坑的位置, i为右边界的位置
+                int pit = stk.top(); stk.pop();   //pit为坑的位置, stk.top()为左边界位置，i为右边界的位置
                 if (stk.empty()) continue;
-                res += (min(height[i], height[stk.top()]) - height[t]) * (i - stk.top() - 1);
+                int l = stk.top(), r = i;
+                res += (min(height[r], height[l]) - height[pit]) * (r - l - 1);
             }
         }
         return res;
