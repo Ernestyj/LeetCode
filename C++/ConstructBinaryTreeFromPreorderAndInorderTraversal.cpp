@@ -12,19 +12,19 @@ struct TreeNode {
 class Solution {
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        return rebuild(preorder, inorder, 0, preorder.size()-1, 0, inorder.size()-1);
+        return build(preorder, inorder, 0, preorder.size()-1, 0, inorder.size()-1);
     }
-    TreeNode* rebuild(vector<int>& preorder, vector<int>& inorder, int preL, int preR, int inL, int inR){
+    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int preL, int preR, int inL, int inR){
         if(preL>preR || inL>inR) return nullptr;
-        TreeNode* root = new TreeNode(preorder[preL]);  //应该使用new，否则leetcode输出都是空
-        int i = 0;
-        for (; i < inorder.size(); ++i) {
+        int i = inL;
+        for(; i<=inR; ++i){
             if(inorder[i]==preorder[preL]) break;
         }
-        int preLeftLen = i-inL;
-        root->left = rebuild(preorder, inorder, preL+1, preL+preLeftLen, inL, i-1);
-        root->right = rebuild(preorder, inorder, preL+preLeftLen+1, preR, i+1, inR);
-        return root;
+        int lLen = i-inL;
+        TreeNode* node = new TreeNode(preorder[preL]);
+        node->left = build(preorder, inorder, preL+1, preL+lLen, inL, inL+lLen-1);
+        node->right = build(preorder, inorder, preL+lLen+1, preR, inL+lLen+1, inR);
+        return node;
     }
 };
 //public class ConstructBinaryTreeFromPreorderAndInorderTraversal {

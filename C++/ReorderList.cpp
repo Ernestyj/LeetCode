@@ -13,7 +13,7 @@ struct ListNode {
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        if(!head || !head->next) return;
+        if(!head || !head->next) return;    //TODO 勿漏
         ListNode* slow = head, *fast = head;
         while(fast->next && fast->next->next){
             slow = slow->next;

@@ -7,20 +7,20 @@
 class Solution {
 public:
     int myAtoi(string str) {
+        int i = 0, sign = 1;
         long num = 0;
-        int sign = 1, i = 0;
-        while (i<str.size() && str[i] == ' ') ++i;
-        if(i<str.size() && (str[i] == '+' || str[i] == '-')){
-            sign = str[i] == '+' ? 1 : -1;
+        while(i<str.size() && str[i]==' ') ++i;
+        if(i<str.size() && (str[i]=='-' || str[i]=='+')){
+            sign = str[i]=='-'? -1:1;
             ++i;
         }
-        for ( ; i < str.size(); ++i) {
-            if(str[i] < '0' || str[i] > '9') break;
-            num = num*10 + (str[i] - '0');
-            if(num*sign > INT_MAX) return INT_MAX;
-            else if(num*sign < INT_MIN) return INT_MIN;
+        while(i<str.size() && isdigit(str[i])){
+            num = num*10 + (str[i]-'0');
+            if(num*sign>INT_MAX) return INT_MAX;
+            else if(num*sign<INT_MIN) return INT_MIN;
+            ++i;
         }
-        return static_cast<int>(num*sign);
+        return sign*num;
     }
 };
 //public class StringToInteger {

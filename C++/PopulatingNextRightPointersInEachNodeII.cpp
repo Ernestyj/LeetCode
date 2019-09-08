@@ -21,8 +21,8 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        if(!root) return nullptr;
-        Node* nLevelHead = new Node(0, nullptr, nullptr, nullptr);  // dummy head of next level
+        if(!root) return nullptr;   //TODO 勿漏
+        Node* nLevelHead = new Node(0, nullptr, nullptr, nullptr);  // dummy head of next level TODO 注意不能new Node()，应该写初始化列表
         Node* pre = nLevelHead, *cur = root;
         while (cur){
             if(cur->left){

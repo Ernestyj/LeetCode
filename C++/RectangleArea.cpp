@@ -6,15 +6,12 @@
 class Solution {
 public:
     int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
-        long long areaA = (C-A)*(D-B);
-        long long areaB = (G-E)*(H-F);
-        long long areaOverlap = 0;
-        int l = max(A,E); //overlap boundary
-        int r = min(C,G);
-        int t = min(D,H);
-        int b = max(B,F);
-        if(r>l && t>b) areaOverlap = (r-l)*(t-b);
-        return areaA+areaB-areaOverlap;
+            long area1 = (C-A)*(D-B), area2 = (G-E)*(H-F);
+            long overlap = 0;
+            long l = max(A,E), r = min(C,G);//overlap boundary
+            long t = min(D,H), b = max(B,F);
+            if(l<r && b<t) overlap = (r-l)*(t-b);
+            return area1+area2-overlap;
     }
 };
 //public class RectangleArea {

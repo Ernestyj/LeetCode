@@ -10,11 +10,14 @@
 class Solution {
 public:
     int numDecodings(string s) {
-        vector<int> dp(s.size()+1, 0);  //多分配一位(注意理解)，对于dp当前位i(dp数组头部额外分配一个)，考察字符前两位i-1, i-2
+        vector<int> dp(s.size()+1, 0);  //TODO 注意+1；多分配一位，对于dp当前位i(dp数组头部额外分配一个)，考察字符前两位i-1, i-2
         dp[0] = 1;
-        for (int i = 1; i < dp.size(); ++i) {   //长度按dp来算，不是s
+        for (int i = 1; i < dp.size(); ++i) {   //TODO 长度按dp来算，不是s
             if(s[i-1]!='0') dp[i] += dp[i-1];
-            if(i>=2 && "10"<=s.substr(i-2, 2) && s.substr(i-2, 2)<="26") dp[i] += dp[i-2];
+            if(i>=2){   //TODO 注意别写成i>2
+                string tmp = s.substr(i-2, 2);
+                if("10"<=tmp && tmp<="26") dp[i] += dp[i-2];
+            }
         }
         return dp.back();
     }

@@ -14,6 +14,7 @@ public:
     int removeDuplicates(vector<int>& nums) {
         int index = 0;
         for (int i = 0; i < nums.size(); ++i) {
+            //TODO 注意不是if(i<2 || nums[i]!=nums[i-2]) nums[index++] = nums[i];
             if(index<2 || nums[i]!=nums[index-2]) nums[index++] = nums[i];
         }
         return index;

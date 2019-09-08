@@ -17,23 +17,21 @@
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {  //分支限界法(BFS,最短路径)
-        unordered_set<string> dict(wordList.begin(), wordList.end());
-        unordered_map<string, int> m;
-        queue<string> q;
-        q.push(beginWord);
-        m[beginWord] = 1;
-        while (!q.empty()){
-            string word = q.front();
-            q.pop();
-            for (int i = 0; i < word.size(); ++i) {
-                string newWord(word);
-                for (char ch = 'a'; ch <= 'z'; ++ch) {
-                    newWord[i] = ch;
-                    if(dict.count(newWord)){
-                        if(newWord==endWord) return m[word]+1;
-                        else if(!m.count(newWord)){
-                            q.push(newWord);
-                            m[newWord] = m[word]+1;
+        set<string> sets(wordList.begin(), wordList.end());
+        map<string, int> maps;
+        queue<string> q{{beginWord}};
+        maps[beginWord] = 1;
+        while(!q.empty()){
+            string word = q.front(); q.pop();
+            for(int i=0; i<word.size(); ++i){
+                string nWord(word);
+                for(int c='a'; c<='z'; ++c){
+                    nWord[i] = c;
+                    if(sets.count(nWord)){
+                        if(!maps.count(nWord)){   //TODO 之前没有用过这个词
+                            maps[nWord] = maps[word]+1;
+                            if(nWord==endWord) return maps[nWord];
+                            q.push(nWord);
                         }
                     }
                 }

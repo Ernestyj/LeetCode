@@ -14,10 +14,11 @@ public:
         while (l<=r){
             while(nums[l]>pivot) ++l;// 从左向右找到第一个小于枢纽值的数 注意不是nums[l]<pivot
             while(nums[r]<pivot) --r;// 从右向左找到第一个大于枢纽值的数 注意不是nums[r]>pivot
-            if(l<=r) swap(nums[l++], nums[r--]);
-        }// 最后退出的情况应该是右指针在左指针左边一格
-        if(left<r && k<=r) return quickSelect(nums, k, left, r);  // 这时如果右指针还大于等于k，说明kth在左半边(注意不是left<r && k<r，等号情况可以排除重复值？)
-        if(l<right && k>=l) return quickSelect(nums, k, l, right);// 这时如果左指针还小于等于k，说明kth在右半边
+            if(l<=r) swap(nums[l++], nums[r--]);    //TODO 不能漏l++和r--
+        }// 最后退出的情况应该是右指针在左指针左边一格 r+1=l
+        //TODO 注意不是left<r && k<r，等号情况也要考虑否则会排除部分值
+        if(left<=r && k<=r) return quickSelect(nums, k, left, r);  // 这时如果右指针还大于等于k，说明kth在左半边
+        if(l<=right && k>=l) return quickSelect(nums, k, l, right);// 这时如果左指针还小于等于k，说明kth在右半边
         return nums[k];
     }
 };

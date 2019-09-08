@@ -20,14 +20,14 @@ public:
         if(!head) return nullptr;
         return toBST(head, nullptr);
     }
-    TreeNode* toBST(ListNode* head, ListNode* tail){    //tail is exclusive
+    TreeNode* toBST(ListNode* head, ListNode* tail){    //TODO 注意tail is exclusive
         if(head==tail) return nullptr;
         ListNode* slow = head, *fast = head;
         while (fast!=tail && fast->next!=tail){ //不是fast && fast->next
             slow = slow->next;
             fast = fast->next->next;
         }
-        TreeNode* node = new TreeNode(slow->val);
+        TreeNode* node = new TreeNode(slow->val);//TODO 不需要在slow处断开链表
         node->left = toBST(head, slow);
         node->right = toBST(slow->next, tail);
         return node;

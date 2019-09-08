@@ -17,7 +17,7 @@ public:
             char ch = input[i];
             if(ch=='+' || ch=='-' || ch=='*'){
                 vector<int> lRes = diffWaysToCompute(input.substr(0, i));
-                vector<int> rRes = diffWaysToCompute(input.substr(i+1, input.size()-i-1));
+                vector<int> rRes = diffWaysToCompute(input.substr(i+1));
                 for(auto& l: lRes){
                     for(auto& r: rRes){
                         if(ch=='+') res.push_back(l+r);
@@ -26,8 +26,9 @@ public:
                     }
                 }
             }
+            //TODO 这里没有else分支来获取数字: num = num*10 + c-'0'; 而是在下面捕获数字
         }
-        if(res.empty()) res.push_back(stoi(input)); //TODO 不能漏当input为纯数字的情况
+        if(res.empty()) res.push_back(stoi(input)); //TODO 不能漏当input为纯数字的情况，res为空时说明是纯数字
         return res;
     }
 };

@@ -12,34 +12,26 @@
  */
 class Solution {//与Course Schedule一样
 public:
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {//BFS
-        vector<vector<int>> graph(numCourses, vector<int>(0));
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> graph(numCourses, vector<int>());
         vector<int> in(numCourses, 0), res;
-        for (auto& edge: prerequisites) {
-            graph[edge[1]].push_back(edge[0]);
-            ++in[edge[0]];
+        for(auto& yx: prerequisites){
+            graph[yx[1]].push_back(yx[0]);
+            ++in[yx[0]];
         }
         queue<int> q;
-        for (int node = 0; node < numCourses; ++node) {
-            if(in[node]==0) {
-                q.push(node);
-                res.push_back(node);
-            }
+        for(int i=0; i<numCourses; ++i){
+            if(!in[i]) q.push(i);
         }
-        int in0Count = q.size();
         while(!q.empty()){
-            int node = q.front();
-            q.pop();
-            for(auto& adjNode: graph[node]){
-                --in[adjNode];
-                if(in[adjNode]==0) {
-                    q.push(adjNode);
-                    ++in0Count;
-                    res.push_back(adjNode);
-                }
+            int course = q.front(); q.pop();
+            res.push_back(course);
+            for(auto& nCourse: graph[course]){
+                --in[nCourse];
+                if(!in[nCourse]) q.push(nCourse);
             }
         }
-        return in0Count==numCourses? res : vector<int>(0);
+        return res.size()==numCourses? res: vector<int>{};  //TODO 勿漏判定是否res.size()==numCourses
     }
 
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {//DFS

@@ -14,14 +14,12 @@ public:
             if(!(s=="+" || s=="-" || s=="*" || s=="/")){
                 stk.push(stoi(s));
             }else{
-                int a = stk.top();
-                stk.pop();
-                int b = stk.top();
-                stk.pop();
-                if(s=="+") stk.push(a+b);
-                else if(s=="-") stk.push(-a+b);
-                else if(s=="*") stk.push(a*b);
-                else if(s=="/") stk.push(b/a);
+                int n2 = stk.top(); stk.pop();
+                int n1 = stk.top(); stk.pop();
+                if(s=="+") stk.push(n2+n1);
+                else if(s=="-") stk.push(-n2+n1);
+                else if(s=="*") stk.push(n2*n1);
+                else if(s=="/") stk.push(n1/n2);//TODO 易错，注意pop出来的数的顺序
             }
         }
         return stk.top();

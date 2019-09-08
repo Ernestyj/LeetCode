@@ -5,18 +5,18 @@
  */
 class Solution {
 public:
+    //DP: dp[k] = Min{ dp[k-i*i]+1 },  n-i*i>=0 && i>=1
     int numSquares(int n) {
         vector<int> dp(n+1, 0);
-        for (int k = 1; k <= n; ++k) {
+        for(int k=1; k<=n; ++k){
             dp[k] = dp[k-1]+1;
             int i = 2;
             while(k-i*i>=0){
-                int temp = dp[k-i*i]+1;
-                if(temp<dp[k]) dp[k] = temp;
+                dp[k] = min(dp[k], dp[k-i*i]+1);
                 ++i;
             }
         }
-        return dp[n];
+        return dp.back();
     }
 };
 //public class PerfectSquares {

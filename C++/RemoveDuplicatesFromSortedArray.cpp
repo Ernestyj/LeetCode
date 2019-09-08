@@ -12,12 +12,12 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        int i=0;
+        int index=0;
         for(auto num:nums){
-            if(i<1 || num!=nums[i-1])
-                nums[i++] = num;
+            if(index<1 || num!=nums[index-1])
+                nums[index++] = num;
         }
-        return i;
+        return index;
     }
 };
 

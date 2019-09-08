@@ -16,7 +16,7 @@ public:
     int get(int key) {
         auto it = m.find(key);
         if(it == m.end()) return -1;
-        l.splice(l.begin(), l, it->second); //转移到头部, STL 中的函数 splice，专门移动链表中的一个或若干个结点到某个特定的位置
+        l.splice(l.begin(), l, it->second); //转移到头部, STL 中的函数 splice，专门移动链表中的一个或若干个结点到某个特定的位置 TODO 易漏
         return it->second->second;
     }
     void put(int key, int value) {
@@ -25,9 +25,8 @@ public:
         l.push_front(make_pair(key, value));    //插入到头部
         m[key] = l.begin(); //记录
         if(m.size()>cap){   //超限则尾部移除
-            int k = l.back().first;
+            m.erase(l.back().first);    //TODO 易漏从map移除
             l.pop_back();
-            m.erase(k);
         }
     }
 private:

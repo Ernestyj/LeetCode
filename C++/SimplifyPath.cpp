@@ -20,11 +20,11 @@ public:
         while(getline(ss, token, '/')){
             if(token=="" || token==".") continue;
             else if(token=="..") {
-                if(!v.empty()) v.pop_back();
+                if(!v.empty()) v.pop_back();//TODO 记得先判空
             }
             else v.push_back(token);
         }
-        if(v.empty()) return "/";
+        if(v.empty()) return "/";   //TODO 为空返回/
         for(auto s: v) res += "/"+s;
         return res;
     }

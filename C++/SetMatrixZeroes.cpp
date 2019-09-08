@@ -21,7 +21,8 @@ public:
         }
         for (int i = 1; i < m; ++i) {
             for (int j = 1; j < n; ++j) {
-                if(matrix[0][j] == 0 || matrix[i][0]==0) matrix[i][j] = 0;
+                if(matrix[0][j] == 0 || matrix[i][0]==0) // TODO 注意是==0的条件
+                    matrix[i][j] = 0;
             }
         }
         if(cZero)

@@ -10,16 +10,16 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        if(nums.empty()) return -1;
+        if(nums.empty()) return -1; //TODO 勿漏
         int l = 0, r = nums.size()-1, m = 0;
         while(l+1<r){
             m = l+(r-l)/2;
             if(target==nums[m]) return m;
-            else if(nums[m]<nums[r]){
-                if(nums[m]<target && target<=nums[r]) l = m;
+            else if(nums[m]<nums[r]){   //从nums[m]和nums[r]之间的关系开始比较
+                if(nums[m]<target && target<=nums[r]) l = m;    //TODO 注意target<=nums[r]有等号
                 else r = m;
             }else{
-                if(nums[l]<=target && target<nums[m]) r = m;
+                if(nums[l]<=target && target<nums[m]) r = m;    //TODO 注意nums[l]<=target有等号
                 else l = m;
             }
         }

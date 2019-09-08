@@ -10,30 +10,26 @@
  */
 class Solution {//与Course Schedule II一样
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {//判断是否是有向无环图(DAG)，BFS，拓扑排序，关键是要维护一个入度为0的顶点的集合
-        vector<vector<int>> graph(numCourses, vector<int>(0));
-        vector<int> in(numCourses, 0);
-        queue<int> q; //维护入度为0的顶点的队列
-        for (auto edge: prerequisites) {    //重新生成标准邻接表
-            graph[edge[1]].push_back(edge[0]);
-            ++in[edge[0]];  //TODO 注意不是++in[edge[1]]
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {//判断是否是有向无环图(DAG)，BFS，拓扑排序，关键是要维护一个入度为0的顶点的集合
+        vector<vector<int>> graph(numCourses, vector<int>());
+        vector<int> in(numCourses, 0), res;
+        for(auto& yx: prerequisites){   //重新生成标准邻接表
+            graph[yx[1]].push_back(yx[0]);
+            ++in[yx[0]];    //TODO 注意不是++in[yx[1]]
         }
-        for (int node = 0; node < numCourses; ++node) {
-            if(in[node]==0) q.push(node);
+        queue<int> q;   //维护入度为0的顶点的队列
+        for(int i=0; i<numCourses; ++i){
+            if(!in[i]) q.push(i);
         }
-        int in0Count = q.size();
         while(!q.empty()){
-            int node = q.front();
-            q.pop();    //移除当前in=0的节点
-            for(auto adjNode: graph[node]){
-                --in[adjNode]; //相关邻接节点in--
-                if(in[adjNode]==0) {
-                    q.push(adjNode);
-                    ++in0Count;
-                }
+            int course = q.front(); q.pop();
+            res.push_back(course);
+            for(auto& nCourse: graph[course]){
+                --in[nCourse];  //相关邻接节点in--
+                if(!in[nCourse]) q.push(nCourse);
             }
         }
-        return in0Count==numCourses;
+        return res.size()==numCourses;
     }
 
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {//DFS, 关键是维护visited[]防止顶点被多次访问(0还未访问过，1已经访问了，-1正在访问)

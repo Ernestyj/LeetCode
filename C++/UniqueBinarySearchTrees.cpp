@@ -9,11 +9,11 @@ class Solution {
 public:
     //Count[i] = ∑ Count[0...k] * [ k+1....i], 0<=k<=i-1 (卡特兰数)
     int numTrees(int n) {
-        vector<int> count(n+1, 0);
+        vector<int> count(n+1, 0);  //TODO 多分配一个，容纳空树的情况
         count[0] = 1;
-        count[1] = 1;
+        count[1] = 1;   //TODO 这里是1不是2
         for (int i = 2; i <= n; ++i) {
-            for (int k = 0; k <= i - 1; ++k) {
+            for (int k = 0; k <= i - 1; ++k) {  //TODO 注意条件是k<=i-1
                 count[i] += count[k]*count[i-k-1];  //+=
             }
         }
