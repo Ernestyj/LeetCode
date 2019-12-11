@@ -28,6 +28,25 @@ public:
         return sign==1? res : -res;
     }
 };
+class Solution {
+public:
+    int divide(int dividend, int divisor) { //TODO 此题极其注意overflow
+        if(divisor==0 || dividend==INT_MIN && divisor==-1) return INT_MAX;  //TODO 后面这种情况勿漏
+        int sign = (dividend>0)^(divisor>0)==1? -1:1;
+        long result = 0, a = abs((long)dividend), b = abs((long)divisor), stride = 1, sumup = b; //TODO abs里面强转成long
+        while(a>=b){
+            stride = 1;
+            sumup = b;
+            while(sumup<<1 <=a){
+                sumup <<= 1;
+                stride <<= 1;
+            }
+            result += stride;   //TODO 注意+=的是stride而不是sumup
+            a -= sumup;
+        }
+        return sign==1? result:-result;
+    }
+};
 //public class DivideTwoIntegers {
 //
 //    //简洁

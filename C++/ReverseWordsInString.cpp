@@ -8,6 +8,16 @@
 class Solution {
 public:
     string reverseWords(string s) {
+        stringstream ss(s);
+        string token, res;
+        while(getline(ss, token, ' ')){
+            if(token!="") res = token+" "+res;
+        }
+        res.pop_back();//可以不检测res.empty()
+        return res;
+    }
+
+    string reverseWords(string s) {
         if(!s.size()) return "";
         istringstream is(s);
         string temp;

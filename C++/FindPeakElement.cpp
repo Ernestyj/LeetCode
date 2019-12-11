@@ -15,10 +15,10 @@ public:
         int len = nums.size(), l = 0, r = len-1;
         while(l+1<r){
             int m = l+(r-l)/2;
-            if(nums[m]<nums[m+1]) l = m;  //峰值在后面
+            if(nums[m]<nums[m+1]) l = m;  //峰值在后面 TODO 注意比较的是m和m+1位置
             else r = m; //峰值在前面
         }
-        if((l-1<0 ||nums[l-1]<nums[l]) && (l+1>=len || nums[l]>nums[l+1])) return l;
+        if((l-1<0 ||nums[l-1]<nums[l]) && (l+1>=len || nums[l]>nums[l+1])) return l;//TODO 注意是l+1>=len
         return r;   //或者l+1=r
     }
 

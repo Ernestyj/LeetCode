@@ -7,12 +7,15 @@
 class Solution {
 public:
     bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {//O(nlog(k)),借助map维护窗口[i,i+k]
-        map<long long, int> m;//num->index, 注意不能用map<int, int>
-        for (int i = 0; i < nums.size(); ++i) {
-            auto lBound = m.lower_bound((long long)nums[i]-t);//找到大于等于nums[i]-t的最小数，注意不是大于等于nums[i]+t的最小数
-            if(lBound!=m.end() && abs(lBound->first-nums[i])<=t) return true;
-            m[nums[i]] = i;
-            if(i>=k) m.erase(nums[i-k]);
+        map<long, int> m;//num->index, TODO 注意不能用map<int, int>
+        for(int i=0; i<nums.size(); ++i){
+            auto it = m.lower_bound((long)nums[i]-t);//找到大于等于nums[i]-t的最小数，注意不是大于等于nums[i]+t的最小数
+            if(it==m.end()) m[nums[i]] = i;
+            else{
+                if(abs(it->first-nums[i])<=t) return true;
+                else m[nums[i]] = i;
+            }
+            if(i>=k) m.erase(nums[i-k]);    //TODO 勿漏移除k窗口之外的数
         }
         return false;
     }

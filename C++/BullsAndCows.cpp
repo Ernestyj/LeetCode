@@ -28,7 +28,7 @@ public:
             if(s==g) ++bull;
             else{
                 if(counts[s]<0) ++cow;
-                if(counts[g]>0) ++cow;
+                if(counts[g]>0) ++cow;  //TODO 这里不是用else if
                 ++counts[s];
                 --counts[g];
             }
